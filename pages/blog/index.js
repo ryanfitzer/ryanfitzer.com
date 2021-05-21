@@ -1,42 +1,50 @@
 import React from 'react';
 import Link from 'next/link';
-import { getPosts, getPostsByCategory, getCategories } from '~/library/js/posts';
+import { array } from 'prop-types';
+import {
+    getPosts,
+    getCategories,
+    getPostsByCategory,
+} from '~/library/js/query';
 
-const Blog = ( { posts, categories } ) => {
+const Blog = ({ posts, categories }) => {
+    console.log('categories', categories);
+    console.log('posts', posts);
 
-    console.log( categories );
+    if (!posts) return <div>No posts!</div>;
 
     return (
-      <div>
-        {!posts && <div>No posts!</div>}
-        <ul>
-          {posts && posts.map( ( { title, slug } ) => {
-
-              return (
-                <li key={ slug }>
-                  <Link href={ { pathname: `/blog/${ slug }` } }>
-                    <a>{ title}</a>
-                  </Link>
-                </li>
-              );
-
-          } )}
-        </ul>
-      </div>
+        <>
+            <h1>Blog</h1>
+            <p>{posts.length} posts</p>
+            <ul>
+                {posts.map(({ title, slug }) => {
+                    return (
+                        <li key={slug}>
+                            <Link href={{ pathname: `/blog/${slug}` }}>
+                                <a>{title}</a>
+                            </Link>
+                        </li>
+                    );
+                })}
+            </ul>
+        </>
     );
+};
 
+Blog.propTypes = {
+    posts: array,
+    categories: array,
 };
 
 export default Blog;
 
 export async function getStaticProps() {
-
     return {
         props: {
-            // posts: getPosts(),
             categories: getCategories(),
-            posts: getPostsByCategory( 'Miscellany' ),
+            posts: getPosts(),
+            // posts: getPostsByCategory('Miscellany'),
         },
     };
-
 }

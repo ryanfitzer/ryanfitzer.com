@@ -2,17 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 
 const Home = () => {
-
     return (
-      <div>
-        <ul>
-          <Link href='/blog'>
-            <a>Blog</a>
-          </Link>
-        </ul>
-      </div>
+        <>
+            <h1>Home</h1>
+            <nav>
+                <Link href="/blog">
+                    <a>Blog</a>
+                </Link>
+            </nav>
+        </>
     );
-
 };
 
 export default Home;
