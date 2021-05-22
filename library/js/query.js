@@ -1,42 +1,25 @@
-import matter from '~/library/js/grey-matter';
+import { readFileSync } from 'fs';
+import globby from 'globby';
+import matter from './grey-matter';
 
 const itemsToLowercase = (arr) => arr.map((item) => item.toLowerCase());
 
-const allPosts = ((context) => {
-    const keys = context.keys();
-    const values = keys.map(context);
+const postsPaths = globby.sync('./content/posts/*.md', {
+    absolute: true,
+    cwd: process.cwd(),
+});
 
-    const data = keys.map((key, index) => {
-        const value = values[index];
-        const document = matter(value.default);
+const allPosts = postsPaths.map((path) => {
+    const src = readFileSync(path, { encoding: 'utf8' });
+    const document = matter(src);
 
-        return {
-            ...document.data,
-            slug: key.replace(/^.*[\\/]/, '').slice(0, -3),
-        };
-    });
+    return {
+        ...document.data,
+        slug: path.replace(/^.*[\\/]/, '').slice(0, -3),
+    };
+});
 
-    return data;
-})(require.context('~/content/posts', true, /\.md$/));
-
-export const getPosts = () => allPosts;
-
-export const getPostsByCategory = (cat, collection) => {
-    const posts = collection || allPosts;
-    const cats = itemsToLowercase(!Array.isArray(cat) ? [cat] : cat);
-
-    return posts.reduce((accum, post) => {
-        if (
-            cats.some((cat) => itemsToLowercase(post.categories).includes(cat))
-        ) {
-            accum.push(post);
-        }
-
-        return accum;
-    }, []);
-};
-
-export const getCategories = () => {
+const allCategories = (() => {
     const totalCats = allPosts.map(({ categories }) => categories);
     const totalCatsFlat = totalCats.flat();
     const uniqueCats = [...new Set(totalCatsFlat)];
@@ -55,4 +38,27 @@ export const getCategories = () => {
 
         return accum;
     }, []);
+})();
+
+const filterByCategory = (cat = [], collection = allPosts) => {
+    const cats = itemsToLowercase(!Array.isArray(cat) ? [cat] : cat);
+
+    return collection.reduce((accum, post) => {
+        if (
+            cats.some((cat) => itemsToLowercase(post.categories).includes(cat))
+        ) {
+            accum.push(post);
+        }
+
+        return accum;
+    }, []);
+};
+
+export const getPosts = (args = {}) => {
+    const { category, year } = args;
+    let result = allPosts;
+
+    if (category) result = filterByCategory(category, result);
+
+    return result;
 };

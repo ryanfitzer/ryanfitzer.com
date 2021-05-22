@@ -1,10 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
-import matter from '~/library/js/grey-matter';
+import matter from '../../library/js/grey-matter';
 
 export default function BlogPost(post) {
-    console.log(post);
     const { meta, body } = post;
 
     if (!meta) return <> </>;
@@ -17,7 +16,7 @@ export default function BlogPost(post) {
             <article>
                 <h1>{meta.title}</h1>
                 <div>
-                    <ReactMarkdown source={body} />
+                    <ReactMarkdown children={body} />
                 </div>
             </article>
         </>
@@ -27,7 +26,7 @@ export default function BlogPost(post) {
 export async function getStaticProps({ ...ctx }) {
     const { postname } = ctx.params;
 
-    const content = await import(`~/content/posts/${postname}.md`);
+    const content = await import(`../../content/posts/${postname}.md`);
     const data = matter(content.default);
 
     return {
@@ -48,7 +47,7 @@ export async function getStaticPaths() {
         });
 
         return data;
-    })(require.context('~/content/posts', true, /\.md$/));
+    })(require.context('../../content/posts', true, /\.md$/));
 
     const paths = blogSlugs.map((slug) => `/blog/${slug}`);
 

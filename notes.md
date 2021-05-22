@@ -1,12 +1,13 @@
 # Notes
 
-# ToDos
+## ToDos
 
-- Convert to ES6 modules?.
-- Use TypeScript?
-- Centralize `getStaticPaths`
+- Use Webpack 5 by default. <https://webpack.js.org/guides/asset-modules/>
+- Look into using MDX <https://github.com/kentcdodds/mdx-bundler> or <https://github.com/hashicorp/next-mdx-remote>
+- Centralize `getStaticPaths` and remove Webpack `require.context` call (which removes need for `raw-loader`).
 - Posts API: Implement needed methods. Example: <https://developer.wordpress.org/reference/classes/wp_query/parse_query/>
 - Post API: Design post object structure. Example: <https://developer.wordpress.org/reference/functions/get_post/#comment-876>
+- Use TypeScript?
 
 ## Future URL Structure
 

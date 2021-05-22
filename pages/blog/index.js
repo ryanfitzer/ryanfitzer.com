@@ -1,17 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { array } from 'prop-types';
-import {
-    getPosts,
-    getCategories,
-    getPostsByCategory,
-} from '~/library/js/query';
+import { getPosts } from '../../library/js/query';
 
-const Blog = ({ posts, categories }) => {
-    console.log('categories', categories);
-    console.log('posts', posts);
-
-    if (!posts) return <div>No posts!</div>;
+const Blog = ({ posts }) => {
+    if (!posts) {
+        return (
+            <>
+                <h1>Blog</h1>
+                <div>No posts!</div>
+            </>
+        );
+    }
 
     return (
         <>
@@ -42,9 +42,7 @@ export default Blog;
 export async function getStaticProps() {
     return {
         props: {
-            categories: getCategories(),
-            posts: getPosts(),
-            // posts: getPostsByCategory('Miscellany'),
+            posts: getPosts({ category: 'Miscellany', year: 2010 }),
         },
     };
 }

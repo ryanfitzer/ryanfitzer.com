@@ -3,7 +3,7 @@
 ## Challenges
 
 - Exporting posts as Markdown. Used WordPress plugin (which one?)
-- Updating frontmatter for a 1000+ posts. Used custom script (how?)
+- Updating front-matter for a 1000+ posts. Used custom script (how?)
 - Handling `date` meta with `grey-matter`. (What was the issue? <https://github.com/jonschlinkert/gray-matter/issues/62#issuecomment-577628177>)
 
 ## Architecture
