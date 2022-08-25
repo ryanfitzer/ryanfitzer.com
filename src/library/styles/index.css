@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .column {
+        @apply max-w-2xl flex px-8;
+    }
+}
