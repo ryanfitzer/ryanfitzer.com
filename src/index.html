@@ -24,7 +24,7 @@
 
 <body class="">
 
-  <div class="flex flex-col h-screen max-w-3xl m-auto px-8 py-8">
+  <div class="px-8 py-8 flex flex-col h-screen max-w-2xl mx-auto">
 
     <header class="">
 
@@ -53,15 +53,14 @@
         </li>
       </ul>
 
-      <div class="flex justify-between my-16">
+      <div class="lg:grid lg:grid-rows-2 lg:grid-flow-col my-16">
 
-        <div class="flex flex-col self-center">
-          <h1 class="text-7xl font-bold mb-4">Ryan Fitzer</h1>
-          <p class="text-xl">Artist and web developer living in Los Angeles.</p>
-        </div>
+        <h1 class="sm:text-[16vw] lg:text-7xl font-bold lg:col-span-2 mt-6 mb-4">Ryan Fitzer</h1>
 
-        <picture class="shrink-0">
-          <img class="rounded-full" alt="Portrait of Ryan Fitzer" width="175" height="175" src="./library/images/me-w_1400.jpg" sizes="(max-width: 1400px) 100vw, 1400px" srcset="
+        <p class="text-xl mb-4">Artist and web developer living in Los Angeles.</p>
+
+        <picture class="lg:row-span-2">
+          <img class="rounded-full mx-auto w-full sm:max-w-[75vw]" alt="Portrait of Ryan Fitzer" width="200" height="200" src="./library/images/me-w_1400.jpg" sizes="(max-width: 1400px) 100vw, 1400px" srcset="
         ./library/images/me-w_200.jpg 200w,
         ./library/images/me-w_703.jpg 703w,
         ./library/images/me-w_1047.jpg 1047w,
@@ -77,11 +76,12 @@
 
       <h2 class="text-2xl font-bold mb-4">About</h2>
 
-      <p class="self-center text-xl pr-44">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quidem voluptatibus repudiandae exercitationem necessitatibus non ipsa quia corporis ducimus, quos, totam minima enim architecto atque eius? Fugiat est eveniet vitae.</p>
+      <p class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quidem voluptatibus repudiandae exercitationem necessitatibus non ipsa quia corporis ducimus, quos, totam minima enim architecto atque eius? Fugiat est eveniet vitae.</p>
 
     </main>
 
-    <footer class="my-16">
+    <!-- <footer class="flex flex-grow justify-center items-end mt-16"> -->
+    <footer class="flex flex-grow justify-center items-end mt-16">
       <p>© 2022 Ryan Fitzer</p>
     </footer>
 
