@@ -614,6 +614,10 @@ video {
   align-items: flex-end;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -674,6 +678,10 @@ video {
     max-width: 75vw;
   }
 
+  .sm\:justify-end {
+    justify-content: flex-end;
+  }
+
   .sm\:text-\[16vw\] {
     font-size: 16vw;
   }
@@ -702,6 +710,10 @@ video {
 
   .lg\:grid-rows-2 {
     grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:justify-start {
+    justify-content: flex-start;
   }
 
   .lg\:text-7xl {
