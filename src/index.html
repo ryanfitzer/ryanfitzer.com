@@ -19,73 +19,46 @@
   <meta name="twitter:description" content="Artist and Web Developer." />
   <meta name="twitter:image" content="https://ryanfitzercom-ryanfitzer.vercel.app/library/images/me-w_200.jpg" />
   <link rel="canonical" href="https://ryanfitzercom-ryanfitzer.vercel.app/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap">
   <link rel="stylesheet" href="./library/styles/output.css" />
 </head>
 
-<body class="font-sans">
+<body class="font-sans px-8 py-8 flex flex-col h-screen max-w-3xl mx-auto">
 
-  <div class="px-8 py-8 flex flex-col h-screen max-w-2xl mx-auto">
+  <nav class="flex justify-end space-x-8">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/ryanfitzer" aria-label="Github">
+      <img alt="Github" src="/library/images/github.svg" />
+    </a>
+    <a target="_blank" rel="noopener noreferrer" href="https://www.npmjs.com/~ryanfitzer" aria-label="NPM">
+      <img alt="NPM" src="/library/images/npm.svg" />
+    </a>
+  </nav>
 
-    <header>
+  <main class="lg:grid lg:grid-rows-2 lg:grid-cols-3 lg:grid-flow-col my-16">
 
-      <ul class="flex sm:justify-end lg:justify-start space-x-8">
-        <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://github.com/ryanfitzer" aria-label="Github">
-            <svg width="24" height="24" viewBox="0 0 16 16" aria-hidden="true">
-              <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/ryanfitzer" aria-label="Twitter">
-            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-            </svg>
-          </a>
-        </li>
-        <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://www.npmjs.com/~ryanfitzer" aria-label="npm">
-            <svg width="24" height="24" viewBox="0 0 2500 2500" aria-hidden="true">
-              <path fill="#000" d="M0 0h2500v2500H0z" />
-              <path fill="#fff" d="M1241.5 268.5h-973v1962.9h972.9V763.5h495v1467.9h495V268.5z" />
-            </svg>
-          </a>
-        </li>
-      </ul>
+    <picture class="lg:row-span-2 mr-8">
+      <img class="w-full lg:max-w-[200px] rounded-full outline outline-4 outline-offset-[-4px] outline-black" sizes="(max-width: 800px) 100vw, 800px" srcset="
+        /library/images/portrait_h9qp3j_c_scale,w_200.png 200w,
+        /library/images/portrait_h9qp3j_c_scale,w_385.png 385w,
+        /library/images/portrait_h9qp3j_c_scale,w_521.png 521w,
+        /library/images/portrait_h9qp3j_c_scale,w_616.png 616w,
+        /library/images/portrait_h9qp3j_c_scale,w_720.png 720w,
+        /library/images/portrait_h9qp3j_c_scale,w_800.png 800w" src="/library/images/portrait_h9qp3j_c_scale,w_800.png" alt="">
+    </picture>
 
-      <div class="lg:grid lg:grid-rows-2 lg:grid-flow-col my-16">
+    <div class="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center text-center lg:text-left">
+      <h1 class="text-4xl lg:text-5xl mb-4 font-display">I'm Ryan Fitzer.</h1>
 
-        <h1 class="sm:text-[16vw] lg:text-7xl font-bold lg:col-span-2 mt-6 mb-4">Ryan Fitzer</h1>
+      <p class="font-mono text-2xl text-gray-700">Artist and web developer based in Los Angeles</p>
+    </div>
 
-        <p class="text-xl mb-4">Artist and web developer living in Los Angeles.</p>
+  </main>
 
-        <picture class="lg:row-span-2">
-          <img class="rounded-full mx-auto w-full sm:max-w-[75vw]" alt="Portrait of Ryan Fitzer" width="200" height="200" src="./library/images/me-w_1400.jpg" sizes="(max-width: 1400px) 100vw, 1400px" srcset="
-        ./library/images/me-w_200.jpg 200w,
-        ./library/images/me-w_703.jpg 703w,
-        ./library/images/me-w_1047.jpg 1047w,
-        ./library/images/me-w_1357.jpg 1357w,
-        ./library/images/me-w_1400.jpg 1400w">
-        </picture>
-
-      </div>
-
-    </header>
-
-    <main>
-
-      <h2 class="text-2xl font-bold mb-4">About</h2>
-
-      <p class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quidem voluptatibus repudiandae exercitationem necessitatibus non ipsa quia corporis ducimus, quos, totam minima enim architecto atque eius? Fugiat est eveniet vitae.</p>
-
-    </main>
-
-    <!-- <footer class="flex flex-grow justify-center items-end mt-16"> -->
-    <footer class="flex flex-grow justify-center items-end mt-16 pb-8">
-      <p>© 2022 Ryan Fitzer</p>
-    </footer>
-
-  </div>
+  <footer class="flex flex-grow justify-center items-end mt-16 pb-8">
+    <p>© 2024 Ryan Fitzer</p>
+  </footer>
 
 </body>
 

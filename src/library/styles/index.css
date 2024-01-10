@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    .column {
-        @apply max-w-2xl flex px-8;
+@layer components {
+    body {
+        background-image: linear-gradient(
+            0deg,
+            rgba(248, 181, 0, 1) 0%,
+            rgba(252, 234, 187, 1) 60%,
+            rgba(255, 255, 255, 1) 100%
+        );
     }
 }
