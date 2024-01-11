@@ -554,7 +554,7 @@ video {
 body {
   background-image: linear-gradient(
             0deg,
-            rgba(248, 181, 0, 1) 0%,
+            rgb(243 210 123) 0%,
             rgba(252, 234, 187, 1) 60%,
             rgba(255, 255, 255, 1) 100%
         );
@@ -584,10 +584,6 @@ body {
 
 .flex {
   display: flex;
-}
-
-.h-screen {
-  height: 100vh;
 }
 
 .h-\[100dvh\] {
