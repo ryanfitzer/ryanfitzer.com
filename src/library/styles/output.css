@@ -590,6 +590,14 @@ body {
   height: 100dvh;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
+.h-\[100lvh\] {
+  height: 100lvh;
+}
+
 .w-full {
   width: 100%;
 }
