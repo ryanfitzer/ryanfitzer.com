@@ -586,20 +586,12 @@ body {
   display: flex;
 }
 
-.h-\[100dvh\] {
-  height: 100dvh;
-}
-
-.h-screen {
-  height: 100vh;
+.hidden {
+  display: none;
 }
 
 .h-\[100lvh\] {
   height: 100lvh;
-}
-
-.w-full {
-  width: 100%;
 }
 
 .max-w-3xl {
@@ -624,10 +616,6 @@ body {
 
 .justify-start {
   justify-content: flex-start;
-}
-
-.justify-end {
-  justify-content: flex-end;
 }
 
 .justify-center {
@@ -656,10 +644,6 @@ body {
 
 .pb-8 {
   padding-bottom: 2rem;
-}
-
-.text-center {
-  text-align: center;
 }
 
 .font-sans {
@@ -748,10 +732,6 @@ body {
 
   .lg\:justify-center {
     justify-content: center;
-  }
-
-  .lg\:text-left {
-    text-align: left;
   }
 
   .lg\:text-5xl {
