@@ -5,7 +5,7 @@ import portrait from '../../public/images/portrait_h9qp3j_c_scale,w_800.png';
 
 export default function Home() {
   return (
-    <div>
+    <>
       <nav className="flex justify-start lg:justify-end space-x-8">
         <a
           target="_blank"
@@ -52,6 +52,6 @@ export default function Home() {
           <span className="hidden">no-spam!</span>.com
         </p>
       </footer>
-    </div>
+    </>
   );
 }
