@@ -4,5 +4,5 @@ import { join } from 'path';
 export const postsPath = join(process.cwd(), 'src/content/posts');
 
 /* Settings */
-export const blogPostsCount = 20;
+export const blogPostsCount = 10;
 export const photosPostsCount = 10;
