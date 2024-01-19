@@ -3,7 +3,7 @@ import { blogPostsCount } from '@/constants';
 import { getPostsMeta } from '@/library/get-posts';
 import { getLongDate } from '@/library/format-dates';
 
-export const Posts = ({ posts }: { posts: Posts }) => {
+const Posts = ({ posts }: { posts: Posts }) => {
   return (
     <ul className="w-full">
       {posts.map((post) => (
