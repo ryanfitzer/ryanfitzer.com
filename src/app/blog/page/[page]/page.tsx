@@ -35,5 +35,5 @@ export default async function Page({
 }: {
   params: PageParams;
 }) {
-  return <Blog page={Number(page)} />;
+  return <Blog params={{ page: Number(page) }} />;
 }

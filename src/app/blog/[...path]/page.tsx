@@ -48,7 +48,6 @@ export default async function Post({
     year,
     slug,
   });
-  console.log('categories', categories);
 
   const pubDate = getLongDate(date);
 

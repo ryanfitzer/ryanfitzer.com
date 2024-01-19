@@ -22,8 +22,8 @@ const Posts = ({ posts }: { posts: Posts }) => {
   );
 };
 
-export default function Blog({ page = 1 }) {
-  const end = blogPostsCount * Number(page);
+export default async function Blog({ params: { page = 1 } }) {
+  const end = blogPostsCount * page;
   const start = end - blogPostsCount;
 
   const posts = getPostsMeta().slice(start, end);
