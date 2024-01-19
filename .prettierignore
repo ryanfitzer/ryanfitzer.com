@@ -9,6 +9,7 @@ npm-debug.log*
 # User Configuration
 # ------------------
 .vscode/
+.vercel/
 
 # Project Specific
 # -----------------
