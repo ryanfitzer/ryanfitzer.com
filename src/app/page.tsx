@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="gradient">
+    <div className="">
       <div className="flex flex-col h-[100lvh] max-w-3xl mx-auto px-8 py-8">
         <nav className="flex justify-start lg:justify-end space-x-8">
           <a
