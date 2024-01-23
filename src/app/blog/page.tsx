@@ -1,37 +1,18 @@
-import Link from 'next/link';
-import { blogPostsCount } from '@/constants';
+import { Metadata } from 'next';
 import { getPostsMeta } from '@/library/get-posts';
-import { getLongDate } from '@/library/format-dates';
+import { PostList } from './(components)/post-list';
 
-const Posts = ({ posts }: { posts: Posts }) => {
-  return (
-    <ul className="w-full">
-      {posts.map((post) => (
-        <li key={post.id} className="mt-4 text-2xl dark:text-white/90">
-          <Link
-            className="underline hover:text-black/70 dark:hover:text-white"
-            href={`/blog/${post.year}/${post.month}/${post.day}/${post.slug}`}
-          >
-            {post.title}
-          </Link>
-          <br />
-          <p className="text-sm mt-1">{getLongDate(post.date)}</p>
-        </li>
-      ))}
-    </ul>
-  );
+export const metadata: Metadata = {
+  title: 'Blog',
 };
 
-export default async function Blog({ params: { page = 1 } }) {
-  const end = blogPostsCount * page;
-  const start = end - blogPostsCount;
-
-  const posts = getPostsMeta().slice(start, end);
+export default function Blog() {
+  const posts = getPostsMeta().slice(0, 10);
 
   return (
     <>
       <h1>Blog</h1>
-      <Posts posts={posts} />
+      <PostList posts={posts} />
     </>
   );
 }

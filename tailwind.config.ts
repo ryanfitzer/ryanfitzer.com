@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         display: ['var(--font-display)'],
+        test: ['var(--font-test)'],
       },
     },
     screens: {

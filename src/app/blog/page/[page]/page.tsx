@@ -1,28 +1,18 @@
-import { blogPostsCount } from '@/constants';
+import { BLOG_POSTS_COUNT } from '@/constants';
 import { getPostsMeta } from '@/library/get-posts';
-import Blog from '@/app/blog/page';
+import { PostList } from '../../(components)/post-list';
 
 type PageParams = {
   page: string;
 };
 
+export const dynamicParams = false;
+
 const getTotalPages = () => {
   const posts = getPostsMeta();
 
-  return Math.floor(posts.length / blogPostsCount);
+  return Math.floor(posts.length / BLOG_POSTS_COUNT);
 };
-
-export function generateMetadata({ params: { page } }: { params: PageParams }) {
-  if (Number(page) > getTotalPages()) {
-    return {
-      title: 'Page Not Found',
-    };
-  }
-
-  return {
-    title: `Blog | Page ${page} | Ryan Fitzer`,
-  };
-}
 
 export function generateStaticParams() {
   return new Array(getTotalPages()).map((val, index) => ({
@@ -30,10 +20,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function Page({
+export async function generateMetadata({
   params: { page },
 }: {
   params: PageParams;
 }) {
-  return <Blog params={{ page: Number(page) }} />;
+  return {
+    title: `Page ${page} | Blog `,
+  };
+}
+
+export default function Page({ params: { page } }: { params: PageParams }) {
+  const end = BLOG_POSTS_COUNT * Number(page);
+  const start = end - BLOG_POSTS_COUNT;
+
+  const posts = getPostsMeta().slice(start, end);
+
+  return (
+    <>
+      <h1>Blog</h1>
+      <PostList posts={posts} />
+    </>
+  );
 }

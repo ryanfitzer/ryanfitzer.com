@@ -1,7 +1,12 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import github from '../../public/images/github.svg';
 import npm from '../../public/images/npm.svg';
 import portrait from '../../public/images/portrait_h9qp3j_c_scale,w_800.png';
+
+export const metadata: Metadata = {
+  title: 'Home',
+};
 
 export default function Home() {
   return (
@@ -38,7 +43,7 @@ export default function Home() {
 
           <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center">
             <h1 className="text-4xl lg:text-5xl mb-4 font-display">
-              I&apos;m Ryan Fitzer.
+              Hi, I&apos;m Ryan Fitzer.
             </h1>
 
             <p className="font-mono text-2xl text-gray-700">

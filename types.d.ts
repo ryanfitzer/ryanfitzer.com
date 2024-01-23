@@ -1,5 +1,9 @@
+type Archives = {
+  [year: string]: [string, number][];
+};
+
 type Post = {
-  date: string;
+  date: Date;
   id: string;
   title: string;
   day?: string;
@@ -13,7 +17,17 @@ type Post = {
 type Posts = Post[];
 
 type BlogParams = {
-  path: string[];
+  path: [string, string, string, string];
+};
+
+type BlogArchiveDates = {
+  date: [string, string?];
+};
+
+type BlogArchiveParams = {
+  params: {
+    date: [string, string?];
+  };
 };
 
 type PostParams = {

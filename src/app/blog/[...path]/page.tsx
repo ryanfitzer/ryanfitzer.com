@@ -2,18 +2,17 @@ import { notFound } from 'next/navigation';
 import { getLongDate } from '@/library/format-dates';
 import { getPostMeta, getPost, getPostsMeta } from '@/library/get-posts';
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   const posts = getPostsMeta();
 
-  return posts.map((post) => ({
-    day: post.day,
-    month: post.month,
-    year: post.year,
-    slug: post.slug,
+  return posts.map(({ year, month, day, slug }) => ({
+    path: [year, month, day, slug],
   }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params: {
     path: [year, month, day, slug],
   },

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Caprasimo } from 'next/font/google';
+import { Alfa_Slab_One } from 'next/font/google';
 import './globals.css';
 
 const caprasimo = Caprasimo({
@@ -10,9 +11,19 @@ const caprasimo = Caprasimo({
   adjustFontFallback: false, // https://github.com/vercel/next.js/issues/47115#issuecomment-1807197912
 });
 
+const testFont = Alfa_Slab_One({
+  weight: '400',
+  display: 'swap',
+  variable: '--font-test',
+  subsets: ['latin', 'latin-ext'],
+  adjustFontFallback: false, // https://github.com/vercel/next.js/issues/47115#issuecomment-1807197912
+});
+
 export const metadata: Metadata = {
-  title: 'Home | Ryan Fitzer',
-  description: 'Home',
+  title: {
+    default: 'Home',
+    template: '%s | Ryan Fitzer',
+  },
 };
 
 export default function RootLayout({
@@ -22,7 +33,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${caprasimo.variable} font-sans`}>{children}</body>
+      <body className={`${caprasimo.variable} ${testFont.variable} font-sans`}>
+        {children}
+      </body>
     </html>
   );
 }
