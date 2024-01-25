@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Caprasimo } from 'next/font/google';
 import { Alfa_Slab_One } from 'next/font/google';
+import 'highlight.js/styles/github.css';
 import './globals.css';
 
 const caprasimo = Caprasimo({

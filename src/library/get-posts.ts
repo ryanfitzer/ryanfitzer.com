@@ -1,19 +1,24 @@
 import fs from 'fs';
 import path from 'path';
-import html from 'remark-html';
-import { remark } from 'remark';
 import matter from 'gray-matter';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
+import rehypeStringify from 'rehype-stringify';
 import { capitalize } from '@/library/utils';
-import { POSTS_PATH, MONTHS } from '@/constants';
+import { POSTS_PATH, REHYPE_SANITIZE_SCHEMA, MONTHS } from '@/constants';
 
 export const getFileName = ({ day, month, year, slug }: PostParams) =>
-  [year, month, day, `${slug}.md`].join('-');
+  path.join([year, month, day, slug].join('-'), 'index.md');
 
 export const getPostsMeta = () => {
-  const fileNames = fs.readdirSync(POSTS_PATH);
+  const postDirs = fs.readdirSync(POSTS_PATH);
 
-  const posts = fileNames.map((fileName) => {
-    const filePath = path.join(POSTS_PATH, fileName);
+  const posts = postDirs.map((postDir) => {
+    const filePath = path.join(POSTS_PATH, postDir, 'index.md');
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const {
       data: { title, slug, date, id, categories },
@@ -30,8 +35,8 @@ export const getPostsMeta = () => {
       year,
       slug,
       title,
-      fileName,
       categories,
+      fileName: getFileName({ day, month, year, slug }),
     };
   });
 
@@ -48,12 +53,20 @@ export const getPostMeta = (params: PostParams) => {
 export const getPost = async (params: PostParams) => {
   const fullPath = path.join(POSTS_PATH, getFileName(params));
   const fileContents = fs.readFileSync(fullPath, 'utf8');
+
   const {
     data: { date, title, categories },
     content,
   } = matter(fileContents);
 
-  const processedContent = await remark().use(html).process(content);
+  const processedContent = await unified()
+    .use(remarkParse)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeSanitize, REHYPE_SANITIZE_SCHEMA)
+    .use(rehypeHighlight)
+    .use(rehypeStringify)
+    .process(content);
 
   return {
     title,

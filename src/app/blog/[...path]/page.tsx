@@ -28,7 +28,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.title} | Ryan Fitzer`,
+    title: `${post.title}`,
   };
 }
 
