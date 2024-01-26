@@ -16,11 +16,25 @@ import {
   REHYPE_SANITIZE_SCHEMA,
 } from '@/constants';
 
-const getEntryPath = ({ dir, day, month, year, slug }: EntryPathParams) =>
+// https://github.com/nodeca/js-yaml/issues/91#issuecomment-24515639
+const transposeDate = (dateObj: Date) => {
+  return new Date(
+    dateObj.getUTCFullYear(),
+    dateObj.getUTCMonth(),
+    dateObj.getUTCDate(),
+    dateObj.getUTCHours(),
+    dateObj.getUTCMinutes(),
+    dateObj.getUTCSeconds()
+  );
+};
+
+const getContentPath = ({ dir, day, month, year, slug }: EntryPathParams) =>
   join(PATHS[dir], [year, month, day, slug].join('-'), 'index.md');
 
 const convertMarkdown = async (fileContent: string, body = false) => {
   const { data, content } = matter(fileContent);
+
+  data.date = transposeDate(data.date);
 
   if (!body) return data as Entry;
 
@@ -74,7 +88,7 @@ export async function getEntries({
 }
 
 export async function getEntry({ body, ...pathParams }: EntryParams) {
-  const entryPath = getEntryPath(pathParams);
+  const entryPath = getContentPath(pathParams);
   const fileContent = await readFile(entryPath, 'utf8');
 
   return fileContent ? await convertMarkdown(fileContent, body) : false;

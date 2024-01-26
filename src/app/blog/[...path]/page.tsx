@@ -7,9 +7,13 @@ export const dynamicParams = false;
 export async function generateStaticParams() {
   const posts = await getEntries({ dir: 'blog' });
 
-  return posts.map(({ year, month, day, slug }) => ({
-    path: [year, month, day, slug],
-  }));
+  return posts.map(({ date, year, month, day, slug }) => {
+    console.log(`[${date.toString()}]: blog/${year}/${month}/${day}/${slug}`);
+
+    return {
+      path: [year, month, day, slug],
+    };
+  });
 }
 
 export async function generateMetadata({
