@@ -1,5 +1,5 @@
 import { BLOG_POSTS_COUNT } from '@/constants';
-import { getPostsMeta } from '@/library/get-posts';
+import { getEntries } from '@/library/get-content';
 import { PostList } from '../../(components)/post-list';
 
 type PageParams = {
@@ -8,14 +8,14 @@ type PageParams = {
 
 export const dynamicParams = false;
 
-const getTotalPages = () => {
-  const posts = getPostsMeta();
+const getTotalPages = async () => {
+  const posts = await getEntries({ dir: 'blog' });
 
   return Math.floor(posts.length / BLOG_POSTS_COUNT);
 };
 
-export function generateStaticParams() {
-  return new Array(getTotalPages()).map((val, index) => ({
+export async function generateStaticParams() {
+  return new Array(await getTotalPages()).map((val, index) => ({
     page: index,
   }));
 }
@@ -30,11 +30,16 @@ export async function generateMetadata({
   };
 }
 
-export default function Page({ params: { page } }: { params: PageParams }) {
+export default async function Page({
+  params: { page },
+}: {
+  params: PageParams;
+}) {
   const end = BLOG_POSTS_COUNT * Number(page);
   const start = end - BLOG_POSTS_COUNT;
+  getTotalPages();
 
-  const posts = getPostsMeta().slice(start, end);
+  const posts = await getEntries({ dir: 'blog', start, end });
 
   return (
     <>

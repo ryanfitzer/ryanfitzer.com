@@ -1,13 +1,18 @@
 import { Metadata } from 'next';
-import { getPostsMeta } from '@/library/get-posts';
+import { getEntries } from '@/library/get-content';
 import { PostList } from './(components)/post-list';
 
 export const metadata: Metadata = {
   title: 'Blog',
 };
 
-export default function Blog() {
-  const posts = getPostsMeta().slice(0, 10);
+export default async function Blog() {
+  const posts = await getEntries({
+    dir: 'blog',
+    start: 0,
+    end: 10,
+    body: true,
+  });
 
   return (
     <>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getLongDate } from '@/library/format-dates';
 
-export const PostList = ({ posts }: { posts: Posts }) => {
+export const PostList = ({ posts }: { posts: Entry[] }) => {
   return (
     <ul className="w-full">
       {posts.map((post) => (

@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { getBlogPostsMeta, createDateArchive } from '@/library/get-posts';
+import { getEntries, createEntriesDateArchive } from '@/library/get-content';
 
 export const metadata: Metadata = {
   title: 'Archives | Blog',
 };
 
-export default function BlogArchives() {
-  const archives = createDateArchive(getBlogPostsMeta());
+export default async function BlogArchives() {
+  const archives = createEntriesDateArchive(await getEntries({ dir: 'blog' }));
 
   return (
     <>

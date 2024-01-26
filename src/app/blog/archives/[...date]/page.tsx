@@ -1,19 +1,36 @@
-import Link from 'next/link';
 import {
-  getBlogPostsMeta,
-  createDateArchive,
-  getPostsByDate,
-} from '@/library/get-posts';
+  getEntries,
+  filterEntriesByDate,
+  createEntriesDateArchive,
+} from '@/library/get-content';
 import { capitalize } from '@/library/utils';
 import { PostList } from '../../(components)/post-list';
 
 export const dynamicParams = false;
 
+export async function generateStaticParams() {
+  const archives = createEntriesDateArchive(await getEntries({ dir: 'blog' }));
+
+  return archives.reduce((accum, [year, months]) => {
+    accum.push({ date: [year] });
+
+    months.map(([month]) => {
+      accum.push({ date: [year, month.toLowerCase()] });
+    });
+
+    return accum;
+  }, [] as { [date: string]: [string, string?] }[]);
+}
+
 export async function generateMetadata({
   params: {
     date: [year, month],
   },
-}: BlogArchiveParams) {
+}: {
+  params: {
+    date: [string, string?];
+  };
+}) {
   if (month) {
     return {
       title: `Archive for ${month} ${year} | Blog`,
@@ -25,26 +42,20 @@ export async function generateMetadata({
   };
 }
 
-export function generateStaticParams() {
-  const archives = createDateArchive(getBlogPostsMeta());
-
-  return archives.reduce((accum, [year, months]) => {
-    accum.push({ date: [year] });
-
-    months.map(([month]) => {
-      accum.push({ date: [year, month.toLowerCase()] });
-    });
-
-    return accum;
-  }, [] as BlogArchiveDates[]);
-}
-
-export default function BlogDateArchives({
+export default async function BlogDateArchives({
   params: {
     date: [year, month],
   },
-}: BlogArchiveParams) {
-  const posts = getPostsByDate(getBlogPostsMeta(), year, month);
+}: {
+  params: {
+    date: [string, string?];
+  };
+}) {
+  const posts = filterEntriesByDate(
+    await getEntries({ dir: 'blog' }),
+    year,
+    month
+  );
 
   return (
     <>

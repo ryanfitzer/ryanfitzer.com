@@ -1,10 +1,13 @@
 /* 
     https://stackoverflow.com/a/70046609
 */
+import { join } from 'path';
+import { readdir, readFile, writeFile } from 'fs/promises';
 import matter from 'gray-matter';
 import { stringify } from 'yaml';
-import { readdir, readFile, writeFile } from 'fs/promises';
-import { POSTS_PATH } from '@/constants';
+
+const CONTENT_PATH = join(process.cwd(), 'src', 'content');
+const POSTS_PATH = join(CONTENT_PATH, 'blog');
 
 async function updateFrontMatter(filename: string) {
   const filepath = `${POSTS_PATH}/${filename}`;

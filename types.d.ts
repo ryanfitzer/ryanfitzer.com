@@ -1,38 +1,31 @@
-type Archives = {
-  [year: string]: [string, number][];
-};
-
-type Post = {
+type Entry = {
   date: Date;
-  id: string;
   title: string;
+  slug: string;
+  id?: string;
   day?: string;
   month?: string;
   year?: string;
-  slug?: string;
   layout?: string;
   categories?: string[];
+  html?: string;
 };
 
-type Posts = Post[];
-
-type BlogParams = {
-  path: [string, string, string, string];
+type EntriesParams = {
+  dir: string /* name of content directory */;
+  body?: boolean /* include the content body (converted to HTML) */;
+  start?: number /* starting count to `slice()` the array or entries */;
+  end?: number /* ending count to `slice()` the array or entries */;
 };
 
-type BlogArchiveDates = {
-  date: [string, string?];
-};
-
-type BlogArchiveParams = {
-  params: {
-    date: [string, string?];
-  };
-};
-
-type PostParams = {
+type EntryPathParams = {
+  dir: string /* name of content directory */;
   day: string;
   month: string;
   year: string;
   slug: string;
+};
+
+type EntryParams = EntryPathParams & {
+  body?: boolean /* include the content body (converted to HTML) */;
 };
