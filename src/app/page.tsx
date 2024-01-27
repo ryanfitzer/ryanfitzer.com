@@ -12,25 +12,6 @@ export default function Home() {
   return (
     <div className="">
       <div className="flex flex-col h-[100lvh] max-w-3xl mx-auto px-8 py-8">
-        <nav className="flex hidden justify-start lg:justify-end space-x-8">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/ryanfitzer"
-            aria-label="Github"
-          >
-            <Image alt="Github" src={github} />
-          </a>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.npmjs.com/~ryanfitzer"
-            aria-label="NPM"
-          >
-            <Image alt="NPM" src={npm} />
-          </a>
-        </nav>
-
         <main className="lg:grid lg:grid-rows-2 lg:grid-cols-3 lg:grid-flow-col my-16">
           <picture className="lg:row-span-2 mr-8">
             <Image
@@ -42,7 +23,7 @@ export default function Home() {
           </picture>
 
           <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center">
-            <h1 className="text-4xl lg:text-5xl mb-4 font-display text-balance text-center lg:text-left">
+            <h1 className="tracking-tight text-4xl lg:text-5xl mb-4 font-display text-balance text-center lg:text-left">
               Hi, I&apos;m Ryan Fitzer
             </h1>
 
