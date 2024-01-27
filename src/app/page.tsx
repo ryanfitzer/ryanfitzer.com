@@ -5,7 +5,21 @@ import npm from '../../public/images/npm.svg';
 import portrait from '../../public/images/portrait_h9qp3j_c_scale,w_800.png';
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'Home | Ryan Fitzer',
+  openGraph: {
+    title: 'Ryan Fitzer',
+    description: 'Software engineer and artist based in Los Angeles',
+    siteName: 'ryanfitzer.com',
+    images: [
+      {
+        url: '/images/portrait_h9qp3j_c_scale,w_720.png', // Must be an absolute URL
+        width: 720,
+        height: 720,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function Home() {
