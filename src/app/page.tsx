@@ -42,17 +42,17 @@ export default function Home() {
           </picture>
 
           <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center">
-            <h1 className="text-4xl lg:text-5xl mb-4 font-display text-blue-600">
+            <h1 className="text-4xl lg:text-5xl mb-4 font-display text-balance text-center lg:text-left">
               Hi, I&apos;m Ryan Fitzer
             </h1>
 
-            <p className="font-mono text-3xl">
+            <p className="font-mono text-2xl lg:text-3xl text-gray-700 text-balance lg:text-pretty text-center lg:text-left">
               Software engineer and artist based in Los Angeles
             </p>
           </div>
         </main>
 
-        <footer className="flex flex-grow justify-center items-end mt-16 pb-8">
+        <footer className="flex flex-grow justify-center items-end mt-16 pb-8 text-gray-500">
           <p>
             © 2024 Ryan Fitzer | ryan@ryanfitzer
             <span className="hidden">no-spam!</span>.com
