@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     siteName: 'ryanfitzer.com',
     images: [
       {
-        url: '/images/portrait_h9qp3j_c_scale,w_720.png', // Must be an absolute URL
+        url: 'https://nextjs-one-gold-92.vercel.app/images/portrait_h9qp3j_c_scale,w_720.png', // Must be an absolute URL
         width: 720,
         height: 720,
       },
