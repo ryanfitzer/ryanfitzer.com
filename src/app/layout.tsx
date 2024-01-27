@@ -34,7 +34,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${caprasimo.variable} ${testFont.variable} font-sans`}>
+      <body
+        className={`${caprasimo.variable} ${testFont.variable} font-sans bg-[#f8f8f8]`}
+      >
         {children}
       </body>
     </html>

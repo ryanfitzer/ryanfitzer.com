@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="">
       <div className="flex flex-col h-[100lvh] max-w-3xl mx-auto px-8 py-8">
-        <nav className="flex justify-start lg:justify-end space-x-8">
+        <nav className="flex hidden justify-start lg:justify-end space-x-8">
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -53,9 +53,30 @@ export default function Home() {
         </main>
 
         <footer className="flex flex-grow justify-center items-end mt-16 pb-8 text-gray-500">
-          <p>
-            © 2024 Ryan Fitzer | ryan@ryanfitzer
-            <span className="hidden">no-spam!</span>.com
+          <p className="flex flex-col lg:flex-row lg:space-x-2 text-center">
+            <span>© 2024 Ryan Fitzer</span>
+            <span>
+              ryan@ryanfitzer
+              <span className="hidden">no-spam!</span>.com
+            </span>
+            <span className="flex mt-2 lg:mt-0 space-x-2 justify-center">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://github.com/ryanfitzer"
+                aria-label="Github"
+              >
+                <Image className="inline" alt="Github" src={github} />
+              </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.npmjs.com/~ryanfitzer"
+                aria-label="NPM"
+              >
+                <Image className="inline" alt="NPM" src={npm} />
+              </a>
+            </span>
           </p>
         </footer>
       </div>
