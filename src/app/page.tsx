@@ -42,11 +42,11 @@ export default function Home() {
           </picture>
 
           <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center">
-            <h1 className="text-4xl lg:text-5xl mb-4 font-display">
-              Hi, I&apos;m Ryan Fitzer.
+            <h1 className="text-4xl lg:text-5xl mb-4 font-display text-blue-600">
+              Hi, I&apos;m Ryan Fitzer
             </h1>
 
-            <p className="font-mono text-2xl text-gray-700">
+            <p className="font-mono text-3xl">
               Software engineer and artist based in Los Angeles
             </p>
           </div>
