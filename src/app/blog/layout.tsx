@@ -1,13 +1,6 @@
+import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
-export default function BlogLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <main className="px-8 py-8 flex flex-col h-[100lvh] mx-auto">
-      {children}
-    </main>
-  );
+export default function BlogLayout({ children }: { children: ReactNode }) {
+  return <main className="pt-8">{children}</main>;
 }

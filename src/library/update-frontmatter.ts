@@ -27,8 +27,6 @@ async function updateFrontMatter(filename: string) {
   const newContent = `---\n${stringify(frontMatter)}---\n${content}`;
 
   await writeFile(filepath, newContent);
-
-  console.log(`- [x] ${filepath}`);
 }
 
 async function main() {

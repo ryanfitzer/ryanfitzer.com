@@ -2,13 +2,15 @@ type Entry = {
   date: Date;
   title: string;
   slug: string;
+  route: string;
   id?: string;
-  day?: string;
-  month?: string;
-  year?: string;
   layout?: string;
   categories?: string[];
-  html?: string;
+  content?: string;
+  day: string;
+  month: string;
+  year: string;
+  dateLong: string;
 };
 
 type EntriesParams = {

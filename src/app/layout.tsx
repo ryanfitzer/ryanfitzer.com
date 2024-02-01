@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Caprasimo } from 'next/font/google';
 import { Alfa_Slab_One } from 'next/font/google';
-import 'highlight.js/styles/github.css';
+import Footer from './(components)/footer';
+// import 'highlight.js/styles/github.css';
 import './globals.css';
 
 const caprasimo = Caprasimo({
@@ -21,6 +22,7 @@ const testFont = Alfa_Slab_One({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://${process.env.VERCEL_URL}`),
   title: {
     default: 'Home',
     template: '%s | Ryan Fitzer',
@@ -37,7 +39,10 @@ export default function RootLayout({
       <body
         className={`${caprasimo.variable} ${testFont.variable} font-sans bg-[#f8f8f8]`}
       >
-        {children}
+        <div className="flex flex-col h-[100lvh] max-w-3xl mx-auto px-8">
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

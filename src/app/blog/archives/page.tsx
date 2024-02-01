@@ -11,20 +11,24 @@ export default async function BlogArchives() {
 
   return (
     <>
-      <h1 className="font-test text-6xl text-center mb-12">Blog Archives</h1>
+      <h1 className="font-mono text-gray-700 text-3xl mb-12">Blog Archives</h1>
 
-      <ul className="flex flex-col text-center space-y-12">
+      <ul className="flex flex-col space-y-12 mb-16">
         {archives.map(([year, months]) => (
-          <li key={year}>
-            <h2 className="font-test text-3xl mb-4">
+          <li
+            key={year}
+            className="grid grid-cols-[9rem_auto] grid-rows-1 border-t-2"
+          >
+            <h2 className="font-mono text-2xl text-gray-700 mt-4">
               <Link href={`archives/${year}`}>{year}</Link>
             </h2>
-            <ul className="flex justify-center space-x-4">
+            <ul className="col-start-2 columns-[8rem] mt-4 space-y-2 uppercase text-gray-700">
               {months.map(([month, count]) => (
-                <li key={`${year}-${month}`} className="">
+                <li key={`${year}-${month}`}>
                   <Link href={`archives/${year}/${month.toLowerCase()}`}>
-                    <span className="text-nowrap">
-                      {month} ({count})
+                    <span className="">
+                      {month}{' '}
+                      <sup className="text-xs text-gray-500">{count}</sup>
                     </span>
                   </Link>
                 </li>
