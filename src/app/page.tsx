@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-import portrait from '../../public/images/portrait_h9qp3j_c_scale,w_800.png';
+import portrait from '~/public/images/portrait_h9qp3j_c_scale,w_800.png';
 
 export const metadata: Metadata = {
   title: 'Home | Ryan Fitzer',

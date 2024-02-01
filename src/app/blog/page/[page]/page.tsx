@@ -1,18 +1,15 @@
 import { BLOG_POSTS_COUNT } from '@/constants';
 import { getEntries } from '@/library/get-content';
-import { PostList } from '../../(components)/post-list';
+import { PostList } from '@/app/blog/(components)/post-list';
 
 export const dynamicParams = false;
 
-const getTotalPages = async () => {
-  const posts = await getEntries({ dir: 'blog' });
-
-  return Math.floor(posts.length / BLOG_POSTS_COUNT);
-};
-
 export async function generateStaticParams() {
-  return new Array(await getTotalPages()).map((val, index) => ({
-    page: index,
+  const entries = await getEntries({ dir: 'blog' });
+  const totalPages = Math.ceil(entries.length / BLOG_POSTS_COUNT);
+
+  return Array.from({ length: totalPages }, (_, index) => ({
+    page: (index + 1).toString(),
   }));
 }
 
