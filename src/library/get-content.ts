@@ -8,7 +8,9 @@ import { PATHS, MONTHS, BLOG_POSTS_COUNT } from '@/constants';
 const getContentPath = ({ dir, day, month, year, slug }: EntryPathParams) =>
   join(PATHS[dir], [year, month, day, slug].join('-'), 'index.md');
 
-const getMarkdown = (fileContent: string, body = false) => {
+const getPagePath = (pageName: string) => join(PATHS[pageName], 'index.md');
+
+const getEntryMarkdown = (fileContent: string, body = false) => {
   const { data, content } = matter(fileContent);
 
   if (!body) return { ...data } as Entry;
@@ -33,7 +35,7 @@ const getEntryRoute = ({
 };
 
 const parseEntry = (content: string, body: boolean = false) => {
-  const { date, ...data } = getMarkdown(content, body);
+  const { date, ...data } = getEntryMarkdown(content, body);
   const localDate = transposeDate(date);
   const { day, month, year } = parseDate(localDate);
 
@@ -101,6 +103,12 @@ export function filterEntriesByDate(
 
     return yearNum === postYear;
   });
+}
+
+export async function getPage(pageName: string) {
+  const fileContent = await readFile(getPagePath(pageName), 'utf8');
+
+  return matter(fileContent);
 }
 
 export const createEntriesDateArchive = (entries: Entry[]) => {
