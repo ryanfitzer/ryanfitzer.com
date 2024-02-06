@@ -1,6 +1,5 @@
-import { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import MDX from '../(components)/mdx';
 import { getEntry, getEntries } from '@/library/get-content';
 
 export const dynamicParams = false;
@@ -41,12 +40,6 @@ export async function generateMetadata({
   };
 }
 
-const components = {
-  p: ({ children }: { children?: ReactNode }) => (
-    <p className="text-gray-700 text-xl mb-12">{children}</p>
-  ),
-};
-
 export default async function BlogPost({
   params: {
     path: [year, month, day, slug],
@@ -67,14 +60,14 @@ export default async function BlogPost({
 
   if (!post) notFound();
 
-  const { title, dateLong, content = '' } = post;
+  const { content = '', dateLong, title } = post;
 
   return (
     <>
       <h1 className="font-mono text-gray-700 text-3xl mb-12">{title}</h1>
       <p className="mt-0">{dateLong}</p>
       <article>
-        <MDXRemote source={content} components={components} />
+        <MDX source={content} scope={{ ...post }} />
       </article>
     </>
   );

@@ -3,6 +3,7 @@ type Entry = {
   title: string;
   slug: string;
   route: string;
+  contentDir: string;
   id?: string;
   layout?: string;
   categories?: string[];

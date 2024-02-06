@@ -1,7 +1,8 @@
 import { join } from 'path';
 
 /* Paths */
-export const CONTENT_PATH = join(process.cwd(), 'src', 'content');
+export const CONTENT_DIR = 'content';
+export const CONTENT_PATH = join(process.cwd(), 'public', CONTENT_DIR);
 export const PATHS = {
   home: join(CONTENT_PATH, 'home'),
   blog: join(CONTENT_PATH, 'blog'),

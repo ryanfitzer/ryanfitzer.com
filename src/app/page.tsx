@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { getPage } from '@/library/get-content';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export const metadata: Metadata = {
   title: 'Home | Ryan Fitzer',
@@ -20,8 +21,13 @@ export const metadata: Metadata = {
   },
 };
 
+const components = {
+  Image,
+};
+
 export default async function Home() {
   const {
+    content,
     data: { title, description, portrait },
   } = await getPage('home');
 
@@ -31,10 +37,10 @@ export default async function Home() {
         <picture className="lg:row-span-2 mb-8 lg:mb-0 block">
           <Image
             alt=""
+            priority
             src={portrait.path}
             width={portrait.width}
             height={portrait.height}
-            sizes="(max-width: 800px) 100vw, 800px"
             className="max-w-[70%] lg:max-w-[200px] rounded-full outline outline-4 outline-offset-[-4px] outline-black mx-auto"
           />
         </picture>
@@ -48,6 +54,7 @@ export default async function Home() {
             {description}
           </p>
         </div>
+        <MDXRemote source={content} components={components} />
       </main>
     </>
   );

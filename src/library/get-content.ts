@@ -3,7 +3,7 @@ import { readdir, readFile } from 'fs/promises';
 import matter from 'gray-matter';
 import { capitalize } from '@/library/utils';
 import { getLongDate, parseDate, transposeDate } from '@/library/format-dates';
-import { PATHS, MONTHS, BLOG_POSTS_COUNT } from '@/constants';
+import { PATHS, CONTENT_DIR, MONTHS, BLOG_POSTS_COUNT } from '@/constants';
 
 const getContentPath = ({ dir, day, month, year, slug }: EntryPathParams) =>
   join(PATHS[dir], [year, month, day, slug].join('-'), 'index.md');
@@ -34,18 +34,49 @@ const getEntryRoute = ({
   return `/${dir}/${year}/${month}/${day}/${slug}`;
 };
 
-const parseEntry = (content: string, body: boolean = false) => {
-  const { date, ...data } = getEntryMarkdown(content, body);
+const getEntryContentDir = ({
+  dir,
+  year,
+  month,
+  day,
+  slug,
+}: {
+  dir: string;
+  year: string;
+  month: string;
+  day: string;
+  slug: string;
+}) => {
+  return `/${CONTENT_DIR}/${dir}/${year}-${month}-${day}-${slug}`;
+};
+
+const parseEntry = (dir: string, content: string, body: boolean = false) => {
+  const { date, slug, ...data } = getEntryMarkdown(content, body);
   const localDate = transposeDate(date);
   const { day, month, year } = parseDate(localDate);
 
   return {
     ...data,
-    date: localDate,
     day,
     month,
     year,
+    slug,
+    date: localDate,
     dateLong: getLongDate(localDate),
+    route: getEntryRoute({
+      dir,
+      year,
+      month,
+      day,
+      slug,
+    }),
+    contentDir: getEntryContentDir({
+      dir,
+      year,
+      month,
+      day,
+      slug,
+    }),
   };
 };
 
@@ -66,24 +97,22 @@ export async function getEntries({
   const entries = entryDirs.map(async (entryDir) => {
     const filePath = join(PATHS[dir], entryDir, 'index.md');
     const fileContent = await readFile(filePath, 'utf8');
-    const entryData = parseEntry(fileContent);
 
-    return {
-      ...entryData,
-      route: getEntryRoute({ dir, ...entryData }),
-    };
+    return parseEntry(dir, fileContent);
   });
 
   return await Promise.all(entries);
 }
 
-export async function getEntry({ body, ...pathParams }: EntryParams) {
-  const entryPath = getContentPath(pathParams);
+export async function getEntry({ body, dir, ...pathParams }: EntryParams) {
+  const entryPath = getContentPath({ dir, ...pathParams });
   const fileContent = await readFile(entryPath, 'utf8');
 
   if (!fileContent) return false;
 
-  return parseEntry(fileContent, true);
+  return {
+    ...parseEntry(dir, fileContent, true),
+  };
 }
 
 export function filterEntriesByDate(
