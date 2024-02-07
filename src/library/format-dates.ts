@@ -14,14 +14,23 @@ export const transposeDate = (date: Date) => {
 
 export const parseDate = (date: Date) => {
   return {
-    day: `${date.getDate()}`.padStart(2, '0'),
-    month: `${date.getMonth() + 1}`.padStart(2, '0'),
-    year: `${date.getFullYear()}`,
+    day: date.getUTCDate(),
+    month: date.getUTCMonth(),
+    year: date.getUTCFullYear(),
+  };
+};
+
+export const parseDisplayDate = (date: Date) => {
+  return {
+    day: `${date.getUTCDate()}`.padStart(2, '0'),
+    month: `${date.getUTCMonth() + 1}`.padStart(2, '0'),
+    year: `${date.getUTCFullYear()}`,
   };
 };
 
 export const getLongDate = (date: Date) => {
   return new Intl.DateTimeFormat('en-US', { dateStyle: 'long' }).format(
-    new Date(date)
+    // new Date(date)
+    transposeDate(date)
   );
 };

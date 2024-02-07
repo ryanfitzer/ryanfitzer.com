@@ -34,7 +34,7 @@ export default async function Home() {
   return (
     <>
       <main className="lg:grid lg:grid-rows-2 lg:grid-cols-3 lg:grid-flow-col mt-28">
-        <picture className="lg:row-span-2 mb-8 lg:mb-0 block">
+        <div className="lg:row-span-2 mb-8 lg:mb-0">
           <Image
             alt=""
             priority
@@ -43,7 +43,7 @@ export default async function Home() {
             height={portrait.height}
             className="max-w-[70%] lg:max-w-[200px] rounded-full outline outline-4 outline-offset-[-4px] outline-black mx-auto"
           />
-        </picture>
+        </div>
 
         <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center lg:pl-4">
           <h1 className="text-4xl lg:text-5xl tracking-tight lg:leading-tight mb-2 font-display text-balance text-center lg:text-left">

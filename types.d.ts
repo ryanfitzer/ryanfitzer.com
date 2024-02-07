@@ -1,3 +1,6 @@
+/**
+ * Entry (post) properties
+ */
 type Entry = {
   date: Date;
   title: string;

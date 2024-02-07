@@ -2,7 +2,11 @@ import { join } from 'path';
 import { readdir, readFile } from 'fs/promises';
 import matter from 'gray-matter';
 import { capitalize } from '@/library/utils';
-import { getLongDate, parseDate, transposeDate } from '@/library/format-dates';
+import {
+  getLongDate,
+  parseDate,
+  parseDisplayDate,
+} from '@/library/format-dates';
 import { PATHS, CONTENT_DIR, MONTHS, BLOG_POSTS_COUNT } from '@/constants';
 
 const getContentPath = ({ dir, day, month, year, slug }: EntryPathParams) =>
@@ -52,8 +56,8 @@ const getEntryContentDir = ({
 
 const parseEntry = (dir: string, content: string, body: boolean = false) => {
   const { date, slug, ...data } = getEntryMarkdown(content, body);
-  const localDate = transposeDate(date);
-  const { day, month, year } = parseDate(localDate);
+
+  const { day, month, year } = parseDisplayDate(date);
 
   return {
     ...data,
@@ -61,8 +65,8 @@ const parseEntry = (dir: string, content: string, body: boolean = false) => {
     month,
     year,
     slug,
-    date: localDate,
-    dateLong: getLongDate(localDate),
+    date,
+    dateLong: getLongDate(date),
     route: getEntryRoute({
       dir,
       year,
@@ -123,8 +127,7 @@ export function filterEntriesByDate(
   const yearNum = Number(year);
   const monthIndex = MONTHS.findIndex((mnth) => capitalize(month) === mnth);
   return entries.filter(({ date }) => {
-    const postYear = date.getFullYear();
-    const postMonth = date.getMonth();
+    const { month: postMonth, year: postYear } = parseDate(date);
 
     if (monthIndex !== -1) {
       return yearNum === postYear && monthIndex === postMonth;
@@ -143,8 +146,7 @@ export async function getPage(pageName: string) {
 export const createEntriesDateArchive = (entries: Entry[]) => {
   const archives = entries.reduce((accum, entry: Entry) => {
     const { date } = entry;
-    const month = date.getMonth();
-    const year = date.getFullYear().toString();
+    const { month, year } = parseDate(date);
 
     accum[year] = accum[year] || [];
     accum[year][month] = accum[year][month] || [MONTHS[month], 0];
