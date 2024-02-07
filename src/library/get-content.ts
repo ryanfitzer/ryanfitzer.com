@@ -91,6 +91,7 @@ export async function getEntries({
   end = BLOG_POSTS_COUNT,
 }: EntriesParams) {
   let entryDirs = await readdir(PATHS[dir]);
+  entryDirs = entryDirs.filter((dir) => dir !== '.DS_Store');
 
   entryDirs.reverse();
 

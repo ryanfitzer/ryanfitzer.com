@@ -1,9 +1,12 @@
+import { promisify } from 'util';
 import { resolve, join } from 'path';
 import { ReactNode } from 'react';
-import sharp from 'sharp';
+import { imageSize } from 'image-size';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { CONTENT_PATH, PUBLIC_PATH, PATHS } from '@/constants';
+import { PUBLIC_PATH } from '@/constants';
+
+const getImageSize = promisify(imageSize);
 
 const components = (scope: Entry) => {
   return {
@@ -17,9 +20,16 @@ const components = (scope: Entry) => {
 
       const imgSRC = resolve(scope.contentDir, src);
       const imgPath = join(PUBLIC_PATH, imgSRC);
-      const { width, height } = await sharp(imgPath).metadata();
+      const dims = await getImageSize(imgPath);
 
-      return <Image alt={alt} width={width} height={height} src={imgSRC} />;
+      return (
+        <Image
+          alt={alt}
+          width={dims?.width}
+          height={dims?.height}
+          src={imgSRC}
+        />
+      );
     },
   };
 };
