@@ -19,7 +19,7 @@ const components = ({ entry }: { entry: Entry }) => {
         return <img alt={alt} src={src} />;
       }
 
-      return <img alt={alt} src={resolve(entry.contentDir, src)} />;
+      // return <img alt={alt} src={resolve(entry.contentDir, src)} />;
 
       // const { width, height, url } = await cloudinary.api.resource(
       //   'content/blog/2020-03-29-test-that-turned-into-a-study/images/original@0.5x'
