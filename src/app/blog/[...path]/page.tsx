@@ -49,7 +49,7 @@ export default async function BlogPost({
     path: [string, string, string, string];
   };
 }) {
-  const post = await getEntry({
+  const entry = await getEntry({
     dir: 'blog',
     day,
     month,
@@ -58,16 +58,16 @@ export default async function BlogPost({
     body: true,
   });
 
-  if (!post) notFound();
+  if (!entry) notFound();
 
-  const { content = '', dateLong, title } = post;
+  const { content = '', dateLong, title } = entry;
 
   return (
     <>
       <h1 className="font-mono text-gray-700 text-3xl mb-12">{title}</h1>
       <p className="mt-0">{dateLong}</p>
       <article>
-        <MDX source={content} scope={{ ...post }} />
+        <MDX source={content} scope={{ entry }} />
       </article>
     </>
   );

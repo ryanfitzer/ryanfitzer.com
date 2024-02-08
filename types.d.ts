@@ -2,19 +2,19 @@
  * Entry (post) properties
  */
 type Entry = {
-  date: Date;
-  title: string;
-  slug: string;
-  route: string;
   contentDir: string;
-  id?: string;
-  layout?: string;
+  date: Date;
+  dateLong: string;
+  day: string;
+  id: string;
+  month: string;
+  route: string;
+  slug: string;
+  template: string;
+  title: string;
+  year: string;
   categories?: string[];
   content?: string;
-  day: string;
-  month: string;
-  year: string;
-  dateLong: string;
 };
 
 type EntriesParams = {

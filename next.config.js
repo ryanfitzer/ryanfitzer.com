@@ -1,6 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+    // images: {
+    //     remotePatterns: [
+    //         {
+    //             protocol: 'http',
+    //             hostname: 'res.cloudinary.com',
+    //             port: '',
+    //             pathname: '**',
+    //         },
+    //     ],
+    // },
 };
 
 module.exports = nextConfig;
