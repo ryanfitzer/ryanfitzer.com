@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-    outputFileTracingExcludes: {
-        '/blog/**': ['./src/content/**/images'],
+    experimental: {
+        outputFileTracingExcludes: {
+            '/**': ['./src/content/.git', './src/content/**/images'],
+        },
     },
     // images: {
     //     remotePatterns: [
