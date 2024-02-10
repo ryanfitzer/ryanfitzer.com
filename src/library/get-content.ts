@@ -51,7 +51,7 @@ const getEntryContentDir = ({
   day: string;
   slug: string;
 }) => {
-  return `/${CONTENT_DIR}/${dir}/${year}-${month}-${day}-${slug}`;
+  return `${CONTENT_DIR}/${dir}/${year}-${month}-${day}-${slug}`;
 };
 
 const parseEntry = (dir: string, content: string, body: boolean = false) => {

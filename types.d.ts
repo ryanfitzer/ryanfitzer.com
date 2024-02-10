@@ -35,3 +35,26 @@ type EntryPathParams = {
 type EntryParams = EntryPathParams & {
   body?: boolean /* include the content body (converted to HTML) */;
 };
+
+type ImageMeta = {
+  width: number;
+  height: number;
+  secure_url: string;
+  metadata: {
+    model?: string;
+    iso?: string;
+    exposure?: string;
+    aperture?: string;
+    focalLength?: string;
+    focalLengthIn35mmFormat?: string;
+  };
+  error?: {
+    message: string;
+    name: string;
+    http_code: number;
+  };
+};
+
+type ImagesMeta = {
+  [publicID: string]: ImageMeta;
+};

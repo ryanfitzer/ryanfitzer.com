@@ -3,19 +3,19 @@ const nextConfig = {
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
     experimental: {
         outputFileTracingExcludes: {
-            '/**': ['./src/content/.git', './src/content/**/images'],
+            '/**': ['./content/.git', './content/**/images'],
         },
     },
-    // images: {
-    //     remotePatterns: [
-    //         {
-    //             protocol: 'http',
-    //             hostname: 'res.cloudinary.com',
-    //             port: '',
-    //             pathname: '**',
-    //         },
-    //     ],
-    // },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'res.cloudinary.com',
+                port: '',
+                pathname: '**',
+            },
+        ],
+    },
 };
 
 module.exports = nextConfig;
