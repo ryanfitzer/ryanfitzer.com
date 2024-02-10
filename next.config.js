@@ -2,7 +2,7 @@
 const nextConfig = {
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
     outputFileTracingExcludes: {
-        '/blog/**': ['./src/app/content/**/images'],
+        '/blog/**': ['./src/content/**/images'],
     },
     // images: {
     //     remotePatterns: [
