@@ -3,12 +3,15 @@ import { readdir, writeFile } from 'fs/promises';
 import { v2 as cloudinary } from 'cloudinary';
 
 const CONTENT_PATH = 'content';
+const META_FILE_PATH = join(CONTENT_PATH, 'image-meta.json');
 
-const dirs = await readdir('content', {
+// Get all directories
+const dirs = await readdir(CONTENT_PATH, {
   encoding: 'utf8',
   recursive: true,
 });
 
+// Filter paths that have images
 const images = dirs.filter((dir) => {
   const pathArr = dir.split('/');
   const imagesIndex = pathArr.indexOf('images');
@@ -16,7 +19,8 @@ const images = dirs.filter((dir) => {
   return imagesIndex !== -1 && imagesIndex !== pathArr.length - 1;
 });
 
-const imageMeta = images.reduce((accum, path) => {
+// Create a image meta object for image
+const imageMetaObj = images.reduce((accum, path) => {
   const idPath = path.split('.').slice(0, -1).join('.');
 
   accum[join(CONTENT_PATH, idPath)] = {
@@ -26,39 +30,33 @@ const imageMeta = images.reduce((accum, path) => {
   return accum;
 }, {});
 
-// TODO use `await`
-Promise.all(
-  Object.keys(imageMeta).map(async (publicID) => {
-    const {
-      error,
-      width,
-      height,
-      secure_url,
-      image_metadata: metadata,
-    } = await cloudinary.uploader
-      .explicit(publicID, {
-        cloud_name: 'dzm9m22ul',
-        api_key: '621335587394736',
-        api_secret: '510gdeUiwEFD4kQQfTwblBlx_HI',
-        type: 'upload',
-        media_metadata: true,
-      })
-      .catch((error) => {
-        console.log(
-          `[ERROR] for ${publicID}: ${error.http_code} - ${error.message}`,
-          error
-        );
-        return error.error
-          ? { error: { ...error.error } }
-          : { error: { ...error } };
-      });
+// Request meta for each image and update its meta object
+const cloudinaryRequests = Object.keys(imageMetaObj).map(async (publicID) => {
+  const {
+    error,
+    width,
+    height,
+    secure_url,
+    image_metadata: metadata,
+  } = await cloudinary.uploader
+    .explicit(publicID, {
+      cloud_name: 'dzm9m22ul',
+      api_key: '621335587394736',
+      api_secret: '510gdeUiwEFD4kQQfTwblBlx_HI',
+      type: 'upload',
+      media_metadata: true,
+    })
+    .catch((error) => {
+      console.log('[Error: API]', { publicID, ...error });
+      return error.error
+        ? { error: { ...error.error } }
+        : { error: { ...error } };
+    });
 
-    if (error) {
-      imageMeta[publicID] = { error };
-      return;
-    }
-
-    imageMeta[publicID] = {
+  if (error) {
+    imageMetaObj[publicID] = { error };
+  } else {
+    imageMetaObj[publicID] = {
       width,
       height,
       secure_url,
@@ -71,20 +69,22 @@ Promise.all(
         focalLengthIn35mmFormat: metadata.FocalLengthIn35mmFormat,
       },
     };
-  })
-)
-  .then(async () => {
-    Object.entries(imageMeta).forEach(([key, value]) => {
-      if (!value) console.log(`[Null] ${key}`);
-    });
+  }
+});
 
-    await writeFile(
-      'content/image-meta.json',
-      JSON.stringify(imageMeta, null, 2)
-    );
+// Catch general API errors ("499 Request Timeout" is the main one)
+await Promise.all(cloudinaryRequests).catch((error) => {
+  console.log('Error: Promise]', error);
+});
 
-    console.log('File created: content/image-meta.json');
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// Log out all images that have errors
+// Object.entries(imageMetaObj).forEach(([publicID, { error }]) => {
+//   if (error) console.log('[Error: Meta]', { publicID, ...error });
+// });
+
+// Write all image meta to JSON
+await writeFile(META_FILE_PATH, JSON.stringify(imageMetaObj, null, 2)).catch(
+  (error) => console.log('\n[Error: Write]', error)
+);
+
+console.log(`\n[Write] File created: ${META_FILE_PATH}`);
