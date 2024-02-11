@@ -40,9 +40,6 @@ const cloudinaryRequests = Object.keys(imageMetaObj).map(async (publicID) => {
     image_metadata: metadata,
   } = await cloudinary.uploader
     .explicit(publicID, {
-      cloud_name: 'dzm9m22ul',
-      api_key: '621335587394736',
-      api_secret: '510gdeUiwEFD4kQQfTwblBlx_HI',
       type: 'upload',
       media_metadata: true,
     })
@@ -72,7 +69,7 @@ const cloudinaryRequests = Object.keys(imageMetaObj).map(async (publicID) => {
   }
 });
 
-// Catch general API errors ("499 Request Timeout" is the main one)
+// Catch general API errors (499 Request Timeout, and 401 are the main ones)
 await Promise.all(cloudinaryRequests).catch((error) => {
   console.log('Error: Promise]', error);
 });
