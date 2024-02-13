@@ -1,6 +1,5 @@
 import { join } from 'path';
 import { ReactNode } from 'react';
-import { v2 as cloudinary } from 'cloudinary';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import imageMeta from '~/content/image-meta.json';

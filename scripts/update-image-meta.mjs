@@ -2,16 +2,26 @@ import { join } from 'path';
 import { readdir, writeFile } from 'fs/promises';
 import { v2 as cloudinary } from 'cloudinary';
 
+// cloudinary.api
+//   .resource_by_asset_id('f1e13ba2e3da7a76e6e0a7468c09e68c')
+//   .then(console.log);
+
 const CONTENT_PATH = 'content';
 const META_FILE_PATH = join(CONTENT_PATH, 'image-meta.json');
 
-// Get all directories
+/**
+ * Get all directories
+ * returns @type {Array<string>}
+ */
 const dirs = await readdir(CONTENT_PATH, {
   encoding: 'utf8',
   recursive: true,
 });
 
-// Filter paths that have images
+/**
+ * Filter paths that have images
+ * returns @type {Array<string>}
+ */
 const images = dirs.filter((dir) => {
   const pathArr = dir.split('/');
   const imagesIndex = pathArr.indexOf('images');
@@ -19,7 +29,10 @@ const images = dirs.filter((dir) => {
   return imagesIndex !== -1 && imagesIndex !== pathArr.length - 1;
 });
 
-// Create a image meta object for image
+/**
+ * Create a placeholder image meta object for each image
+ * returns @type {Object<string, {error: Object<string, any>}>}
+ */
 const imageMetaObj = images.reduce((accum, path) => {
   const idPath = path.split('.').slice(0, -1).join('.');
 
@@ -30,7 +43,10 @@ const imageMetaObj = images.reduce((accum, path) => {
   return accum;
 }, {});
 
-// Request meta for each image and update its meta object
+/**
+ * Request meta for each image and update its meta object
+ * returns @type {Array<Promise<any>>}
+ */
 const cloudinaryRequests = Object.keys(imageMetaObj).map(async (publicID) => {
   const {
     error,

@@ -3,7 +3,11 @@ const nextConfig = {
     pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
     experimental: {
         outputFileTracingExcludes: {
-            '/**': ['./content/.git', './content/**/images'],
+            '/**': [
+                './content/.git',
+                './content/**/images',
+                './content/**/video',
+            ],
         },
     },
     images: {
