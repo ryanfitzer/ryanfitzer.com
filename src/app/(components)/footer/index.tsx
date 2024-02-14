@@ -5,9 +5,9 @@ import github from '~/public/images/github.svg';
 export default function Footer() {
   return (
     <footer className="flex flex-grow justify-center items-end mt-16 pb-8 text-gray-500 text-xs">
-      <p className="flex flex-col lg:flex-row lg:space-x-4 text-center">
+      <p className="flex flex-row space-x-4 text-center">
         <span>© 2024 Ryan Fitzer</span>
-        <span className="flex my-2 lg:my-0 space-x-4 justify-center">
+        <span className="flex space-x-4 justify-center">
           <a
             target="_blank"
             rel="noopener noreferrer"

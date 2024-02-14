@@ -1,6 +1,11 @@
 import { ReactNode } from 'react';
-import type { Metadata } from 'next';
+import Navigation from '../(components)/navigation';
 
 export default function BlogLayout({ children }: { children: ReactNode }) {
-  return <main className="pt-8">{children}</main>;
+  return (
+    <main className="pt-8">
+      <Navigation active="blog" />
+      {children}
+    </main>
+  );
 }

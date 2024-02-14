@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getEntries } from '@/library/get-content';
-import { PostList } from './(components)/post-list';
+import { PostList } from '@/app/(components)/post-list';
 
 export const metadata: Metadata = {
   title: 'Blog',

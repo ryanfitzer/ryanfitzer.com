@@ -46,7 +46,7 @@ export default async function Home() {
         </div>
 
         <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center lg:pl-4">
-          <h1 className="text-4xl lg:text-5xl tracking-tight lg:leading-tight mb-2 font-display text-balance text-center lg:text-left">
+          <h1 className="text-4xl lg:text-5xl tracking-tight lg:leading-tight mb-2 font-heading text-balance text-center lg:text-left">
             {title}
           </h1>
 

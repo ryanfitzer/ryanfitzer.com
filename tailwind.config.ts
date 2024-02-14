@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['var(--font-display)'],
-        test: ['var(--font-test)'],
+        heading: ['var(--font-heading)'],
+        body: ['var(--font-body)'],
       },
     },
     screens: {

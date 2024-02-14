@@ -1,6 +1,6 @@
 import { BLOG_POSTS_COUNT } from '@/constants';
 import { getEntries } from '@/library/get-content';
-import { PostList } from '@/app/blog/(components)/post-list';
+import { PostList } from '~/src/app/(components)/post-list';
 
 export const dynamicParams = false;
 

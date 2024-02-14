@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import MDX from '../(components)/mdx';
+import { PostDefault } from '@/app/(components)/post-default';
+import { PostPhoto } from '@/app/(components)/post-photo';
 import { getEntry, getEntries } from '@/library/get-content';
 
 export const dynamicParams = false;
@@ -60,15 +61,11 @@ export default async function BlogPost({
 
   if (!entry) notFound();
 
-  const { content = '', dateLong, title } = entry;
+  const { categories } = entry;
 
-  return (
-    <>
-      <h1 className="font-mono text-gray-700 text-3xl mb-12">{title}</h1>
-      <p className="mt-0">{dateLong}</p>
-      <article>
-        <MDX source={content} scope={{ entry }} />
-      </article>
-    </>
-  );
+  const isBlogPost = categories?.includes('blog');
+  const isPhotoPost = categories?.includes('photo');
+  const isQuickPost = categories?.includes('quick');
+
+  return isPhotoPost ? <PostPhoto {...entry} /> : <PostDefault {...entry} />;
 }
