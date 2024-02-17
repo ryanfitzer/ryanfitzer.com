@@ -5,6 +5,11 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const components = ({ entry }: { entry: Entry }) => {
   return {
+    a: ({ href, children }: { href?: string; children?: ReactNode }) => (
+      <a className="text-[#f79d55]" href={href}>
+        {children}
+      </a>
+    ),
     img: ({ src = '', alt = '' }: { src?: string; alt?: string }) => (
       <Image src={src} alt={alt} {...entry} />
     ),

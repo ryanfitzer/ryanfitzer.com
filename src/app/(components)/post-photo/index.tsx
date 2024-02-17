@@ -41,7 +41,7 @@ export const PostPhotoPLP = ({
 }: Entry) => {
   return (
     <>
-      <div className="flex justify-between pb-4 px-10">
+      <div className="flex justify-between pb-4 px-4">
         <h2 className="font-heading text-lg text-gray-700 mt-3 mr-4">
           {title}
         </h2>
