@@ -17,6 +17,7 @@ export const Image = ({
   const classNames = clsx({
     'post-photo': categories?.includes('photo'),
   });
+  console.log(contentPath, imageMeta[contentPath]);
 
   const { width, height, secure_url } = imageMeta[
     contentPath as keyof typeof imageMeta
