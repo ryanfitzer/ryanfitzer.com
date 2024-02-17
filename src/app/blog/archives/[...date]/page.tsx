@@ -9,7 +9,8 @@ import { PostList } from '~/src/app/(components)/post-list';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const archives = createEntriesDateArchive(await getEntries({ dir: 'blog' }));
+  const { entries } = await getEntries({ dir: 'blog' });
+  const archives = createEntriesDateArchive(entries);
 
   return archives.reduce((accum, [year, months]) => {
     accum.push({ date: [year] });
@@ -51,18 +52,15 @@ export default async function BlogDateArchives({
     date: [string, string?];
   };
 }) {
-  const posts = filterEntriesByDate(
-    await getEntries({ dir: 'blog' }),
-    year,
-    month
-  );
+  let { entries } = await getEntries({ dir: 'blog' });
+  entries = filterEntriesByDate(entries, year, month);
 
   return (
     <>
       <h1>
         Blog Archives: {month && capitalize(month)} {year}
       </h1>
-      <PostList posts={posts} />
+      <PostList entries={entries} />
     </>
   );
 }

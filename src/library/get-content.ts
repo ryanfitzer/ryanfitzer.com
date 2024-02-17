@@ -55,7 +55,12 @@ const getEntryContentDir = ({
 };
 
 const parseEntry = (dir: string, content: string, body: boolean = false) => {
-  const { date, slug, ...data } = getEntryMarkdown(content, body);
+  const {
+    date,
+    slug,
+    categories = [],
+    ...data
+  } = getEntryMarkdown(content, body);
 
   const { day, month, year } = parseDisplayDate(date);
 
@@ -66,6 +71,9 @@ const parseEntry = (dir: string, content: string, body: boolean = false) => {
     year,
     slug,
     date,
+    isBlog: categories.includes('blog'),
+    isPhoto: categories.includes('photo'),
+    isQuick: categories.includes('quick'),
     dateLong: getLongDate(date),
     route: getEntryRoute({
       dir,
@@ -86,12 +94,13 @@ const parseEntry = (dir: string, content: string, body: boolean = false) => {
 
 export async function getEntries({
   dir,
-  body,
   start,
+  body = false,
   end = BLOG_POSTS_COUNT,
 }: EntriesParams) {
   let entryDirs = await readdir(PATHS[dir]);
   entryDirs = entryDirs.filter((dir) => dir !== '.DS_Store');
+  const totalPages = Math.ceil(entryDirs.length / BLOG_POSTS_COUNT);
 
   entryDirs.reverse();
 
@@ -99,14 +108,19 @@ export async function getEntries({
     entryDirs = entryDirs.slice(start, end);
   }
 
-  const entries = entryDirs.map(async (entryDir) => {
-    const filePath = join(PATHS[dir], entryDir, 'index.md');
-    const fileContent = await readFile(filePath, 'utf8');
+  const entries = await Promise.all(
+    entryDirs.map(async (entryDir) => {
+      const filePath = join(PATHS[dir], entryDir, 'index.md');
+      const fileContent = await readFile(filePath, 'utf8');
 
-    return parseEntry(dir, fileContent);
-  });
+      return parseEntry(dir, fileContent, body);
+    })
+  );
 
-  return await Promise.all(entries);
+  return {
+    entries,
+    totalPages,
+  };
 }
 
 export async function getEntry({ body, dir, ...pathParams }: EntryParams) {

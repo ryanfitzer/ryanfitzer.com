@@ -5,7 +5,9 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const components = ({ entry }: { entry: Entry }) => {
   return {
-    img: ({ src, alt }: any) => <Image src={src} alt={alt} {...entry} />,
+    img: ({ src = '', alt = '' }: { src?: string; alt?: string }) => (
+      <Image src={src} alt={alt} {...entry} />
+    ),
     p: ({ children }: { children?: ReactNode }) => (
       <p className="text-gray-700 text-lg mb-4 mx-4 font-body">{children}</p>
     ),

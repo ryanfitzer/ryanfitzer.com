@@ -7,7 +7,8 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogArchives() {
-  const archives = createEntriesDateArchive(await getEntries({ dir: 'blog' }));
+  const { entries } = await getEntries({ dir: 'blog' });
+  const archives = createEntriesDateArchive(entries);
 
   return (
     <>

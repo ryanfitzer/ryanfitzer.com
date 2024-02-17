@@ -1,14 +1,15 @@
 import { notFound } from 'next/navigation';
 import { PostDefault } from '@/app/(components)/post-default';
-import { PostPhoto } from '@/app/(components)/post-photo';
+import { PostPhotoDetail } from '@/app/(components)/post-photo';
+import { PostQuick } from '@/app/(components)/post-quick';
 import { getEntry, getEntries } from '@/library/get-content';
 
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const posts = await getEntries({ dir: 'blog' });
+  const { entries } = await getEntries({ dir: 'blog' });
 
-  return posts.map(({ year, month, day, slug }) => {
+  return entries.map(({ year, month, day, slug }) => {
     return {
       path: [year, month, day, slug],
     };
@@ -61,11 +62,9 @@ export default async function BlogPost({
 
   if (!entry) notFound();
 
-  const { categories } = entry;
+  const { isBlog, isPhoto, isQuick } = entry;
 
-  const isBlogPost = categories?.includes('blog');
-  const isPhotoPost = categories?.includes('photo');
-  const isQuickPost = categories?.includes('quick');
-
-  return isPhotoPost ? <PostPhoto {...entry} /> : <PostDefault {...entry} />;
+  if (isBlog) return <PostDefault {...entry} />;
+  if (isPhoto) return <PostPhotoDetail {...entry} />;
+  if (isQuick) return <PostQuick {...entry} />;
 }

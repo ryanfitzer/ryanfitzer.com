@@ -1,6 +1,6 @@
 import MDX from '@/app/(components)/mdx';
 
-export const PostDefault = ({
+export const PostQuick = ({
   permalink = false,
   title,
   dateLong,

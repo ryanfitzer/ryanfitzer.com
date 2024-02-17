@@ -13,6 +13,9 @@ type Entry = {
   template: string;
   title: string;
   year: string;
+  isBlog: boolean;
+  isPhoto: boolean;
+  isQuick: boolean;
   categories?: string[];
   content?: string;
 };

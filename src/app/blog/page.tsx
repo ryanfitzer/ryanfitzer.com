@@ -1,13 +1,14 @@
 import { Metadata } from 'next';
 import { getEntries } from '@/library/get-content';
 import { PostList } from '@/app/(components)/post-list';
+import PageNav from '@/app/(components)/page-nav';
 
 export const metadata: Metadata = {
   title: 'Blog',
 };
 
 export default async function Blog() {
-  const posts = await getEntries({
+  const { entries } = await getEntries({
     dir: 'blog',
     start: 0,
     end: 10,
@@ -16,8 +17,8 @@ export default async function Blog() {
 
   return (
     <>
-      <h1>Blog</h1>
-      <PostList posts={posts} />
+      <PostList entries={entries} />
+      <PageNav nextRoute="/blog/page/2" nextText="Page 2" />
     </>
   );
 }
