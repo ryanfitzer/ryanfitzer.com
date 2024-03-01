@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Navigation from '../(components)/navigation';
+import Navigation from '@/app/(components)/navigation';
 
 export default function BlogLayout({ children }: { children: ReactNode }) {
   return (

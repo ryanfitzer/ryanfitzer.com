@@ -1,4 +1,4 @@
-import { BLOG_POSTS_COUNT } from '@/constants';
+import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 import { getEntries } from '@/library/get-content';
 import { PostList } from '@/app/(components)/post-list';
 import PageNav from '@/app/(components)/page-nav';
@@ -7,7 +7,7 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const { entries } = await getEntries({ dir: 'blog' });
-  const totalPages = Math.ceil(entries.length / BLOG_POSTS_COUNT);
+  const totalPages = Math.ceil(entries.length / BLOG_PAGED_COUNT);
 
   return Array.from({ length: totalPages }, (_, index) => ({
     page: (index + 1).toString(),
@@ -30,8 +30,8 @@ export default async function Page({
   params: { page: string };
 }) {
   let pageNavProps = {} as Record<string, string>;
-  const end = BLOG_POSTS_COUNT * Number(page);
-  const start = end - BLOG_POSTS_COUNT;
+  const end = BLOG_PAGED_COUNT * Number(page);
+  const start = end - BLOG_PAGED_COUNT;
   const prevPage = Number(page) - 1;
   const nextPage = Number(page) + 1;
 

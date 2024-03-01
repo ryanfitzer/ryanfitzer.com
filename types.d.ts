@@ -16,8 +16,20 @@ type Entry = {
   isBlog: boolean;
   isPhoto: boolean;
   isQuick: boolean;
+  tags?: string[];
   categories?: string[];
   content?: string;
+};
+
+type Entries = {
+  entries: Entries[];
+  totalPages: number;
+  categories: {
+    [category: string]: number;
+  };
+  tags: {
+    [tag: string]: number;
+  };
 };
 
 type EntriesParams = {
@@ -37,6 +49,13 @@ type EntryPathParams = {
 
 type EntryParams = EntryPathParams & {
   body?: boolean /* include the content body (converted to HTML) */;
+};
+
+type Pagination = {
+  prevText: string;
+  prevRoute: string;
+  nextText: string;
+  nextRoute: string;
 };
 
 type ImageMeta = {

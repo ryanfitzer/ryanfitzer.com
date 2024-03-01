@@ -48,7 +48,7 @@ export default async function BlogPost({
   },
 }: {
   params: {
-    path: [string, string, string, string];
+    path: string[];
   };
 }) {
   const entry = await getEntry({
@@ -64,7 +64,7 @@ export default async function BlogPost({
 
   const { isBlog, isPhoto, isQuick } = entry;
 
-  if (isBlog) return <PostDefault {...entry} />;
   if (isPhoto) return <PostPhotoDetail {...entry} />;
-  if (isQuick) return <PostQuick {...entry} />;
+  else if (isQuick) return <PostQuick {...entry} />;
+  else return <PostDefault {...entry} />;
 }

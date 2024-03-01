@@ -7,12 +7,17 @@ import {
   parseDate,
   parseDisplayDate,
 } from '@/library/format-dates';
-import { PATHS, CONTENT_DIR, MONTHS, BLOG_POSTS_COUNT } from '@/constants';
+import {
+  PATHS,
+  CONTENT_DIR,
+  MONTHS,
+  BLOG_PAGED_COUNT,
+} from '~/src/library/constants';
 
 const getContentPath = ({ dir, day, month, year, slug }: EntryPathParams) =>
   join(PATHS[dir], [year, month, day, slug].join('-'), 'index.md');
 
-const getPagePath = (pageName: string) => join(PATHS[pageName], 'index.md');
+const getDocumentPath = (pageName: string) => join(PATHS[pageName], 'index.md');
 
 const getEntryMarkdown = (fileContent: string, body = false) => {
   const { data, content } = matter(fileContent);
@@ -54,7 +59,11 @@ const getEntryContentDir = ({
   return `${CONTENT_DIR}/${dir}/${year}-${month}-${day}-${slug}`;
 };
 
-const parseEntry = (dir: string, content: string, body: boolean = false) => {
+const parseEntry = (
+  dir: string,
+  content: string,
+  body: boolean = false
+): Entry => {
   const {
     date,
     slug,
@@ -71,6 +80,7 @@ const parseEntry = (dir: string, content: string, body: boolean = false) => {
     year,
     slug,
     date,
+    categories,
     isBlog: categories.includes('blog'),
     isPhoto: categories.includes('photo'),
     isQuick: categories.includes('quick'),
@@ -92,15 +102,37 @@ const parseEntry = (dir: string, content: string, body: boolean = false) => {
   };
 };
 
+function getEntriesCategories(entries: Entry[]) {
+  return entries.reduce((accum, { categories = [] }) => {
+    categories.forEach((cat) => {
+      accum[cat] = accum[cat] || 0;
+      accum[cat] = accum[cat] + 1;
+    });
+
+    return accum;
+  }, {} as { [category: string]: number });
+}
+
+function getEntriesTags(entries: Entry[]) {
+  return entries.reduce((accum, { tags = [] }) => {
+    tags.forEach((tag) => {
+      accum[tag] = accum[tag] || 0;
+      accum[tag] = accum[tag] + 1;
+    });
+
+    return accum;
+  }, {} as { [tag: string]: number });
+}
+
 export async function getEntries({
   dir,
   start,
   body = false,
-  end = BLOG_POSTS_COUNT,
+  end = BLOG_PAGED_COUNT,
 }: EntriesParams) {
   let entryDirs = await readdir(PATHS[dir]);
   entryDirs = entryDirs.filter((dir) => dir !== '.DS_Store');
-  const totalPages = Math.ceil(entryDirs.length / BLOG_POSTS_COUNT);
+  const totalPages = Math.ceil(entryDirs.length / BLOG_PAGED_COUNT);
 
   entryDirs.reverse();
 
@@ -120,6 +152,8 @@ export async function getEntries({
   return {
     entries,
     totalPages,
+    tags: getEntriesTags(entries),
+    categories: getEntriesCategories(entries),
   };
 }
 
@@ -152,10 +186,12 @@ export function filterEntriesByDate(
   });
 }
 
-export async function getPage(pageName: string) {
-  const fileContent = await readFile(getPagePath(pageName), 'utf8');
+export function filterEntriesByCategory(entries: Entry[], category: string) {
+  return entries.filter(({ categories }) => categories?.includes(category));
+}
 
-  return matter(fileContent);
+export function filterEntriesByTag(entries: Entry[], tag: string) {
+  return entries.filter(({ tags }) => tags?.includes(tag));
 }
 
 export const createEntriesDateArchive = (entries: Entry[]) => {
@@ -168,7 +204,7 @@ export const createEntriesDateArchive = (entries: Entry[]) => {
     accum[year][month][1] = accum[year][month][1] + 1;
 
     return accum;
-  }, {} as { [year: string]: [string, number][] });
+  }, {} as { [year: string]: [month: string, count: number][] });
 
   for (const year in archives) {
     archives[year] = archives[year].filter(Boolean);
@@ -176,3 +212,9 @@ export const createEntriesDateArchive = (entries: Entry[]) => {
 
   return Object.entries(archives).reverse();
 };
+
+export async function getPage(pageName: string) {
+  const fileContent = await readFile(getDocumentPath(pageName), 'utf8');
+
+  return matter(fileContent);
+}

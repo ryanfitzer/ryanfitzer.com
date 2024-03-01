@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import clsx from 'clsx';
 import MDX from '@/app/(components)/mdx';
-import { MONTHS } from '~/src/constants';
+import { MONTHS } from '~/src/library/constants';
 
 const DateTime = ({
   date,
@@ -41,10 +41,8 @@ export const PostPhotoPLP = ({
 }: Entry) => {
   return (
     <>
-      <div className="flex justify-between pb-4 px-4">
-        <h2 className="font-heading text-lg text-gray-700 mt-3 mr-4">
-          {title}
-        </h2>
+      <div className="flex justify-between items-center pb-4 px-4">
+        <h2 className="font-heading text-xl text-gray-700 mr-4">{title}</h2>
         <DateTime date={date} day={day} month={month} year={year} />
       </div>
       <Link

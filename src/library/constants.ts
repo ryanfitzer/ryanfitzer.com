@@ -12,8 +12,9 @@ export const PATHS = {
 } as { [key: string]: string };
 
 /* Settings */
-export const BLOG_POSTS_COUNT = 10;
-export const PHOTOS_POSTS_COUNT = 10;
+export const BLOG_PAGED_COUNT = 10;
+export const PHOTO_PAGED_COUNT = 10;
+export const MAX_POSTS_PER_PAGE = 30;
 
 /* Strings */
 export const MONTHS = [
