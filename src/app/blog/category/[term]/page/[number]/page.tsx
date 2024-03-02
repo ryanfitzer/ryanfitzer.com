@@ -6,7 +6,7 @@ import { BLOG_PAGED_COUNT, PHOTO_PAGED_COUNT } from '~/src/library/constants';
 type PagedParams = {
   params: {
     term: string;
-    page: string;
+    number: string;
   };
 };
 
@@ -22,7 +22,7 @@ export async function generateStaticParams() {
     return Array.from({ length: totalPages }, (_, index) => {
       return {
         term: cat,
-        page: (index + 1).toString(),
+        number: (index + 1).toString(),
       };
     });
   });
@@ -31,19 +31,19 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({
-  params: { term, page },
+  params: { term, number },
 }: PagedParams) {
   return {
-    title: `Category ${term} | Page ${page} | Blog `,
+    title: `Category ${term} | Page ${number} | Blog `,
   };
 }
 
-export default async function Page({ params: { term, page } }: PagedParams) {
+export default async function Page({ params: { term, number } }: PagedParams) {
   let pageNavProps = {} as Pagination;
   const pagedCount = term === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
-  const prevPage = Number(page) - 1;
-  const nextPage = Number(page) + 1;
-  const end = pagedCount * Number(page);
+  const prevPage = Number(number) - 1;
+  const nextPage = Number(number) + 1;
+  const end = pagedCount * Number(number);
   const start = end - pagedCount;
 
   if (prevPage) {

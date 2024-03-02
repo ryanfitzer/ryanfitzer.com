@@ -3,6 +3,12 @@ import { getEntries } from '@/library/get-content';
 import { PostList } from '@/app/(components)/post-list';
 import PageNav from '@/app/(components)/page-nav';
 
+type PagedParams = {
+  params: {
+    number: string;
+  };
+};
+
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -10,30 +16,22 @@ export async function generateStaticParams() {
   const totalPages = Math.ceil(entries.length / BLOG_PAGED_COUNT);
 
   return Array.from({ length: totalPages }, (_, index) => ({
-    page: (index + 1).toString(),
+    number: (index + 1).toString(),
   }));
 }
 
-export async function generateMetadata({
-  params: { page },
-}: {
-  params: { page: string };
-}) {
+export async function generateMetadata({ params: { number } }: PagedParams) {
   return {
-    title: `Page ${page} | Blog `,
+    title: `Page ${number} | Blog `,
   };
 }
 
-export default async function Page({
-  params: { page },
-}: {
-  params: { page: string };
-}) {
+export default async function Page({ params: { number } }: PagedParams) {
   let pageNavProps = {} as Record<string, string>;
-  const end = BLOG_PAGED_COUNT * Number(page);
+  const end = BLOG_PAGED_COUNT * Number(number);
   const start = end - BLOG_PAGED_COUNT;
-  const prevPage = Number(page) - 1;
-  const nextPage = Number(page) + 1;
+  const prevPage = Number(number) - 1;
+  const nextPage = Number(number) + 1;
 
   if (prevPage) {
     pageNavProps['prevText'] = `Page ${prevPage}`;
