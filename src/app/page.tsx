@@ -28,7 +28,9 @@ const components = {
 export default async function Home() {
   const {
     content,
-    data: { title, description, portrait },
+    data: {
+      props: { title, description, portrait },
+    },
   } = await getPage('home');
 
   return (

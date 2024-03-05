@@ -3,6 +3,9 @@ import { Fraunces, Figtree } from 'next/font/google';
 import Footer from './(components)/footer';
 import './globals.css';
 
+const { NEXT_PUBLIC_SITE_PROTOCOL, NEXT_PUBLIC_SITE_URL } = process.env;
+const siteURL = `${NEXT_PUBLIC_SITE_PROTOCOL}${NEXT_PUBLIC_SITE_URL}`;
+
 const heading = Fraunces({
   weight: '800',
   display: 'swap',
@@ -20,7 +23,7 @@ const body = Figtree({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${process.env.VERCEL_URL}`),
+  metadataBase: new URL(siteURL),
   title: {
     default: 'Home',
     template: '%s | Ryan Fitzer',
@@ -34,6 +37,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="RSS"
+          href={`${siteURL}/rss`}
+        />
+      </head>
       <body
         className={`${body.variable} ${heading.variable} font-sans bg-[#f8f8f8]`}
       >

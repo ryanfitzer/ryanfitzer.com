@@ -51,6 +51,15 @@ type EntryParams = EntryPathParams & {
   body?: boolean /* include the content body (converted to HTML) */;
 };
 
+type Page = {
+  id: number;
+  route: string;
+  slug: string;
+  page: string;
+  author?: string;
+  props?: Record<string, any>;
+};
+
 type Pagination = {
   prevText: string;
   prevRoute: string;
