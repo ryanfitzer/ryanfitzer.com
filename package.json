@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build --debug",
+    "dev": "npm run search && next dev",
+    "build": "npm run search && next build --debug",
     "start": "next start",
     "lint": "next lint",
+    "search": "node scripts/create-blog-index.mjs",
     "meta": "dotenv -e .env.local -- node scripts/update-image-meta.mjs",
     "prepare": "husky"
   },

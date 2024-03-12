@@ -1,5 +1,5 @@
 import FlexSearch from 'flexsearch';
-import { getEntries } from '@/library/get-content';
+import BlogSearchData from '@/generated/entries-search-data.json';
 
 type Content = {
   params: {
@@ -9,15 +9,14 @@ type Content = {
 
 const search = async (term: string) => {
   const searchIndex = new FlexSearch.Index();
-  const { entries } = await getEntries({ dir: 'blog', body: true });
 
-  entries.forEach(({ title, content }, index) => {
-    searchIndex.add(index, `${title} ${content}`);
+  BlogSearchData.forEach(({ title, body }, index) => {
+    searchIndex.add(index, `${title} ${body}`);
   });
 
   const IDs = searchIndex.search(term);
 
-  return IDs.map((id) => entries[id as number]);
+  return IDs.map((id) => BlogSearchData[id as number]);
 };
 
 export async function GET(request: Request, { params: { term } }: Content) {

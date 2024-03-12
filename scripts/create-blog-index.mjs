@@ -1,10 +1,10 @@
 import { join } from 'path';
-import { readdir, readFile, writeFile } from 'fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'fs/promises';
 import matter from 'gray-matter';
 
-const CONTENT_PATH = 'content';
-const BLOG_PATH = join(CONTENT_PATH, 'blog');
-const INDEX_FILE_PATH = join(CONTENT_PATH, 'blog-search-data.json');
+const BLOG_CONTENT_PATH = join('content', 'blog');
+const GENERATED_PATH = join('src', 'generated');
+const INDEX_FILE_PATH = join(GENERATED_PATH, 'entries-search-data.json');
 
 export const transposeDate = (date) => {
   return new Date(
@@ -44,7 +44,7 @@ const getEntryMarkdown = (fileContent) => {
   };
 };
 
-const allDirs = await readdir(BLOG_PATH);
+const allDirs = await readdir(BLOG_CONTENT_PATH);
 const dirs = allDirs.filter((dir) => {
   const pathArr = dir.split('/');
   const validDir = pathArr.indexOf('.DS_Store');
@@ -56,15 +56,17 @@ const entryFiles = dirs.map((dir) => `${dir}/index.md`);
 
 const entries = await Promise.all(
   entryFiles.map(async (filePath) => {
-    const entryPath = join(BLOG_PATH, filePath);
+    const entryPath = join(BLOG_CONTENT_PATH, filePath);
     const fileContent = await readFile(entryPath, 'utf8');
 
     return getEntryMarkdown(fileContent);
   })
 );
 
+await mkdir(GENERATED_PATH, { recursive: true });
+
 await writeFile(INDEX_FILE_PATH, JSON.stringify(entries, null, 2)).catch(
   (error) => console.log('\n[Error: Write]', error)
 );
 
-console.log(`\n[Write] File created: ${INDEX_FILE_PATH}`);
+console.log(`\n[Write] File created: ${INDEX_FILE_PATH}\n`);
