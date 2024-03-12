@@ -6,7 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 const components = ({ entry }: { entry: Entry }) => {
   return {
     a: ({ href, children }: { href?: string; children?: ReactNode }) => (
-      <a className="text-[#f79d55]" href={href}>
+      <a className="text-link" href={href}>
         {children}
       </a>
     ),

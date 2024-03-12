@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        link: '#ff8f04',
+      },
       fontFamily: {
         heading: ['var(--font-heading)'],
         body: ['var(--font-body)'],

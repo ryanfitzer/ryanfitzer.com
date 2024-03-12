@@ -13,6 +13,7 @@
   "dependencies": {
     "cloudinary": "^2.0.1",
     "clsx": "^2.1.0",
+    "flexsearch": "^0.7.43",
     "gray-matter": "^4.0.3",
     "next": "14.0.4",
     "next-mdx-remote": "^4.4.1",

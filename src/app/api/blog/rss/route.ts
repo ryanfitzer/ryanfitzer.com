@@ -1,4 +1,3 @@
-// import { Feed } from 'feed';
 import RSS from 'rss';
 import { getEntries, getPage } from '@/library/get-content';
 
@@ -10,10 +9,10 @@ async function generateRSS() {
   const siteURL = process.env.NEXT_PUBLIC_SITE_URL;
 
   const feed = new RSS({
-    title: `${author} | RSS`,
-    description: 'Blog',
+    title: `${author}`,
+    description: 'Blog Entries',
     site_url: `${siteURL}/`,
-    feed_url: `${siteURL}/rss`,
+    feed_url: `${siteURL}/api/blog/rss`,
     copyright: `All rights reserved ${new Date().getFullYear()}, Ibas`,
     language: 'en-US',
     pubDate: new Date(),

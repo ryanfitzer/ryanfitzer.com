@@ -42,7 +42,7 @@ export default function RootLayout({
           rel="alternate"
           type="application/rss+xml"
           title="RSS"
-          href={`${siteURL}/rss`}
+          href={`${siteURL}/api/blog/rss`}
         />
       </head>
       <body
