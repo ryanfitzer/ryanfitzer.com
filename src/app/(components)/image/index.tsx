@@ -7,14 +7,15 @@ export const Image = ({
   src,
   alt,
   categories,
+  className = '',
   ...entry
-}: { src: string; alt: string } & Entry) => {
+}: { src: string; alt: string; className?: string } & Entry) => {
   const contentPath = join(
     entry.contentDir,
     src.split('.').slice(0, -1).join('.')
   );
 
-  const classNames = clsx({
+  const classNames = clsx(className, {
     'post-photo': categories?.includes('photo'),
   });
 
@@ -27,6 +28,7 @@ export const Image = ({
       priority
       alt={alt}
       width={width}
+      quality={100}
       height={height}
       src={secure_url}
       className={classNames}

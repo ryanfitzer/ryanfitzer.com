@@ -29,6 +29,12 @@ const DateTime = ({
   );
 };
 
+const componentOptions = {
+  img: {
+    className: 'max-h-[80vh] max-w-full h-auto w-auto',
+  },
+};
+
 export const PostPhotoPLP = ({
   date,
   day,
@@ -42,16 +48,15 @@ export const PostPhotoPLP = ({
   return (
     <>
       <div className="flex justify-between items-center pb-4 px-4">
-        <h2 className="font-heading text-xl text-gray-700 mr-4">{title}</h2>
+        <Link href={route} aria-label={`Permanent link to ${title}`}>
+          <h2 className="font-heading text-xl text-gray-700 mr-4">{title}</h2>
+        </Link>
         <DateTime date={date} day={day} month={month} year={year} />
       </div>
-      <Link
-        className="flex flex-col items-center space-y-4"
-        aria-label={`Permanent link to ${title}`}
-        href={route}
-      >
-        <MDX source={content} scope={{ entry }} />
-      </Link>
+
+      <div className="flex flex-col items-center space-y-4">
+        <MDX source={content} scope={{ entry, componentOptions }} />
+      </div>
     </>
   );
 };
@@ -70,7 +75,7 @@ export const PostPhotoDetail = ({
   return (
     <>
       <article>
-        <MDX source={content} scope={{ entry }} />
+        <MDX source={content} scope={{ entry, componentOptions }} />
         <div className="flex flex-row py-4 px-4">
           <DateTime date={date} day={day} month={month} year={year} />{' '}
           <h1>{title}</h1>

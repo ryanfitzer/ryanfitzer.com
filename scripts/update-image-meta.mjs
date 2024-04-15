@@ -2,10 +2,7 @@ import { join } from 'path';
 import { readdir, writeFile } from 'fs/promises';
 import { v2 as cloudinary } from 'cloudinary';
 
-// cloudinary.api
-//   .resource_by_asset_id('f1e13ba2e3da7a76e6e0a7468c09e68c')
-//   .then(console.log);
-
+const RETRY_LIMIT = 4;
 const CONTENT_PATH = 'content';
 const META_FILE_PATH = join(CONTENT_PATH, 'image-meta.json');
 
@@ -23,10 +20,14 @@ const dirs = await readdir(CONTENT_PATH, {
  * returns @type {Array<string>}
  */
 const images = dirs.filter((dir) => {
+  const ignore = ['.DS_Store', 'originals'];
   const pathArr = dir.split('/');
   const imagesIndex = pathArr.indexOf('images');
+  const hasIgnored = ignore.some((item) => pathArr.includes(item));
 
-  return imagesIndex !== -1 && imagesIndex !== pathArr.length - 1;
+  return (
+    !hasIgnored && imagesIndex !== -1 && imagesIndex !== pathArr.length - 1
+  );
 });
 
 /**
@@ -43,28 +44,57 @@ const imageMetaObj = images.reduce((accum, path) => {
   return accum;
 }, {});
 
+// https://cloudinary.com/documentation/image_upload_api_reference#explicit
+const apiRequest = async (publicID, attempts = 0) => {
+  attempts = attempts + 1;
+
+  const { error, ...data } = await cloudinary.uploader
+    .explicit(publicID, {
+      type: 'upload',
+      media_metadata: true,
+    })
+    .catch((reason) => {
+      return {
+        error: reason,
+      };
+    });
+
+  if (error) {
+    let errorObject = error;
+    if (error.error) errorObject = errorObject;
+
+    console.log(
+      '[Error: API]',
+      { publicID, ...errorObject },
+      `attempts: ${attempts}`
+    );
+
+    if (errorObject.http_code === 404 || attempts === RETRY_LIMIT) {
+      return { error: { ...errorObject } };
+    }
+
+    return await apiRequest(publicID, attempts);
+  }
+
+  return data;
+};
+
+console.log(`Images: ${images.length}`);
+
 /**
  * Request meta for each image and update its meta object
  * returns @type {Array<Promise<any>>}
  */
 const cloudinaryRequests = Object.keys(imageMetaObj).map(async (publicID) => {
+  const request = await apiRequest(publicID);
+
   const {
     error,
     width,
     height,
     secure_url,
     image_metadata: metadata,
-  } = await cloudinary.uploader
-    .explicit(publicID, {
-      type: 'upload',
-      media_metadata: true,
-    })
-    .catch((error) => {
-      console.log('[Error: API]', { publicID, ...error });
-      return error.error
-        ? { error: { ...error.error } }
-        : { error: { ...error } };
-    });
+  } = request;
 
   if (error) {
     imageMetaObj[publicID] = { error };
@@ -85,9 +115,9 @@ const cloudinaryRequests = Object.keys(imageMetaObj).map(async (publicID) => {
   }
 });
 
-// Catch general API errors (499 Request Timeout, and 401 are the main ones)
+// Catch errors
 await Promise.all(cloudinaryRequests).catch((error) => {
-  console.log('Error: Promise]', error);
+  console.log('[Error: Promise]', error);
 });
 
 // Log out all images that have errors

@@ -16,9 +16,10 @@ type Entry = {
   isBlog: boolean;
   isPhoto: boolean;
   isQuick: boolean;
-  tags?: string[];
   categories?: string[];
   content?: string;
+  cover?: string;
+  tags?: string[];
 };
 
 type Entries = {

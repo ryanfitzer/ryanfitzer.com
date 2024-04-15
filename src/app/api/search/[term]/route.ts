@@ -22,5 +22,8 @@ const search = async (term: string) => {
 export async function GET(request: Request, { params: { term } }: Content) {
   const results = await search(term);
 
-  return Response.json(results);
+  return Response.json({
+    total: results.length,
+    results,
+  });
 }
