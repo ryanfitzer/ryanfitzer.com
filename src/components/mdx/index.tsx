@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import remarkUnwrapImages from 'remark-unwrap-images';
-import { Image } from '@/app/(components)/image';
+import { Image } from '@/components/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
 const components = ({

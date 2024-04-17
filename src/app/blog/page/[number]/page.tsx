@@ -1,7 +1,7 @@
 import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 import { getEntries } from '@/library/get-content';
-import { PostList } from '@/app/(components)/post-list';
-import PageNav from '@/app/(components)/page-nav';
+import { PostList } from '@/components/post-list';
+import PageNav from '@/components/page-nav';
 
 type PagedParams = {
   params: {

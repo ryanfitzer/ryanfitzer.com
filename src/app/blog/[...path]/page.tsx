@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
-import { PostDefault } from '@/app/(components)/post-default';
-import { PostPhotoDetail } from '@/app/(components)/post-photo';
-import { PostQuick } from '@/app/(components)/post-quick';
+import { PostDefault } from '@/components/post-default';
+import { PostPhotoDetail } from '@/components/post-photo';
+import { PostQuick } from '@/components/post-quick';
 import { getEntry, getEntries } from '@/library/get-content';
 
 export const dynamicParams = false;

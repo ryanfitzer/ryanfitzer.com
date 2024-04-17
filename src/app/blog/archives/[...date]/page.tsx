@@ -4,7 +4,7 @@ import {
   createEntriesDateArchive,
 } from '@/library/get-content';
 import { capitalize } from '@/library/utils';
-import { PostList } from '~/src/app/(components)/post-list';
+import { PostList } from '@/components/post-list';
 
 export const dynamicParams = false;
 

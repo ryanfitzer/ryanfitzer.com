@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Fraunces, Figtree } from 'next/font/google';
-import Footer from './(components)/footer';
+import Footer from '@/components/footer';
 import './globals.css';
 
 const { NEXT_PUBLIC_SITE_PROTOCOL, NEXT_PUBLIC_SITE_URL } = process.env;

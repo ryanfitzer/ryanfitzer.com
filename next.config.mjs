@@ -1,14 +1,3 @@
-import million from 'million/compiler';
-
-const millionConfig = {
-  auto: {
-    threshold: 0.05, // default: 0.1,
-    skip: ['useBadHook', /badVariable/g], // default []
-    // if you're using RSC
-    auto: { rsc: true },
-  },
-};
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -33,5 +22,4 @@ const nextConfig = {
   },
 };
 
-// export default million.next(nextConfig, millionConfig);
 export default nextConfig;

@@ -1,4 +1,4 @@
-import MDX from '@/app/(components)/mdx';
+import MDX from '@/components/mdx';
 
 export const PostQuick = ({
   permalink = false,

@@ -1,6 +1,6 @@
-import { PostDefault } from '@/app/(components)/post-default';
-import { PostPhotoPLP } from '@/app/(components)/post-photo';
-import { PostQuick } from '@/app/(components)/post-quick';
+import { PostDefault } from '@/components/post-default';
+import { PostPhotoPLP } from '@/components/post-photo';
+import { PostQuick } from '@/components/post-quick';
 
 export const PostList = ({ entries }: { entries: Entry[] }) => {
   return (

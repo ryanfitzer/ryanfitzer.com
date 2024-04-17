@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getEntries } from '~/src/library/get-content';
-import { Image } from '@/app/(components)/image';
+import { Image } from '@/components/image';
 
 export default async function Page() {
   const { entries } = await getEntries({ dir: 'portfolio' });

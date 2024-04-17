@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import MDX from '@/app/(components)/mdx';
+import MDX from '@/components/mdx';
 
 export const PostDefault = ({
   permalink = false,

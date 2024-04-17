@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import clsx from 'clsx';
-import MDX from '@/app/(components)/mdx';
+import MDX from '@/components/mdx';
 import { MONTHS } from '~/src/library/constants';
 
 const DateTime = ({

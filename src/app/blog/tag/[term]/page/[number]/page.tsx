@@ -1,5 +1,5 @@
-import PageNav from '@/app/(components)/page-nav';
-import { PostList } from '@/app/(components)/post-list';
+import PageNav from '@/components/page-nav';
+import { PostList } from '@/components/post-list';
 import { getEntries, filterEntriesByTag } from '@/library/get-content';
 import { BLOG_PAGED_COUNT, PHOTO_PAGED_COUNT } from '~/src/library/constants';
 

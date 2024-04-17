@@ -1,53 +1,28 @@
-import { join } from 'path';
-import { readdir, writeFile } from 'fs/promises';
+import { resolve, join } from 'node:path';
+import { parseArgs } from 'node:util';
+import { readdir, writeFile } from 'node:fs/promises';
 import { v2 as cloudinary } from 'cloudinary';
 
 const RETRY_LIMIT = 4;
-const CONTENT_PATH = 'content';
-const META_FILE_PATH = join(CONTENT_PATH, 'image-meta.json');
+const CONTENT_DIR = 'content';
+const META_FILE_PATH = resolve(join(CONTENT_DIR, 'image-meta.json'));
 
-/**
- * Get all directories
- * returns @type {Array<string>}
- */
-const dirs = await readdir(CONTENT_PATH, {
-  encoding: 'utf8',
-  recursive: true,
+const args = parseArgs({
+  options: {
+    baseDir: {
+      type: 'string',
+      short: 'd',
+      default: CONTENT_DIR,
+    },
+  },
 });
 
-/**
- * Filter paths that have images
- * returns @type {Array<string>}
- */
-const images = dirs.filter((dir) => {
-  const ignore = ['.DS_Store', 'originals'];
-  const pathArr = dir.split('/');
-  const imagesIndex = pathArr.indexOf('images');
-  const hasIgnored = ignore.some((item) => pathArr.includes(item));
+console.log('[CONFIG] baseDir: ', args.values.baseDir);
 
-  return (
-    !hasIgnored && imagesIndex !== -1 && imagesIndex !== pathArr.length - 1
-  );
-});
-
-/**
- * Create a placeholder image meta object for each image
- * returns @type {Object<string, {error: Object<string, any>}>}
- */
-const imageMetaObj = images.reduce((accum, path) => {
-  const idPath = path.split('.').slice(0, -1).join('.');
-
-  accum[join(CONTENT_PATH, idPath)] = {
-    error: {},
-  };
-
-  return accum;
-}, {});
-
-// https://cloudinary.com/documentation/image_upload_api_reference#explicit
 const apiRequest = async (publicID, attempts = 0) => {
   attempts = attempts + 1;
 
+  // https://cloudinary.com/documentation/image_upload_api_reference#explicit
   const { error, ...data } = await cloudinary.uploader
     .explicit(publicID, {
       type: 'upload',
@@ -79,55 +54,104 @@ const apiRequest = async (publicID, attempts = 0) => {
   return data;
 };
 
-console.log(`Images: ${images.length}`);
+const createImageIndex = async () => {
+  const { baseDir } = args.values;
+  const shouldUpdate = baseDir !== CONTENT_DIR;
 
-/**
- * Request meta for each image and update its meta object
- * returns @type {Array<Promise<any>>}
- */
-const cloudinaryRequests = Object.keys(imageMetaObj).map(async (publicID) => {
-  const request = await apiRequest(publicID);
+  const dirs = await readdir(baseDir, {
+    encoding: 'utf8',
+    recursive: true,
+  });
 
-  const {
-    error,
-    width,
-    height,
-    secure_url,
-    image_metadata: metadata,
-  } = request;
+  const imagePaths = dirs.filter((dir) => {
+    const ignore = ['.DS_Store', 'originals'];
+    const pathArr = dir.split('/');
+    const imagesIndex = pathArr.indexOf('images');
+    const hasIgnored = ignore.some((item) => pathArr.includes(item));
 
-  if (error) {
-    imageMetaObj[publicID] = { error };
-  } else {
-    imageMetaObj[publicID] = {
+    return (
+      !hasIgnored && imagesIndex !== -1 && imagesIndex !== pathArr.length - 1
+    );
+  });
+
+  const imageDataObject = imagePaths.reduce((accum, path) => {
+    const idPath = path.split('.').slice(0, -1).join('.');
+
+    accum[join(baseDir, idPath)] = {
+      update: true,
+    };
+
+    return accum;
+  }, {});
+
+  if (!shouldUpdate) return imageDataObject;
+
+  const imageIndex = await import(META_FILE_PATH, {
+    assert: { type: 'json' },
+  });
+
+  return Object.entries(imageIndex.default).reduce((accum, [key, data]) => {
+    if (key.match(baseDir) === null) accum[key] = data;
+
+    return accum;
+  }, imageDataObject);
+};
+
+const requestImages = async (imageIndex) => {
+  const filteredImageIndex = Object.keys(imageIndex).filter(
+    (publicID) => imageIndex[publicID].update
+  );
+
+  console.log('[REQUESTS]', filteredImageIndex.length);
+
+  const cloudinaryRequests = filteredImageIndex.map(async (publicID) => {
+    const request = await apiRequest(publicID);
+
+    const {
+      error,
       width,
       height,
       secure_url,
-      metadata: {
-        model: metadata.Model,
-        iso: metadata.ISO,
-        exposure: metadata.ExposureTime,
-        aperture: metadata.FNumber,
-        focalLength: metadata.FocalLength,
-        focalLengthIn35mmFormat: metadata.FocalLengthIn35mmFormat,
-      },
-    };
-  }
-});
+      image_metadata: metadata,
+    } = request;
 
-// Catch errors
-await Promise.all(cloudinaryRequests).catch((error) => {
-  console.log('[Error: Promise]', error);
-});
+    if (error) {
+      imageIndex[publicID] = { error };
+    } else {
+      imageIndex[publicID] = {
+        width,
+        height,
+        secure_url,
+        metadata: {
+          model: metadata.Model,
+          iso: metadata.ISO,
+          exposure: metadata.ExposureTime,
+          aperture: metadata.FNumber,
+          focalLength: metadata.FocalLength,
+          focalLengthIn35mmFormat: metadata.FocalLengthIn35mmFormat,
+        },
+      };
+    }
+  });
 
-// Log out all images that have errors
-// Object.entries(imageMetaObj).forEach(([publicID, { error }]) => {
-//   if (error) console.log('[Error: Meta]', { publicID, ...error });
-// });
+  // Catch errors
+  await Promise.all(cloudinaryRequests).catch((error) => {
+    console.log('[Error: Promise]', error);
+  });
 
-// Write all image meta to JSON
-await writeFile(META_FILE_PATH, JSON.stringify(imageMetaObj, null, 2)).catch(
-  (error) => console.log('\n[Error: Write]', error)
-);
+  return imageIndex;
+};
 
-console.log(`\n[Write] File created: ${META_FILE_PATH}`);
+const writeImageIndexFile = async () => {
+  const imageIndex = await createImageIndex();
+  const imageDataObject = await requestImages(imageIndex);
+
+  await writeFile(
+    META_FILE_PATH,
+    JSON.stringify(imageDataObject, null, 2)
+  ).catch((error) => console.log('\n[Error: Write]', error));
+
+  console.log(`\n[Write] File created: ${META_FILE_PATH}`);
+};
+
+await writeImageIndexFile();
