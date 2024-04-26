@@ -1,7 +1,7 @@
 import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 import { getEntries } from '@/library/get-content';
 import { PostList } from '@/components/post-list';
-import PageNav from '@/components/page-nav';
+import Pagination from '~/src/components/pagination';
 
 type PagedParams = {
   params: {
@@ -48,7 +48,7 @@ export default async function Page({ params: { number } }: PagedParams) {
   return (
     <>
       <PostList entries={entries} />
-      <PageNav {...pageNavProps} />
+      <Pagination {...pageNavProps} />
     </>
   );
 }

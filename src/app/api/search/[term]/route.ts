@@ -1,5 +1,5 @@
 import FlexSearch from 'flexsearch';
-import BlogSearchData from '@/generated/entries-search-data.json';
+import BlogSearchData from '~/content/blog-search-data.json';
 
 type Content = {
   params: {

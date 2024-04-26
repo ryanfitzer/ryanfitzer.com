@@ -1,4 +1,4 @@
-import PageNav from '@/components/page-nav';
+import Pagination from '~/src/components/pagination';
 import { PostList } from '@/components/post-list';
 import { getEntries, filterEntriesByCategory } from '@/library/get-content';
 import {
@@ -54,7 +54,7 @@ export default async function PostsByCategory({ params: { term } }: CatParams) {
     <>
       <PostList entries={filteredEntries} />
       {isPaged && (
-        <PageNav
+        <Pagination
           nextRoute={`/blog/category/${term}/page/2`}
           nextText="Page 2"
         />

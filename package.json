@@ -7,8 +7,8 @@
     "build": "npm run search && next build --debug",
     "start": "next start",
     "lint": "next lint",
-    "search": "node scripts/create-blog-index.mjs",
-    "image-meta": "dotenv -e .env.local -- node scripts/update-image-meta.mjs",
+    "search": "node scripts/create-blog-search-data.mjs",
+    "image-meta": "dotenv -e .env.local -- node scripts/create-image-meta.mjs",
     "prepare": "husky"
   },
   "dependencies": {

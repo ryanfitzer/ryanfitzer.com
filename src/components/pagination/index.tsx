@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function PageNav({
+export default function Pagination({
   prevRoute,
   prevText = 'Recent',
   nextRoute,

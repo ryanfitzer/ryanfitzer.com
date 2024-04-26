@@ -1,4 +1,4 @@
-import PageNav from '@/components/page-nav';
+import Pagination from '~/src/components/pagination';
 import { PostList } from '@/components/post-list';
 import { getEntries, filterEntriesByCategory } from '@/library/get-content';
 import { BLOG_PAGED_COUNT, PHOTO_PAGED_COUNT } from '~/src/library/constants';
@@ -63,7 +63,7 @@ export default async function Page({ params: { term, number } }: PagedParams) {
   return (
     <>
       <PostList entries={filteredEntries} />
-      <PageNav {...pageNavProps} />
+      <Pagination {...pageNavProps} />
     </>
   );
 }

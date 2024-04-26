@@ -33,13 +33,18 @@ const getEntryRoute = ({
   month,
   day,
   slug,
+  categories,
 }: {
   dir: string;
   year: string;
   month: string;
   day: string;
   slug: string;
+  categories: string[];
 }) => {
+  if (categories.includes('portfolio')) {
+    return `/${dir}/${slug}`;
+  }
   return `/${dir}/${year}/${month}/${day}/${slug}`;
 };
 
@@ -91,6 +96,7 @@ const parseEntry = (
       month,
       day,
       slug,
+      categories,
     }),
     contentDir: getEntryContentDir({
       dir,

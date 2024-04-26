@@ -28,7 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "scripts/update-image-meta.mjs"
+    "scripts/create-image-meta.mjs"
   ],
   "exclude": ["node_modules"]
 }

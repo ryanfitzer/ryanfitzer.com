@@ -1,4 +1,4 @@
-import PageNav from '@/components/page-nav';
+import Pagination from '~/src/components/pagination';
 import { PostList } from '@/components/post-list';
 import { getEntries, filterEntriesByTag } from '@/library/get-content';
 import {
@@ -54,7 +54,7 @@ export default async function PostsByTag({ params: { term } }: TagParams) {
     <>
       <PostList entries={filteredEntries} />
       {isPaged && (
-        <PageNav nextRoute={`/blog/tag/${term}/page/2`} nextText="Page 2" />
+        <Pagination nextRoute={`/blog/tag/${term}/page/2`} nextText="Page 2" />
       )}
     </>
   );

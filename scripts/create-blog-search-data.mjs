@@ -2,9 +2,9 @@ import { join } from 'path';
 import { mkdir, readdir, readFile, writeFile } from 'fs/promises';
 import matter from 'gray-matter';
 
-const BLOG_CONTENT_PATH = join('content', 'blog');
-const GENERATED_PATH = join('src', 'generated');
-const INDEX_FILE_PATH = join(GENERATED_PATH, 'entries-search-data.json');
+const CONTENT_DIR = 'content';
+const BLOG_CONTENT_PATH = join(CONTENT_DIR, 'blog');
+const INDEX_FILE_PATH = join(CONTENT_DIR, 'blog-search-data.json');
 
 export const transposeDate = (date) => {
   return new Date(
@@ -62,8 +62,6 @@ const entries = await Promise.all(
     return getEntryMarkdown(fileContent);
   })
 );
-
-await mkdir(GENERATED_PATH, { recursive: true });
 
 await writeFile(INDEX_FILE_PATH, JSON.stringify(entries, null, 2)).catch(
   (error) => console.log('\n[Error: Write]', error)

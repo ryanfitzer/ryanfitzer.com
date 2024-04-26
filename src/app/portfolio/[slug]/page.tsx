@@ -1,0 +1,51 @@
+import { notFound } from 'next/navigation';
+import { PostDefault } from '@/components/post-default';
+import { getEntries } from '@/library/get-content';
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const { entries } = await getEntries({ dir: 'portfolio' });
+
+  return entries.map(({ slug }) => {
+    return { slug };
+  });
+}
+
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const { entries } = await getEntries({ dir: 'portfolio' });
+
+  const [entry] = entries.filter((entry) => {
+    return entry.slug === slug;
+  });
+
+  if (!entry) {
+    return {
+      title: 'Not Found',
+    };
+  }
+
+  return {
+    title: `${entry.title}`,
+  };
+}
+
+export default async function Page({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  const { entries } = await getEntries({ dir: 'portfolio', body: true });
+
+  const [entry] = entries.filter((entry) => {
+    return entry.slug === slug;
+  });
+
+  if (!entry) notFound();
+
+  return <PostDefault {...entry} />;
+}

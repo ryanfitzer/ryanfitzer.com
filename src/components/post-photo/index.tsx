@@ -46,7 +46,7 @@ export const PostPhotoPLP = ({
   ...entry
 }: Entry) => {
   return (
-    <>
+    <article>
       <div className="flex justify-between items-center pb-4 px-4">
         <Link href={route} aria-label={`Permanent link to ${title}`}>
           <h2 className="font-heading text-xl text-gray-700 mr-4">{title}</h2>
@@ -57,7 +57,7 @@ export const PostPhotoPLP = ({
       <div className="flex flex-col items-center space-y-4">
         <MDX source={content} scope={{ entry, componentOptions }} />
       </div>
-    </>
+    </article>
   );
 };
 

@@ -42,7 +42,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPost({
+export default async function Page({
   params: {
     path: [year, month, day, slug],
   },
