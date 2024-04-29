@@ -62,7 +62,7 @@ export default async function Page({
 
   if (!entry) notFound();
 
-  const { isBlog, isPhoto, isQuick } = entry;
+  const { isPhoto, isQuick } = entry;
 
   if (isPhoto) return <PostPhotoDetail {...entry} />;
   else if (isQuick) return <PostQuick {...entry} />;

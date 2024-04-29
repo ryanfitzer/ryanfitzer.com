@@ -40,7 +40,7 @@ export async function generateMetadata({ params: { term } }: TagParams) {
   };
 }
 
-export default async function PostsByTag({ params: { term } }: TagParams) {
+export default async function Page({ params: { term } }: TagParams) {
   const { entries, tags } = await getEntries({ dir: 'blog', body: true });
   const pagedCount = term === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
   const isPaged = tags[term] > MAX_POSTS_PER_PAGE;

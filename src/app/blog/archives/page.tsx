@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Archives | Blog',
 };
 
-export default async function BlogArchives() {
+export default async function Page() {
   const { entries } = await getEntries({ dir: 'blog' });
   const archives = createEntriesDateArchive(entries);
 

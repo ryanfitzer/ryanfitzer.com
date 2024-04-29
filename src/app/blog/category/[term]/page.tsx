@@ -40,7 +40,7 @@ export async function generateMetadata({ params: { term } }: CatParams) {
   };
 }
 
-export default async function PostsByCategory({ params: { term } }: CatParams) {
+export default async function Page({ params: { term } }: CatParams) {
   const { entries, categories } = await getEntries({ dir: 'blog', body: true });
   const pagedCount = term === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
   const isPaged = categories[term] > MAX_POSTS_PER_PAGE;

@@ -43,7 +43,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogDateArchives({
+export default async function Page({
   params: {
     date: [year, month],
   },

@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { getEntries } from '@/library/get-content';
-import { PostList } from '@/components/post-list';
 import { PostDefault } from '@/components/post-default';
 import { PostPhotoPLP } from '@/components/post-photo';
 import { PostQuick } from '@/components/post-quick';
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Blog',
 };
 
-export default async function Blog() {
+export default async function Page() {
   const { entries } = await getEntries({
     dir: 'blog',
     start: 0,
@@ -20,7 +19,6 @@ export default async function Blog() {
 
   return (
     <>
-      {/* <PostList entries={entries} /> */}
       {entries.map((entry) => {
         const { id, isPhoto, isQuick } = entry;
 
