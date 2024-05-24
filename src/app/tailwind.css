@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* Tailwind */
+        /* --tw-color-gray-100: theme('colors.gray.100'); */
+        --tw-spacing-2\.5: theme('spacing[2.5]');
+        /* Viewports */
+        --vp-md: 48.75em; /* 780px */
+        --vp-lg: 59.375em; /* 950px */
+
+        /* Dimensions */
+        --width-site: 63.75rem; /* 1020px */
+        --width-gallery: 125rem; /* 2000px */
+        --width-gallery-responsive: min(100vw, var(--width-gallery));
+        --width-gallery-half: calc(var(--width-gallery) * 0.5);
+        --width-gallery-quarter: calc(var(--width-gallery) * 0.25);
+        --width-site-gallery-diff-half: calc((var(--width-gallery-half) - var(--width-site)) / 2);
+        --left-gallery: max(calc(-50vw + 50%), calc(var(--width-gallery-quarter) * -1) - var(--width-site-gallery-diff-half));
+    }
+}

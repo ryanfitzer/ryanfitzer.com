@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { PostDefault } from '@/components/post-default';
+import { Portfolio } from '@/components/portfolio';
 import { getEntries } from '@/library/get-content';
 
 export const dynamicParams = false;
@@ -47,5 +47,5 @@ export default async function Page({
 
   if (!entry) notFound();
 
-  return <PostDefault {...entry} />;
+  return <Portfolio {...entry} />;
 }

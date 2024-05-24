@@ -1,9 +1,14 @@
 import { ReactNode } from 'react';
 import remarkUnwrapImages from 'remark-unwrap-images';
-import { Image } from '@/components/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { Image } from '@/components/image';
+import { Gallery } from '@/components/gallery';
+// import pluginGallery from './plugin-gallery';
 
-const components = ({
+// Note: some rehype/remark plugins can cause a TS error when they use different version of `unified` than `next-mdx-remote` due the Pluggable/Pluggin types mismatching. Use @ts-expect-error above the `options` to ignore the error.
+// more info: https://github.com/hashicorp/next-mdx-remote/issues/86
+
+const defaultComponents = ({
   entry,
   componentOptions = {},
 }: {
@@ -11,15 +16,32 @@ const components = ({
   componentOptions: Record<string, any>;
 }) => {
   return {
+    Gallery,
     a: ({ href, children }: { href?: string; children?: ReactNode }) => (
       <a className="text-link" href={href}>
         {children}
       </a>
     ),
-    img: ({ src = '', alt = '' }: { src?: string; alt?: string }) => {
+    img: ({
+      src = '',
+      alt = '',
+      className = '',
+    }: {
+      src?: string;
+      alt?: string;
+      className?: string;
+    }) => {
       const { img: imgOpts = {} } = componentOptions;
 
-      return <Image src={src} alt={alt} {...imgOpts} {...entry} />;
+      return (
+        <Image
+          className={className}
+          src={src}
+          alt={alt}
+          {...imgOpts}
+          {...entry}
+        />
+      );
     },
     p: ({ children }: { children?: ReactNode }) => (
       <p className="text-gray-700 text-lg mb-4 mx-4 font-body">{children}</p>
@@ -33,15 +55,24 @@ const components = ({
 const options = {
   mdxOptions: {
     remarkPlugins: [remarkUnwrapImages],
+    // rehypePlugins: [pluginGallery],
   },
 };
 
-export default function MDX({ source, scope }: any) {
+export default function MDX({
+  source,
+  scope,
+  components = defaultComponents,
+}: any) {
+  const mergedComponents = {
+    ...defaultComponents(scope),
+    ...components(scope),
+  };
   return (
     <MDXRemote
       source={source}
       options={options}
-      components={components(scope)}
+      components={mergedComponents}
     />
   );
 }

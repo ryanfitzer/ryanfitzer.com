@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  important: true,
   content: [
     './content/**/*.md',
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,6 +16,13 @@ const config: Config = {
       fontFamily: {
         heading: ['var(--font-heading)'],
         body: ['var(--font-body)'],
+      },
+      spacing: {
+        gallery: 'var(--left-gallery)',
+      },
+      width: {
+        site: 'var(--width-site)',
+        gallery: 'var(--width-gallery-responsive)',
       },
     },
     screens: {

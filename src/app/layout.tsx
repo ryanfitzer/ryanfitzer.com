@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Fraunces, Figtree } from 'next/font/google';
 import Footer from '@/components/footer';
-import './globals.css';
+import './tailwind.css';
 
 const { NEXT_PUBLIC_SITE_PROTOCOL, NEXT_PUBLIC_SITE_URL } = process.env;
 const siteURL = `${NEXT_PUBLIC_SITE_PROTOCOL}${NEXT_PUBLIC_SITE_URL}`;
@@ -48,7 +48,7 @@ export default function RootLayout({
       <body
         className={`${body.variable} ${heading.variable} font-sans bg-[#f8f8f8]`}
       >
-        <div className="flex flex-col h-[100lvh] max-w-[63.75rem] mx-auto">
+        <div className="flex flex-col h-[100lvh] max-w-[--width-site] mx-auto">
           {children}
           <Footer />
         </div>

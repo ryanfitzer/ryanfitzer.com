@@ -134,6 +134,7 @@ const requestImages = async (imageIndex) => {
     }
   });
 
+  // TODO: Use `Promise.allSettled`to give the final error status?
   // Catch errors
   await Promise.all(cloudinaryRequests).catch((error) => {
     console.log('[Error: Promise]', error);
