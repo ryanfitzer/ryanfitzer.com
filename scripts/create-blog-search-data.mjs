@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { mkdir, readdir, readFile, writeFile } from 'fs/promises';
+import { readdir, readFile, writeFile } from 'fs/promises';
 import matter from 'gray-matter';
 
 const CONTENT_DIR = 'content';

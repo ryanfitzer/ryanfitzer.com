@@ -4,9 +4,9 @@
 
 @layer base {
     :root {
-        /* Tailwind */
-        /* --tw-color-gray-100: theme('colors.gray.100'); */
+        /* Tailwind Theme Vars */
         --tw-spacing-2\.5: theme('spacing[2.5]');
+
         /* Viewports */
         --vp-md: 48.75em; /* 780px */
         --vp-lg: 59.375em; /* 950px */
