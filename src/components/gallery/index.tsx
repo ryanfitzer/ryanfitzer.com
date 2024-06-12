@@ -37,7 +37,7 @@ const Gallery = ({ children }: { children: ReactNode[] }) => {
   return (
     <ResponsiveMasonry columnsCountBreakPoints={getMasonryColumns()}>
       <Masonry
-        className="relative w-gallery left-gallery px-2.5"
+        className="relative w-gallery left-gallery px-4 mb-10"
         columnsCount={2}
         gutter={twConfig.theme.spacing['2.5']}
       >

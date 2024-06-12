@@ -3,13 +3,25 @@ import { clsx } from 'clsx';
 import { default as NextImage } from 'next/image';
 import imageMeta from '~/content/image-meta.json';
 
+export type ImageProps = Entry & {
+  src: string;
+  alt?: string;
+  className?: string;
+};
+
+export type FigureProps = ImageProps & {
+  caption?: string;
+  className?: string;
+  classNameImg?: string;
+};
+
 export const Image = ({
   src,
-  alt,
   categories,
+  alt = '',
   className = '',
   ...entry
-}: { src: string; alt: string; className?: string } & Entry) => {
+}: ImageProps) => {
   const contentPath = join(
     entry.contentDir,
     src.split('.').slice(0, -1).join('.')
@@ -33,5 +45,19 @@ export const Image = ({
       src={secure_url}
       className={classNames}
     />
+  );
+};
+
+export const Figure = (props: FigureProps) => {
+  const { caption, className, classNameImg, ...imgProps } = props;
+  return (
+    <figure className={className}>
+      <Image {...imgProps} className={classNameImg} />
+      <figcaption className="text-xs pt-2">
+        {caption?.split(' | ').map((line) => (
+          <p key={line}>{line}</p>
+        ))}
+      </figcaption>
+    </figure>
   );
 };
