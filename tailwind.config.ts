@@ -17,13 +17,6 @@ const config: Config = {
         heading: ['var(--font-heading)'],
         body: ['var(--font-body)'],
       },
-      spacing: {
-        gallery: 'var(--left-gallery)',
-      },
-      width: {
-        site: 'var(--width-site)',
-        gallery: 'var(--width-gallery-responsive)',
-      },
     },
     screens: {
       sm: '0',

@@ -13,11 +13,5 @@
 
         /* Dimensions */
         --width-site: 63.75rem; /* 1020px */
-        --width-gallery: 125rem; /* 2000px */
-        --width-gallery-responsive: min(100vw, var(--width-gallery));
-        --width-gallery-half: calc(var(--width-gallery) * 0.5);
-        --width-gallery-quarter: calc(var(--width-gallery) * 0.25);
-        --width-site-gallery-diff-half: calc((var(--width-gallery-half) - var(--width-site)) / 2);
-        --left-gallery: max(calc(-50vw + 50%), calc(var(--width-gallery-quarter) * -1) - var(--width-site-gallery-diff-half));
     }
 }

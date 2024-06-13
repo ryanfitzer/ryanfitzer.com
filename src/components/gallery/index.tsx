@@ -1,9 +1,11 @@
 'use client';
 import {
+  CSSProperties,
+  DetailedReactHTMLElement,
+  ReactElement,
   ReactNode,
   cloneElement,
   isValidElement,
-  DetailedReactHTMLElement,
 } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import resolveConfig from 'tailwindcss/resolveConfig';
@@ -29,17 +31,41 @@ const getMasonryColumns = () => {
   };
 };
 
-const Gallery = ({ children }: { children: ReactNode[] }) => {
+const getGallerySyles = (minImagAspectRatio: number) => {
+  return {
+    '--aspect-ratio-gallery-max': minImagAspectRatio * 2,
+    '--width-gallery-max':
+      'max(var(--width-site), calc(95vh * var(--aspect-ratio-gallery-max)))',
+    '--width-gallery-half': 'calc(var(--width-gallery-max) * 0.5)',
+    '--width-gallery-quarter': 'calc(var(--width-gallery-max) * 0.25)',
+    '--width-site-gallery-diff-half':
+      'calc((var(--width-gallery-half) - var(--width-site)) / 2)',
+    '--width-gallery': 'min(100vw, var(--width-gallery-max))',
+    '--left-gallery':
+      'max(calc(-50vw + 50%), calc(var(--width-gallery-quarter) * -1) - var(--width-site-gallery-diff-half))',
+    'inset-inline-start': 'var(--left-gallery)',
+    width: 'var(--width-gallery)',
+  };
+};
+
+const Gallery = ({ children }: { children: ReactElement[] }) => {
   if (!children.length) {
     throw new Error('At least 1 child is required');
   }
 
+  const imageAspectRatios = children.map((child) => {
+    return child.props.width / child.props.height;
+  });
+
+  const minImagAspectRatio = Math.min(...imageAspectRatios);
+
   return (
     <ResponsiveMasonry columnsCountBreakPoints={getMasonryColumns()}>
       <Masonry
-        className="relative w-gallery left-gallery px-4 mb-10"
         columnsCount={2}
         gutter={twConfig.theme.spacing['2.5']}
+        className="relative px-4 mb-10"
+        style={getGallerySyles(minImagAspectRatio) as CSSProperties}
       >
         {children.map((child: ReactNode, index: number) => {
           if (!isValidElement(child)) return;
