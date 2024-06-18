@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { getPage } from '@/library/get-content';
+import Navigation from '@/components/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
 export const metadata: Metadata = {
@@ -49,12 +50,22 @@ export default async function Home() {
 
         <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center lg:pl-4">
           <h1 className="text-4xl lg:text-5xl tracking-tight lg:leading-tight mb-2 font-heading text-balance text-center lg:text-left">
-            {title}
+            {description}
           </h1>
-
+          {/* 
           <p className="font-mono text-2xl lg:text-3xl text-gray-700 text-balance lg:text-pretty text-center lg:text-left">
             {description}
+          </p> */}
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
           </p>
+          <Navigation active="home" />
         </div>
         <MDXRemote source={content} components={components} />
       </main>

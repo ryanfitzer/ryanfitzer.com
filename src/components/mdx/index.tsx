@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { Figure, FigureProps, Image, ImageProps } from '@/components/image';
 import { Gallery } from '@/components/gallery';
+import { Figure, FigureProps, Image, ImageProps } from '@/components/image';
 
 const defaultComponents = ({
   entry,
@@ -18,14 +18,14 @@ const defaultComponents = ({
         {children}
       </a>
     ),
+    Figure: (props: FigureProps) => {
+      return <Figure {...props} {...scope.img} {...entry} />;
+    },
     img: (props: ImageProps) => {
       return <Image {...props} {...scope.img} {...entry} />;
     },
     Image: (props: ImageProps) => {
       return <Image {...props} {...scope.img} {...entry} />;
-    },
-    Figure: (props: FigureProps) => {
-      return <Figure {...props} {...scope.img} {...entry} />;
     },
     p: ({ children }: { children?: ReactNode }) => (
       <p className="text-gray-700 text-lg m-4 font-body">{children}</p>

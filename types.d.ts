@@ -20,6 +20,7 @@ type Entry = {
   content?: string;
   cover?: string;
   tags?: string[];
+  style?: any;
 };
 
 type Entries = {
