@@ -25,12 +25,12 @@ export async function generateMetadata({
 
   if (!entry) {
     return {
-      title: 'Not Found',
+      title: 'Not Found | Ryan Fitzer',
     };
   }
 
   return {
-    title: `${entry.title}`,
+    title: `${entry.title} | Ryan Fitzer`,
   };
 }
 

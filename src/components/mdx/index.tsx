@@ -2,7 +2,8 @@ import { ReactNode } from 'react';
 import remarkUnwrapImages from 'remark-unwrap-images';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Gallery } from '@/components/gallery';
-import { Figure, FigureProps, Image, ImageProps } from '@/components/image';
+import { Figure, FigureProps } from '@/components/figure';
+import { Image, ImageProps } from '@/components/image';
 
 const defaultComponents = ({
   entry,

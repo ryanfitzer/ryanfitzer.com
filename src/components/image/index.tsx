@@ -4,15 +4,12 @@ import { default as NextImage } from 'next/image';
 import imageMeta from '~/content/image-meta.json';
 
 export type ImageProps = Entry & {
+  /** Image `src` attribute */
   src: string;
+  /** The `alt` attribute to apply to `<img/>` element  */
   alt?: string;
+  /** The classes to apply to `<img/>` element  */
   className?: string;
-};
-
-export type FigureProps = ImageProps & {
-  caption?: string;
-  className?: string;
-  classNameImg?: string;
 };
 
 export const Image = ({
@@ -45,19 +42,5 @@ export const Image = ({
       src={secure_url}
       className={classNames}
     />
-  );
-};
-
-export const Figure = (props: FigureProps) => {
-  const { caption, className, classNameImg, ...imgProps } = props;
-  return (
-    <figure className={className}>
-      <Image {...imgProps} className={classNameImg} />
-      <figcaption className="text-xs pt-2">
-        {caption?.split(' | ').map((line) => (
-          <p key={line}>{line}</p>
-        ))}
-      </figcaption>
-    </figure>
   );
 };

@@ -36,36 +36,37 @@ export default async function Home() {
 
   return (
     <>
-      <main className="lg:grid lg:grid-rows-2 lg:grid-cols-3 lg:grid-flow-col mt-28">
-        <div className="lg:row-span-2 mb-8 lg:mb-0">
+      <main className="lg:grid lg:grid-cols-3 lg:grid-flow-col mt-16">
+        <div>
           <Image
-            alt=""
             priority
+            alt=""
             src={portrait.path}
             width={portrait.width}
             height={portrait.height}
-            className="max-w-[70%] lg:max-w-[200px] rounded-full outline outline-4 outline-offset-[-4px] outline-black mx-auto"
+            className="max-w-[70%] lg:max-w-[70%] rounded-full outline outline-4 outline-offset-[-4px] outline-black mx-auto"
           />
+          <Navigation active="home" />
         </div>
 
-        <div className="lg:row-span-2 lg:col-span-2 lg:flex lg:flex-col lg:justify-center lg:pl-4">
-          <h1 className="text-4xl lg:text-5xl tracking-tight lg:leading-tight mb-2 font-heading text-balance text-center lg:text-left">
-            {description}
+        <div className="lg:flex lg:flex-col lg:col-span-2 lg:justify-start lg:pl-4 space-y-4">
+          <h1 className="text-4xl tracking-tight mx-4 mb-2 font-heading text-balance lg:text-5xl lg:leading-tight">
+            {title}
           </h1>
-          {/* 
-          <p className="font-mono text-2xl lg:text-3xl text-gray-700 text-balance lg:text-pretty text-center lg:text-left">
-            {description}
-          </p> */}
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <Navigation active="home" />
+          <div className="space-y-4 mx-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <p>
+              Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+              cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.
+            </p>
+          </div>
         </div>
         <MDXRemote source={content} components={components} />
       </main>

@@ -5,7 +5,7 @@ import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
 const styleActivePage = (active: string) => {
-  return clsx('flex items-center pt-8 pb-16 mb-10 px-4 text-zinc-700', {
+  return clsx('flex items-center pt-8 mb-10 px-4 text-zinc-700', {
     'justify-center': active === 'home',
     'justify-between': active !== 'home',
   });
@@ -20,20 +20,25 @@ const styleActiveLink = (current: boolean) => {
 export default function Navigation({ active }: { active: string }) {
   return (
     <nav className={styleActivePage(active)}>
-      <div className="justify-start font-heading font-bold text-lg">
+      <div className="justify-start font-heading font-bold text-xl">
         <Link className={clsx({ hidden: active === 'home' })} href="/">
           Ryan Fitzer
         </Link>
       </div>
-      <ul className="flex justify-end mb-0.5 space-x-4">
-        <li className={styleActiveLink(active === 'blog')}>
-          <Link href="/blog">blog</Link>
-        </li>
-        <li className={styleActiveLink(active === 'portfolio')}>
-          <Link href="/portfolio">portfolio</Link>
-        </li>
-        <li className="">&bull;</li>
-        <li>
+      <div className="flex justify-end mb-0.5 space-x-4">
+        <div className="min-w-[7rem] flex justify-between">
+          <Link className={styleActiveLink(active === 'blog')} href="/blog">
+            blog
+          </Link>
+          <Link
+            className={styleActiveLink(active === 'portfolio')}
+            href="/portfolio"
+          >
+            portfolio
+          </Link>
+        </div>
+        <div className="">&bull;</div>
+        <div>
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -42,8 +47,8 @@ export default function Navigation({ active }: { active: string }) {
           >
             <Image className="inline" alt="Github" src={github} />
           </a>
-        </li>
-        <li>
+        </div>
+        <div>
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -52,8 +57,8 @@ export default function Navigation({ active }: { active: string }) {
           >
             <Image className="inline" alt="NPM" src={npm} />
           </a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </nav>
   );
 }

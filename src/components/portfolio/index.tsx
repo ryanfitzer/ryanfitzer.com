@@ -17,14 +17,17 @@ export const Portfolio = ({
   return (
     <>
       <article>
-        <h1
-          className={clsx(
-            titleGradient(),
-            'font-heading text-4xl mb-2 text-center'
-          )}
-        >
-          <span>{title}</span>
-        </h1>
+        <header className="flex justify-center">
+          <h1
+            className={clsx(
+              titleGradient(),
+              'font-heading text-4xl leading-[2.75rem] mb-2 text-center'
+            )}
+          >
+            <span>{title}</span>
+          </h1>
+        </header>
+
         <p className="text-gray-500 text-xl mb-8 text-center">{year}</p>
         <MDX source={content} scope={{ entry }} />
       </article>
