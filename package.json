@@ -23,7 +23,8 @@
     "react-responsive-masonry": "^2.2.0",
     "rehype-rewrite": "^4.0.2",
     "remark-unwrap-images": "^4.0.0",
-    "rss": "^1.2.2"
+    "rss": "^1.2.2",
+    "viewportjs": "^6.0.0-beta"
   },
   "devDependencies": {
     "@types/node": "^20",

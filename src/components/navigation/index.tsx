@@ -1,6 +1,13 @@
+'use client';
 import clsx from 'clsx';
+import {
+  usePathname,
+  useParams,
+  useSelectedLayoutSegment,
+} from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useViewports, UseVPState } from '~/src/hooks/use-viewports';
 import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
@@ -17,48 +24,77 @@ const styleActiveLink = (current: boolean) => {
   });
 };
 
-export default function Navigation({ active }: { active: string }) {
+const Nav = ({ page, vps }: { page: string; vps?: UseVPState }) => {
+  if (vps) {
+    return (
+      <nav className={styleActivePage(page)}>
+        <div className="justify-start font-heading font-bold text-xl">
+          <Link className={clsx({ hidden: page === 'home' })} href="/">
+            Ryan Fitzer
+          </Link>
+        </div>
+        <button
+          className={clsx('justify-end', {
+            hidden: !vps.current('sm') || page === 'home',
+          })}
+        >
+          menu
+        </button>
+        <div
+          className={clsx('flex justify-end mt-[0.0625rem] space-x-4', {
+            hidden: vps.current('sm') && page !== 'home',
+          })}
+        >
+          <div className="min-w-[7rem] flex justify-between">
+            <Link className={styleActiveLink(page === 'blog')} href="/blog">
+              blog
+            </Link>
+            <Link
+              className={styleActiveLink(page === 'portfolio')}
+              href="/portfolio"
+            >
+              portfolio
+            </Link>
+          </div>
+          <div className="space-x-4 before:mr-4 before:content-['•']">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/ryanfitzer"
+              aria-label="GitHub"
+            >
+              <Image className="inline" alt="Github" src={github} />
+            </a>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.npmjs.com/~ryanfitzer"
+              aria-label="NPM"
+            >
+              <Image className="inline" alt="NPM" src={npm} />
+            </a>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
   return (
-    <nav className={styleActivePage(active)}>
+    <nav className={styleActivePage(page)}>
       <div className="justify-start font-heading font-bold text-xl">
-        <Link className={clsx({ hidden: active === 'home' })} href="/">
+        <Link className={clsx({ hidden: page === 'home' })} href="/">
           Ryan Fitzer
         </Link>
       </div>
-      <div className="flex justify-end mb-0.5 space-x-4">
-        <div className="min-w-[7rem] flex justify-between">
-          <Link className={styleActiveLink(active === 'blog')} href="/blog">
-            blog
-          </Link>
-          <Link
-            className={styleActiveLink(active === 'portfolio')}
-            href="/portfolio"
-          >
-            portfolio
-          </Link>
-        </div>
-        <div className="">&bull;</div>
-        <div>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/ryanfitzer"
-            aria-label="GitHub"
-          >
-            <Image className="inline" alt="Github" src={github} />
-          </a>
-        </div>
-        <div>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.npmjs.com/~ryanfitzer"
-            aria-label="NPM"
-          >
-            <Image className="inline" alt="NPM" src={npm} />
-          </a>
-        </div>
-      </div>
     </nav>
   );
+};
+
+export default function Navigation({ active }: { active: string }) {
+  const vps = useViewports();
+  const page = useSelectedLayoutSegment() || 'home';
+
+  if (!vps) return <Nav page={page} />;
+
+  return <Nav page={page} vps={vps} />;
 }

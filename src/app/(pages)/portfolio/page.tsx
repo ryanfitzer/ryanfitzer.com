@@ -1,6 +1,11 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { getEntries } from '~/src/library/get-content';
 import { Image } from '@/components/image';
+
+export const metadata: Metadata = {
+  title: 'Portfolio',
+};
 
 export default async function Page() {
   const { entries } = await getEntries({ dir: 'portfolio' });
