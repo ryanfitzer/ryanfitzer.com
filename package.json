@@ -20,7 +20,7 @@
     "next-mdx-remote": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-responsive-masonry": "^2.2.0",
+    "react-responsive-masonry": "2.2.0",
     "rehype-rewrite": "^4.0.2",
     "remark-unwrap-images": "^4.0.0",
     "rss": "^1.2.2",
