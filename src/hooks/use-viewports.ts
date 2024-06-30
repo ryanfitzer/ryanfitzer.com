@@ -42,7 +42,9 @@ export function useViewports() {
       setState(createHookState(vpq));
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return vps;
