@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import viewportjs from 'viewportjs';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '~/tailwind.config';
@@ -33,15 +33,15 @@ const createHookState = (vpq: viewportjs.ViewportInstance) => {
 };
 
 export function useViewports() {
-  const vpq = viewportjs(viewports);
   const [vps, setState] = useState<UseVPState>();
-  const setSub = useCallback(() => {
-    vpq(() => {
+
+  useEffect(() => {
+    const vpq = viewportjs(viewports);
+
+    return vpq(() => {
       setState(createHookState(vpq));
     });
   }, []);
-
-  useEffect(setSub, []);
 
   return vps;
 }
