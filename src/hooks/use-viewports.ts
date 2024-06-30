@@ -38,9 +38,11 @@ export function useViewports() {
   useEffect(() => {
     const vpq = viewportjs(viewports);
 
-    return vpq(() => {
+    const unsubscribe = vpq(() => {
       setState(createHookState(vpq));
     });
+
+    return () => unsubscribe();
   }, []);
 
   return vps;
