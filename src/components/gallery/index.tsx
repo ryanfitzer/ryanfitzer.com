@@ -1,3 +1,4 @@
+'use client';
 import { assert } from 'console';
 import { ReactElement } from 'react';
 import { Masonry } from './masonry';

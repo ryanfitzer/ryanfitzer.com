@@ -1,12 +1,8 @@
 'use client';
 import clsx from 'clsx';
-import {
-  usePathname,
-  useParams,
-  useSelectedLayoutSegment,
-} from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSelectedLayoutSegment } from 'next/navigation';
 import { useViewports, UseVPState } from '~/src/hooks/use-viewports';
 import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
