@@ -46,7 +46,7 @@ export default async function Home() {
             height={portrait.height}
             className="max-w-[70%] lg:max-w-[70%] rounded-full outline outline-4 outline-offset-[-4px] outline-black mx-auto"
           />
-          <Navigation active="home" />
+          <Navigation />
         </div>
 
         <div className="lg:flex lg:flex-col lg:col-span-2 lg:justify-start lg:pl-4 space-y-4">

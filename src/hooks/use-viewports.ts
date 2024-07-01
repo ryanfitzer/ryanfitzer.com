@@ -33,19 +33,15 @@ const createHookState = (vpq: viewportjs.ViewportInstance) => {
 };
 
 export function useViewports() {
-  const [vps, setState] = useState<UseVPState>();
   const vpq = viewportjs(viewports);
-  const subscribeHandler = useCallback(() => {
-    setState(createHookState(vpq));
+  const [vps, setState] = useState<UseVPState>();
+  const subscriber = useCallback(() => {
+    return vpq(() => {
+      setState(createHookState(vpq));
+    });
   }, []);
 
-  useEffect(() => {
-    const unsubscribe = vpq(subscribeHandler);
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  useEffect(subscriber, []);
 
   return vps;
 }

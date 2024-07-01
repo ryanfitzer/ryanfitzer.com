@@ -86,7 +86,7 @@ const Nav = ({ page, vps }: { page: string; vps?: UseVPState }) => {
   );
 };
 
-export default function Navigation({ active }: { active: string }) {
+export default function Navigation() {
   const vps = useViewports();
   const page = useSelectedLayoutSegment() || 'home';
 

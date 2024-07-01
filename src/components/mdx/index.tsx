@@ -54,6 +54,7 @@ export default function MDX({
     ...defaultComponents(scope),
     ...components(scope),
   };
+
   return (
     <MDXRemote
       source={source}
