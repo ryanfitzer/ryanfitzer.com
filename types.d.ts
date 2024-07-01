@@ -19,6 +19,7 @@ type Entry = {
   categories?: string[];
   content?: string;
   cover?: string;
+  draft?: boolean;
   tags?: string[];
   style?: any;
 };

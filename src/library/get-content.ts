@@ -156,7 +156,7 @@ export async function getEntries({
   );
 
   return {
-    entries,
+    entries: entries.filter(({ draft }) => !draft),
     totalPages,
     tags: getEntriesTags(entries),
     categories: getEntriesCategories(entries),
