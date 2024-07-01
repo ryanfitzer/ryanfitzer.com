@@ -25,7 +25,7 @@ const variants = {
   default: {
     figure: 'w-fit mx-auto mb-12',
     image: '',
-    figcaption: 'mt-4',
+    figcaption: 'mx-4 mt-4',
   },
   'inline-left': {
     figure: 'md:float-start p-4 md:pt-0',
@@ -33,7 +33,7 @@ const variants = {
     figcaption: 'mt-2',
   },
   'inline-right': {
-    figure: 'md:float-end p-4 md:pt-0',
+    figure: 'float-end p-4 md:pt-0',
     image: 'rounded-lg',
     figcaption: 'mt-2',
   },
@@ -51,7 +51,7 @@ const sizes = {
     figcaption: 'text-xs',
   },
   md: {
-    figure: 'md:w-[40%]',
+    figure: 'w-[55%] md:w-[40%]',
     image: '',
     figcaption: 'text-sm',
   },

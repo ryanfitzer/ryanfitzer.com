@@ -54,10 +54,8 @@ export const Columns = ({ children }: ColumnsProps) => {
 
   return (
     <div
-      className="relative px-4 mb-10"
+      className="relative mb-10 sm:px-0 md:px-4"
       style={{
-        // columns: `2 calc(${twConfig.theme.screens.md} / 2)`,
-        // columnGap: twConfig.theme.spacing['2.5'],
         ...(getWrapperStyles(minImagAspectRatio) as CSSProperties),
       }}
     >
@@ -67,7 +65,7 @@ export const Columns = ({ children }: ColumnsProps) => {
         return (
           <figure
             tabIndex={0}
-            className="group relative py-4 md:py-0 md:pb-2.5"
+            className="group relative my-4 md:my-0 md:mb-2.5"
             key={child.props.src}
           >
             {cloneElement(
