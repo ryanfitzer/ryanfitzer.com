@@ -1,16 +1,16 @@
 import { assert } from 'console';
 import { ReactElement } from 'react';
-import { Masonry } from './masonry';
+import { Columns } from './columns';
 
 type GalleryProps = {
   children: ReactElement[];
-  variant: 'masonry' | 'slider';
+  variant: 'columns' | 'slider';
 };
 
 export const Gallery = ({ children, variant }: GalleryProps) => {
   assert(children && children.length, 'At least 1 child is required');
 
-  if (variant === 'masonry') return <Masonry>{children}</Masonry>;
+  if (variant === 'columns') return <Columns>{children}</Columns>;
 
   return null;
 };
