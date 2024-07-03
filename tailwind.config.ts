@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  important: true,
+  // important: true,
   content: [
     './content/**/*.md',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',

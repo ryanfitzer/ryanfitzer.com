@@ -15,6 +15,7 @@
     "cloudinary": "^2.0.1",
     "clsx": "^2.1.0",
     "flexsearch": "^0.7.43",
+    "focus-trap-react": "^10.2.3",
     "gray-matter": "^4.0.3",
     "next": "^14.2.3",
     "next-mdx-remote": "^5.0.0",
@@ -27,7 +28,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
     "@types/rss": "^0.0.32",
     "autoprefixer": "^10.0.1",

@@ -32,8 +32,8 @@ const createHookState = (vpq: viewportjs.ViewportInstance) => {
   };
 };
 
-export function useViewports() {
-  const vpq = viewportjs(viewports);
+export function useViewports(config = viewports) {
+  const vpq = viewportjs(config);
   const [vps, setState] = useState<UseVPState>();
   const subscriber = useCallback(() => {
     return vpq(() => {
