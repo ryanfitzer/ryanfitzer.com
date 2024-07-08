@@ -1,10 +1,9 @@
 'use client';
-import { forwardRef, useCallback, useEffect, useRef, RefObject } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { useViewports, UseVPState } from '~/src/hooks/use-viewports';
+import { useCallback, useEffect, useRef, RefObject } from 'react';
 import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
@@ -76,74 +75,69 @@ const PageNav = (props: {
   );
 };
 
-const ResponsiveNav = ({ page, vps }: { page: string; vps: UseVPState }) => {
-  const smallNav = vps.current('sm');
+const ResponsiveNav = ({ page }: { page: string }) => {
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  const clickCloseHandler = useCallback(() => {
-    popoverRef.current?.hidePopover();
-  }, [smallNav, popoverRef]);
+  const closeHandler = useCallback(
+    (e: MouseEvent | FocusEvent) => {
+      const popover = popoverRef.current;
 
-  const focusCloseHandler = useCallback(
-    (e: FocusEvent) => {
-      if (popoverRef.current?.contains(e.relatedTarget as Node)) return;
+      if (!popover) return;
 
-      clickCloseHandler();
+      if (e.type === 'click' && popover.contains(e.target as Node)) {
+        return popover.hidePopover();
+      }
+
+      if (e.type === 'focusout' && !popover.contains(e.relatedTarget as Node)) {
+        return popover.hidePopover();
+      }
     },
-    [smallNav, popoverRef]
+    [popoverRef]
   );
 
   useEffect(() => {
-    if (!popoverRef.current) return;
-
     const popover = popoverRef.current;
 
-    popover.addEventListener('focusout', focusCloseHandler);
-    document.addEventListener('click', clickCloseHandler);
+    if (!popover) return;
+
+    popover.addEventListener('focusout', closeHandler);
+    popover.addEventListener('click', closeHandler);
 
     return () => {
-      popover?.removeEventListener('focusout', focusCloseHandler);
-      document.removeEventListener('click', clickCloseHandler);
+      popover.removeEventListener('focusout', closeHandler);
+      popover.removeEventListener('click', closeHandler);
     };
-  }, [smallNav, popoverRef]);
-
-  if (smallNav) {
-    return (
-      <div className={clsx('relative', wrapperStyles(page))}>
-        <Name page={page} />
-        <button
-          // @ts-expect-error
-          popovertarget="menu"
-          className={clsx('justify-end', {
-            hidden: !vps.current('sm') || page === 'home',
-          })}
-        >
-          menu
-        </button>
-        <PageNav
-          id="menu"
-          popover="auto"
-          page={page}
-          elementRef={popoverRef}
-          className="[&:popover-open]:bg-transparent [&:popover-open]:absolute [&:popover-open]:right-4 [&:popover-open]:top-[60px] [&:popover-open]:inset-[unset]"
-        />
-      </div>
-    );
-  }
+  }, [popoverRef]);
 
   return (
     <div className={wrapperStyles(page)}>
       <Name page={page} />
       <PageNav
         page={page}
-        className="flex justify-end mt-[0.0625rem] space-x-4"
+        className="flex justify-end mt-[0.0625rem] space-x-4 sm:hidden md:block"
+      />
+      <button
+        // @ts-expect-error popovertarget is not a valid attribute
+        popovertarget="menu"
+        popovertargetaction="toggle"
+        className={clsx('justify-end md:hidden', {
+          hidden: page === 'home',
+        })}
+      >
+        menu
+      </button>
+      <PageNav
+        id="menu"
+        popover="auto"
+        page={page}
+        elementRef={popoverRef}
+        className="[&:popover-open]:bg-transparent [&:popover-open]:absolute [&:popover-open]:right-4 [&:popover-open]:top-[60px] [&:popover-open]:inset-[unset] md:hidden"
       />
     </div>
   );
 };
 
 export default function Navigation() {
-  const vps = useViewports([{ name: 'sm', query: '(max-width: 31.25rem)' }]);
   const page = useSelectedLayoutSegment() || 'home';
 
   if (page === 'home') {
@@ -157,15 +151,5 @@ export default function Navigation() {
     );
   }
 
-  if (vps) return <ResponsiveNav page={page} vps={vps} />;
-
-  return (
-    <div className={wrapperStyles(page)}>
-      <Name page={page} />
-      <PageNav
-        page={page}
-        className="flex justify-end mt-[0.0625rem] space-x-4"
-      />
-    </div>
-  );
+  return <ResponsiveNav page={page} />;
 }
