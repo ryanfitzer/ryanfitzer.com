@@ -8,7 +8,7 @@ import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
 const wrapperStyles = (active: string) => {
-  return clsx('flex items-center pt-8 mb-10 px-4 text-zinc-700', {
+  return clsx('flex items-center mt-8 mb-20 mx-4 text-zinc-700', {
     'justify-center': active === 'home',
     'justify-between': active !== 'home',
   });
@@ -22,9 +22,7 @@ const currentLinkStyles = (current: boolean) => {
 
 const Name = ({ page }: { page: string }) => (
   <div className="justify-start font-heading font-bold text-xl">
-    <Link className={clsx({ hidden: page === 'home' })} href="/">
-      Ryan Fitzer
-    </Link>
+    <Link href="/">Ryan Fitzer</Link>
   </div>
 );
 
@@ -114,25 +112,25 @@ const ResponsiveNav = ({ page }: { page: string }) => {
       <Name page={page} />
       <PageNav
         page={page}
-        className="flex justify-end mt-[0.0625rem] space-x-4 sm:hidden md:block"
+        className="sm:hidden md:block flex mt-[0.0625rem] space-x-4"
       />
-      <button
-        // @ts-expect-error popovertarget is not a valid attribute
-        popovertarget="menu"
-        popovertargetaction="toggle"
-        className={clsx('justify-end md:hidden', {
-          hidden: page === 'home',
-        })}
-      >
-        menu
-      </button>
-      <PageNav
-        id="menu"
-        popover="auto"
-        page={page}
-        elementRef={popoverRef}
-        className="[&:popover-open]:bg-transparent [&:popover-open]:absolute [&:popover-open]:right-4 [&:popover-open]:top-[60px] [&:popover-open]:inset-[unset] md:hidden"
-      />
+      <div className="md:hidden flex mt-[0.0625rem]">
+        <button
+          // @ts-expect-error popovertarget is not a valid attribute
+          popovertarget="menu"
+          popovertargetaction="toggle"
+          className="justify-end"
+        >
+          menu
+        </button>
+        <PageNav
+          id="menu"
+          popover="auto"
+          page={page}
+          elementRef={popoverRef}
+          className="[&:popover-open]:bg-transparent [&:popover-open]:absolute [&:popover-open]:right-4 [&:popover-open]:top-[4.375rem] [&:popover-open]:inset-[unset]"
+        />
+      </div>
     </div>
   );
 };

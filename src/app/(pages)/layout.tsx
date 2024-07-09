@@ -5,7 +5,7 @@ export default function Layout({ children, ...rest }: { children: ReactNode }) {
   return (
     <>
       <Navigation />
-      <main className="pt-8">{children}</main>
+      <main>{children}</main>
     </>
   );
 }
