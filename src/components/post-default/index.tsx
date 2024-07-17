@@ -9,6 +9,12 @@ export const PostDefault = ({
   route,
   ...entry
 }: Entry & { permalink?: boolean }) => {
+  const componentOptions = {
+    img: {
+      className: 'mx-auto',
+    },
+  };
+
   return (
     <>
       <article>
@@ -16,7 +22,7 @@ export const PostDefault = ({
         <h1 className="font-heading text-gray-600 text-3xl mb-8 mx-4">
           <Link href={route}>{title}</Link>
         </h1>
-        <MDX source={content} scope={{ entry }} />
+        <MDX source={content} scope={{ entry, componentOptions }} />
       </article>
     </>
   );

@@ -24,9 +24,7 @@ export default async function Page() {
 
         return (
           <div key={id} className="flex flex-col">
-            {isPhoto ? (
-              <PostPhotoPLP key={id} {...entry} />
-            ) : isQuick ? (
+            {isQuick ? (
               <PostQuick key={id} permalink {...entry} />
             ) : (
               <PostDefault key={id} permalink {...entry} />

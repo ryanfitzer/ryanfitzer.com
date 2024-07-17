@@ -24,10 +24,6 @@ export const Image = ({
     src.split('.').slice(0, -1).join('.')
   );
 
-  const classNames = clsx(className, {
-    'post-photo': categories?.includes('photo'),
-  });
-
   const { width, height, secure_url } = imageMeta[
     contentPath as keyof typeof imageMeta
   ] as ImageMeta;
@@ -40,7 +36,7 @@ export const Image = ({
       quality={100}
       height={height}
       src={secure_url}
-      className={classNames}
+      className={className}
     />
   );
 };

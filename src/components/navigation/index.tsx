@@ -106,7 +106,7 @@ const ResponsiveNav = ({ page }: { page: string }) => {
       popover.removeEventListener('click', closeHandler);
     };
   }, [popoverRef]);
-
+  // className="[&:popover-open]:inset-[unset] [&:popover-open]:px-0 [&:popover-open]:bg-transparent [&:popover-open]:absolute [&:popover-open]:top-[4.375rem] [&:popover-open]:left-[calc(-50vw+50%)]"
   return (
     <div className={wrapperStyles(page)}>
       <Name page={page} />

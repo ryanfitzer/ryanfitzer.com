@@ -7,10 +7,18 @@ import { Image, ImageProps } from '@/components/image';
 
 const defaultComponents = ({
   entry,
-  scope = { img: {} },
+  componentOptions = {
+    Gallery: {},
+    a: {},
+    Figure: {},
+    img: {},
+    Image: {},
+    p: {},
+    pre: {},
+  },
 }: {
   entry: Entry;
-  scope: Record<string, any>;
+  componentOptions: Record<string, any>;
 }) => {
   return {
     Gallery,
@@ -20,13 +28,13 @@ const defaultComponents = ({
       </a>
     ),
     Figure: (props: FigureProps) => {
-      return <Figure {...props} {...scope.img} {...entry} />;
+      return <Figure {...props} {...componentOptions.img} {...entry} />;
     },
     img: (props: ImageProps) => {
-      return <Image {...props} {...scope.img} {...entry} />;
+      return <Image {...props} {...componentOptions.img} {...entry} />;
     },
     Image: (props: ImageProps) => {
-      return <Image {...props} {...scope.img} {...entry} />;
+      return <Image {...props} {...componentOptions.img} {...entry} />;
     },
     p: ({ children }: { children?: ReactNode }) => (
       <p className="text-gray-700 text-lg m-4 font-body">{children}</p>

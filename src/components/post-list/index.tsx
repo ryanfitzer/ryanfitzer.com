@@ -10,9 +10,7 @@ export const PostList = ({ entries }: { entries: Entry[] }) => {
 
         return (
           <article key={id} className="flex flex-col">
-            {isPhoto ? (
-              <PostPhotoPLP key={id} {...entry} />
-            ) : isQuick ? (
+            {isQuick ? (
               <PostQuick key={id} permalink {...entry} />
             ) : (
               <PostDefault key={id} permalink {...entry} />

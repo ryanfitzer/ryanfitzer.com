@@ -8,7 +8,7 @@ export const CONTENT_PATH = join(process.cwd(), CONTENT_DIR);
 export const PATHS = {
   home: join(CONTENT_PATH, 'home'),
   blog: join(CONTENT_PATH, 'blog'),
-  photos: join(CONTENT_PATH, 'photos'),
+  photo: join(CONTENT_PATH, 'photo'),
   portfolio: join(CONTENT_PATH, 'portfolio'),
 } as { [key: string]: string };
 
