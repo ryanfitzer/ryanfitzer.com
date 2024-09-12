@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Fraunces, Figtree } from 'next/font/google';
 import Footer from '@/components/footer';
 import './tailwind.css';
-import './starry-night.css';
+import '@wooorm/starry-night/style/light';
 
 const { NEXT_PUBLIC_SITE_PROTOCOL, NEXT_PUBLIC_SITE_URL } = process.env;
 const siteURL = `${NEXT_PUBLIC_SITE_PROTOCOL}${NEXT_PUBLIC_SITE_URL}`;
