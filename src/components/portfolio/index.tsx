@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { twClsx } from '@/library/tw-clsx';
 import MDX from '@/components/mdx';
 
 export const Portfolio = ({
@@ -11,7 +11,7 @@ export const Portfolio = ({
   const titleGradient = () => {
     if (!style?.title?.className) return;
 
-    return `${style.title?.className} bg-clip-text text-transparent bg-gradient-to-r`;
+    return `bg-clip-text text-transparent bg-gradient-to-r ${style.title?.className}`;
   };
 
   return (
@@ -19,9 +19,9 @@ export const Portfolio = ({
       <article>
         <header className="flex justify-center">
           <h1
-            className={clsx(
+            className={twClsx(
               titleGradient(),
-              'font-heading text-4xl leading-[2.75rem] mb-2 text-center'
+              'font-heading text-6xl leading-[4.75rem] mb-2 text-center'
             )}
           >
             <span>{title}</span>

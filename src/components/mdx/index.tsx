@@ -1,6 +1,9 @@
 import { ReactNode } from 'react';
+import remarkGfm from 'remark-gfm';
 import remarkUnwrapImages from 'remark-unwrap-images';
+import rehypeStarryNight from 'rehype-starry-night';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { twClsx } from '~/src/library/tw-clsx';
 import { Gallery } from '@/components/gallery';
 import { Figure, FigureProps } from '@/components/figure';
 import { Image, ImageProps } from '@/components/image';
@@ -8,8 +11,11 @@ import { Image, ImageProps } from '@/components/image';
 const defaultComponents = ({
   entry,
   componentOptions = {
+    // TODO Why do I need defaults here?
     Gallery: {},
     a: {},
+    blockquote: {},
+    code: {},
     Figure: {},
     img: {},
     Image: {},
@@ -27,6 +33,28 @@ const defaultComponents = ({
         {children}
       </a>
     ),
+    blockquote: ({ children }: { children?: ReactNode }) => (
+      <blockquote className="m-4 border-s-2 italic">{children}</blockquote>
+    ),
+    code: ({
+      children,
+      className,
+    }: {
+      children?: ReactNode;
+      className?: string;
+    }) => {
+      return (
+        <code
+          className={twClsx(
+            className
+              ? `${className} font-mono text-base`
+              : 'p-1 font-mono text-base bg-slate-200 rounded-md'
+          )}
+        >
+          {children}
+        </code>
+      );
+    },
     Figure: (props: FigureProps) => {
       return <Figure {...props} {...componentOptions.img} {...entry} />;
     },
@@ -40,7 +68,9 @@ const defaultComponents = ({
       <p className="text-gray-700 text-lg m-4 font-body">{children}</p>
     ),
     pre: ({ children }: { children?: ReactNode }) => (
-      <pre className="mb-4 mx-4 overflow-x-scroll">{children}</pre>
+      <pre className="bg-slate-200 p-4 lg:rounded-md overflow-auto break-normal">
+        {children}
+      </pre>
     ),
   };
 };
@@ -49,7 +79,8 @@ const defaultComponents = ({
 // more info: https://github.com/hashicorp/next-mdx-remote/issues/86
 const options = {
   mdxOptions: {
-    remarkPlugins: [remarkUnwrapImages],
+    remarkPlugins: [remarkUnwrapImages, remarkGfm],
+    rehypePlugins: [rehypeStarryNight],
   },
 };
 

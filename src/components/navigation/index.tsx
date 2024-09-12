@@ -8,7 +8,7 @@ import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
 const wrapperStyles = (active: string) => {
-  return clsx('flex items-center mt-8 mb-20 mx-4 text-zinc-700', {
+  return clsx('flex items-center mt-8 mb-20 mx-4 text-zinc-500', {
     'justify-center': active === 'home',
     'justify-between': active !== 'home',
   });
@@ -21,7 +21,7 @@ const currentLinkStyles = (current: boolean) => {
 };
 
 const Name = ({ page }: { page: string }) => (
-  <div className="justify-start font-heading font-bold text-xl">
+  <div className="justify-start font-heading font-bold text-xl text-zinc-500">
     <Link href="/">Ryan Fitzer</Link>
   </div>
 );
@@ -43,6 +43,9 @@ const PageNav = (props: {
           <Link className={currentLinkStyles(page === 'blog')} href="/blog">
             blog
           </Link>
+          {/* <Link className={currentLinkStyles(page === 'photos')} href="/photos">
+            photos
+          </Link> */}
           <Link
             className={currentLinkStyles(page === 'portfolio')}
             href="/portfolio"

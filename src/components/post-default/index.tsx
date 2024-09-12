@@ -18,10 +18,10 @@ export const PostDefault = ({
   return (
     <>
       <article>
-        <p className="text-gray-500 text-xs mb-1 mx-4">{dateLong}</p>
-        <h1 className="font-heading text-gray-600 text-3xl mb-8 mx-4">
+        <h1 className="font-heading text-gray-600 text-5xl mb-4 mx-4">
           <Link href={route}>{title}</Link>
         </h1>
+        <p className="text-gray-500 text-xs mb-16 mx-4">{dateLong}</p>
         <MDX source={content} scope={{ entry, componentOptions }} />
       </article>
     </>
