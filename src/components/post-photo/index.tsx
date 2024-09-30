@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import clsx from 'clsx';
+import { twClsx } from '~/src/library/tw-clsx';
 import MDX from '@/components/mdx';
 import { MONTHS } from '~/src/library/constants';
 
@@ -15,7 +15,7 @@ const DateTime = ({
   return (
     <div className="w-12 h-12 bg-gray-600 rounded-full outline-1 outline outline-offset-2 outline-gray-500">
       <time
-        className={clsx(
+        className={twClsx(
           'flex flex-col w-12 h-12 text-center justify-center font-body text-xs sm:leading-3 text-gray-100',
           className
         )}

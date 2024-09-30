@@ -1,5 +1,4 @@
 import { join } from 'path';
-import { clsx } from 'clsx';
 import { default as NextImage } from 'next/image';
 import imageMeta from '~/content/image-meta.json';
 

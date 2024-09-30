@@ -1,28 +1,28 @@
 'use client';
-import clsx from 'clsx';
 import Link from 'next/link';
 import Image from 'next/image';
+import { twClsx } from '~/src/library/tw-clsx';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useCallback, useEffect, useRef, RefObject } from 'react';
 import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
 const wrapperStyles = (active: string) => {
-  return clsx('flex items-center mt-8 mb-20 mx-4 text-zinc-500', {
+  return twClsx('flex items-center mt-8 mb-20 mx-4 text-zinc-500', {
     'justify-center': active === 'home',
     'justify-between': active !== 'home',
   });
 };
 
 const currentLinkStyles = (current: boolean) => {
-  return clsx({
+  return twClsx({
     'font-bold': current,
   });
 };
 
 const Name = ({ page }: { page: string }) => (
-  <div className="justify-start font-heading font-bold text-xl text-zinc-500">
-    <Link href="/">Ryan Fitzer</Link>
+  <div className="justify-start font-heading font-bold text-[1.45rem]">
+    <Link href="/">ryanfitzer</Link>
   </div>
 );
 
@@ -109,7 +109,7 @@ const ResponsiveNav = ({ page }: { page: string }) => {
       popover.removeEventListener('click', closeHandler);
     };
   }, [popoverRef]);
-  // className="[&:popover-open]:inset-[unset] [&:popover-open]:px-0 [&:popover-open]:bg-transparent [&:popover-open]:absolute [&:popover-open]:top-[4.375rem] [&:popover-open]:left-[calc(-50vw+50%)]"
+
   return (
     <div className={wrapperStyles(page)}>
       <Name page={page} />

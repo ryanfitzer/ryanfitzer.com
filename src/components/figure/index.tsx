@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { clsx } from 'clsx';
+import { twClsx } from '~/src/library/tw-clsx';
 import { Image, ImageProps } from '@/components/image';
 
 export type FigureProps = ImageProps & {
@@ -101,15 +101,15 @@ export const Figure = (props: FigureProps) => {
   const styles = parseStyleOptions(size, variant);
 
   return (
-    <figure className={clsx(styles.figure, className)}>
-      <Image {...imgProps} className={clsx(styles.image, classNameImg)} />
+    <figure className={twClsx(styles.figure, className)}>
+      <Image {...imgProps} className={twClsx(styles.image, classNameImg)} />
       {children && (
-        <figcaption className={clsx(styles.figcaption, classNameFigcaption)}>
+        <figcaption className={twClsx(styles.figcaption, classNameFigcaption)}>
           {children}
         </figcaption>
       )}
       {(caption || label) && (
-        <figcaption className={clsx(styles.figcaption, classNameFigcaption)}>
+        <figcaption className={twClsx(styles.figcaption, classNameFigcaption)}>
           {parseCaption(caption, label)}
         </figcaption>
       )}
