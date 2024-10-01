@@ -50,7 +50,7 @@ export default async function Home() {
         </div>
 
         <div className="lg:flex lg:flex-col lg:col-span-2 lg:justify-start lg:pl-4 space-y-4">
-          <h1 className="text-4xl tracking-tight mx-4 mb-2 font-heading text-balance lg:text-5xl lg:leading-tight">
+          <h1 className="text-4xl tracking-tight text-gray-800 mx-4 mb-2 font-heading text-balance lg:text-5xl lg:leading-tight">
             {title}
           </h1>
           <div className="space-y-4 mx-4">
