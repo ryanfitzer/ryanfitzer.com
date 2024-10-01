@@ -19,7 +19,7 @@ const config: Config = {
     },
     screens: {
       sm: '0',
-      md: '48.75em', // 780px
+      md: '49.4375rem', // 791px
       lg: '59.375em', // 950px
     },
   },

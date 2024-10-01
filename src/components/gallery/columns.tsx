@@ -23,14 +23,14 @@ const getWrapperStyles = (minImagAspectRatio: number) => {
   return {
     '--aspect-ratio-gallery-max': minImagAspectRatio * 2,
     '--width-gallery-max':
-      'max(var(--width-site), calc(95vh * var(--aspect-ratio-gallery-max)))',
+      'max(var(--max-width-site), calc(95vh * var(--aspect-ratio-gallery-max)))',
     '--width-gallery-half': 'calc(var(--width-gallery-max) * 0.5)',
     '--width-gallery-quarter': 'calc(var(--width-gallery-max) * 0.25)',
-    '--width-site-gallery-diff-half':
-      'calc((var(--width-gallery-half) - var(--width-site)) / 2)',
+    '--max-width-site-gallery-diff-half':
+      'calc((var(--width-gallery-half) - var(--max-width-site)) / 2)',
     '--width-gallery': 'min(100vw, var(--width-gallery-max))',
     '--left-gallery':
-      'max(calc(-50vw + 50%), calc(var(--width-gallery-quarter) * -1) - var(--width-site-gallery-diff-half))',
+      'max(calc(-50vw + 50%), calc(var(--width-gallery-quarter) * -1) - var(--max-width-site-gallery-diff-half))',
     insetInlineStart: 'var(--left-gallery)',
     width: 'var(--width-gallery)',
     columns: `2 calc(${twConfig.theme.screens[viewport]} / 2)`,
@@ -54,7 +54,7 @@ export const Columns = ({ children }: ColumnsProps) => {
 
   return (
     <div
-      className="relative mb-10 sm:px-0 md:px-4"
+      className="gallery self-start relative mt-8 md:mt-16 mb-10 sm:px-0 md:px-4"
       style={{
         ...(getWrapperStyles(minImagAspectRatio) as CSSProperties),
       }}

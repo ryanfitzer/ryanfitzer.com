@@ -1,6 +1,7 @@
 import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 import { getEntries } from '@/library/get-content';
-import { PostList } from '@/components/post-list';
+import { PostDefault } from '@/components/post-default';
+import { PostQuick } from '@/components/post-quick';
 import Pagination from '~/src/components/pagination';
 
 type PagedParams = {
@@ -47,8 +48,32 @@ export default async function Page({ params: { number } }: PagedParams) {
 
   return (
     <>
-      <PostList entries={entries} />
+      {entries.map((entry) => {
+        const { id, isQuick } = entry;
+
+        return (
+          <div
+            key={id}
+            className="blog-entry-listing flex flex-col items-center"
+          >
+            {isQuick ? (
+              <PostQuick key={id} permalink layout="listing" {...entry} />
+            ) : (
+              <PostDefault key={id} permalink layout="listing" {...entry} />
+            )}
+
+            <hr className="mx-28 mt-10 mb-6 border-t-2" />
+          </div>
+        );
+      })}
       <Pagination {...pageNavProps} />
     </>
   );
+
+  // return (
+  //   <>
+  //     <PostList entries={entries} />
+  //     <Pagination {...pageNavProps} />
+  //   </>
+  // );
 }

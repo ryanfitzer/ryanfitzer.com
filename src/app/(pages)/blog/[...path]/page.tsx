@@ -62,9 +62,17 @@ export default async function Page({
 
   if (!entry) notFound();
 
-  const { isPhoto, isQuick } = entry;
+  const { isQuick } = entry;
 
-  if (isPhoto) return <PostPhotoDetail {...entry} />;
-  else if (isQuick) return <PostQuick {...entry} />;
-  else return <PostDefault {...entry} />;
+  return (
+    <div className="blog-entry-detail flex flex-col items-center">
+      {isQuick ? (
+        <PostQuick {...entry} layout="detail" />
+      ) : (
+        <PostDefault {...entry} layout="detail" />
+      )}
+    </div>
+  );
+  // if (isQuick) return <PostQuick {...entry} layout="detail" />;
+  // else return <PostDefault {...entry} layout="detail" />;
 }

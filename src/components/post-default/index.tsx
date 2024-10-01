@@ -1,5 +1,19 @@
+import { createElement, ReactNode } from 'react';
 import Link from 'next/link';
 import MDX from '@/components/mdx';
+
+type HeadingProps = Pick<Entry, 'layout'> & {
+  children: ReactNode;
+};
+
+const Heading = ({ layout, children }: HeadingProps) => {
+  const level = layout === 'detail' ? 'h1' : 'h2';
+  return createElement(
+    level,
+    { className: 'font-heading text-gray-600 text-4xl mb-4 mx-4' },
+    children
+  );
+};
 
 export const PostDefault = ({
   permalink = false,
@@ -7,6 +21,7 @@ export const PostDefault = ({
   dateLong,
   content,
   route,
+  layout,
   ...entry
 }: Entry & { permalink?: boolean }) => {
   const componentOptions = {
@@ -17,11 +32,11 @@ export const PostDefault = ({
 
   return (
     <>
-      <article>
-        <h1 className="font-heading text-gray-600 text-5xl mb-4 mx-4">
+      <article className="contents">
+        <p className="text-gray-500 text-xs mb-1 mx-4">{dateLong}</p>
+        <Heading layout={layout}>
           <Link href={route}>{title}</Link>
-        </h1>
-        <p className="text-gray-500 text-xs mb-16 mx-4">{dateLong}</p>
+        </Heading>
         <MDX source={content} scope={{ entry, componentOptions }} />
       </article>
     </>

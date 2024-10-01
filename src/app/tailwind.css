@@ -12,7 +12,8 @@
         --vp-lg: 59.375em; /* 950px */
 
         /* Dimensions */
-        --width-site: 63.75rem; /* 1020px */
+        --max-width-site: 63.75rem; /* 1020px */
+        --max-width-column: 46.5625rem; /* 745px */
 
         /* General */
         --color-pre-bg: #e2e8f0;
@@ -26,6 +27,30 @@
             --color-pre-bg: #202020;
             --color-pre-text: #f0f6fc;
             --color-pre-border: #777777;
+        }
+    }
+}
+
+@layer base {
+    .blog-entry-listing,
+    .blog-entry-detail,
+    .portfolio-entry-detail {
+        & article > *:not(figure, img, .gallery) {
+            max-width: var(--max-width-column);
+            width: calc(100% - 2rem);
+        }
+        & blockquote {
+            & > *:first-child {
+                @apply -mt-1;
+            }
+            & > *:last-child {
+                @apply -mb-1;
+            }
+        }
+    }
+    .portfolio-entry-detail {
+        & .float-group > * {
+            margin-inline: 0;
         }
     }
 }

@@ -20,6 +20,7 @@ type Entry = {
   content?: string;
   cover?: string;
   draft?: boolean;
+  layout?: 'listing' | 'detail';
   tags?: string[];
   style?: any;
 };

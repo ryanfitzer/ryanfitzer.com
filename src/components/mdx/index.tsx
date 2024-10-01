@@ -34,7 +34,9 @@ const defaultComponents = ({
       </a>
     ),
     blockquote: ({ children }: { children?: ReactNode }) => (
-      <blockquote className="m-4 border-s-2 italic">{children}</blockquote>
+      <blockquote className="mx-4 my-8 border-gray-300 border-l-4 italic">
+        {children}
+      </blockquote>
     ),
     code: ({
       children,
@@ -65,10 +67,10 @@ const defaultComponents = ({
       return <Image {...props} {...componentOptions.img} {...entry} />;
     },
     p: ({ children }: { children?: ReactNode }) => (
-      <p className="text-gray-700 text-lg m-4 font-body">{children}</p>
+      <p className="text-gray-700 text-lg mx-4 my-3.5 font-body">{children}</p>
     ),
     pre: ({ children }: { children?: ReactNode }) => (
-      <pre className="bg-[--color-pre-bg] border-l-4 border-l-[--color-pre-border] text-[--color-pre-text] p-4 lg:rounded-md overflow-auto break-normal">
+      <pre className="bg-[--color-pre-bg] md:border-l-4 md:border-l-[--color-pre-border] text-[--color-pre-text] !w-full my-8 p-4 md:rounded-md overflow-auto break-normal">
         {children}
       </pre>
     ),

@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { getEntries } from '@/library/get-content';
 import { PostDefault } from '@/components/post-default';
-import { PostPhotoPLP } from '@/components/post-photo';
 import { PostQuick } from '@/components/post-quick';
 import Pagination from '~/src/components/pagination';
 
@@ -20,14 +19,17 @@ export default async function Page() {
   return (
     <>
       {entries.map((entry) => {
-        const { id, isPhoto, isQuick } = entry;
+        const { id, isQuick } = entry;
 
         return (
-          <div key={id} className="flex flex-col">
+          <div
+            key={id}
+            className="blog-entry-listing flex flex-col items-center"
+          >
             {isQuick ? (
-              <PostQuick key={id} permalink {...entry} />
+              <PostQuick key={id} permalink layout="listing" {...entry} />
             ) : (
-              <PostDefault key={id} permalink {...entry} />
+              <PostDefault key={id} permalink layout="listing" {...entry} />
             )}
 
             <hr className="mx-28 mt-10 mb-6 border-t-2" />

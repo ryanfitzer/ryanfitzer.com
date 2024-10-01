@@ -52,7 +52,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={`${body.variable} ${heading.variable} bg-white`}>
-        <div className="flex flex-col h-[100lvh] max-w-[--width-site] mx-auto">
+        <div className="flex flex-col h-[100lvh] max-w-[--max-width-site] mx-auto">
           {children}
           <Footer />
         </div>

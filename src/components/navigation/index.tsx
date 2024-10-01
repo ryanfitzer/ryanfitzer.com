@@ -8,9 +8,11 @@ import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
 const wrapperStyles = (active: string) => {
-  return twClsx('flex items-center mt-8 mb-20 mx-4 text-zinc-500', {
+  console.log('page', active);
+
+  return twClsx('flex items-center mt-8 mb-20 px-4 text-zinc-500', {
     'justify-center': active === 'home',
-    'justify-between': active !== 'home',
+    'justify-between w-full max-w-[47.5rem] mx-auto': active !== 'home',
   });
 };
 

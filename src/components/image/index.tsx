@@ -35,7 +35,7 @@ export const Image = ({
       quality={100}
       height={height}
       src={secure_url}
-      className={className}
+      className={`my-4 ${className}`}
     />
   );
 };

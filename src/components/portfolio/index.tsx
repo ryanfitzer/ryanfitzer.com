@@ -15,8 +15,8 @@ export const Portfolio = ({
   };
 
   return (
-    <>
-      <article>
+    <div className="portfolio-entry-detail flex flex-col items-center">
+      <article className="contents">
         <header className="flex justify-center">
           <h1
             className={twClsx(
@@ -31,6 +31,6 @@ export const Portfolio = ({
         <p className="text-gray-500 text-xl mb-8 text-center">{year}</p>
         <MDX source={content} scope={{ entry }} />
       </article>
-    </>
+    </div>
   );
 };
