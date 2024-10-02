@@ -8,11 +8,10 @@ import npm from '~/public/images/npm.svg';
 import github from '~/public/images/github.svg';
 
 const wrapperStyles = (active: string) => {
-  console.log('page', active);
-
-  return twClsx('flex items-center mt-8 mb-20 px-4 text-zinc-500', {
+  return twClsx('flex box-content items-center mt-8 mb-20 text-zinc-500', {
     'justify-center': active === 'home',
-    'justify-between w-full max-w-[47.5rem] mx-auto': active !== 'home',
+    'justify-between w-[calc(100%-2rem)] max-w-[--max-width-column] mx-auto px-4':
+      active !== 'home',
   });
 };
 
@@ -22,11 +21,18 @@ const currentLinkStyles = (current: boolean) => {
   });
 };
 
-const Name = ({ page }: { page: string }) => (
-  <div className="justify-start font-heading font-bold text-[1.45rem]">
-    <Link href="/">ryanfitzer</Link>
-  </div>
-);
+const Name = ({ page }: { page: string }) => {
+  return (
+    <div
+      className={twClsx('font-heading font-bold text-[1.45rem]', {
+        'bg-clip-text text-transparent bg-gradient-to-r to-yellow-600 from-red-600':
+          page !== 'portfolio',
+      })}
+    >
+      <Link href="/">ryanfitzer</Link>
+    </div>
+  );
+};
 
 const PageNav = (props: {
   page: string;
@@ -124,7 +130,7 @@ const ResponsiveNav = ({ page }: { page: string }) => {
           // @ts-expect-error popovertarget is not a valid attribute
           popovertarget="menu"
           popovertargetaction="toggle"
-          className="justify-end"
+          className=""
         >
           menu
         </button>

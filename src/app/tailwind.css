@@ -2,14 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Properties */
 @layer base {
     :root {
         /* Tailwind Theme Vars */
         --tw-spacing-2\.5: theme('spacing[2.5]');
-
-        /* Viewports */
-        --vp-md: 48.75em; /* 780px */
-        --vp-lg: 59.375em; /* 950px */
 
         /* Dimensions */
         --max-width-site: 63.75rem; /* 1020px */
@@ -31,6 +28,20 @@
     }
 }
 
+/* Custom Overides */
+@layer base {
+    ol,
+    ul {
+        list-style: auto;
+        @apply ml-14;
+
+        & li > * {
+            @apply !mx-0;
+        }
+    }
+}
+
+/* Custom CSS */
 @layer base {
     .blog-entry-listing,
     .blog-entry-detail,

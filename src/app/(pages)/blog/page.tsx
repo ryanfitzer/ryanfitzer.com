@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { twClsx } from '~/src/library/tw-clsx';
 import { getEntries } from '@/library/get-content';
 import { PostDefault } from '@/components/post-default';
 import { PostQuick } from '@/components/post-quick';
@@ -18,21 +19,24 @@ export default async function Page() {
 
   return (
     <>
-      {entries.map((entry) => {
+      {entries.map((entry, index) => {
         const { id, isQuick } = entry;
 
         return (
           <div
             key={id}
-            className="blog-entry-listing flex flex-col items-center"
+            className={twClsx(
+              'blog-entry-listing flex flex-col items-center mb-24',
+              {
+                'quick-entry': isQuick,
+              }
+            )}
           >
             {isQuick ? (
               <PostQuick key={id} permalink layout="listing" {...entry} />
             ) : (
               <PostDefault key={id} permalink layout="listing" {...entry} />
             )}
-
-            <hr className="mx-28 mt-10 mb-6 border-t-2" />
           </div>
         );
       })}

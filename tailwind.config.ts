@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        link: '#ff8f04',
+        link: '#d04704',
       },
       fontFamily: {
         heading: ['var(--font-heading)'],
@@ -19,7 +19,7 @@ const config: Config = {
     },
     screens: {
       sm: '0',
-      md: '49.4375rem', // 791px
+      md: '50.5625rem', // 809px
       lg: '59.375em', // 950px
     },
   },

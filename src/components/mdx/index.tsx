@@ -29,7 +29,7 @@ const defaultComponents = ({
   return {
     Gallery,
     a: ({ href, children }: { href?: string; children?: ReactNode }) => (
-      <a className="text-link" href={href}>
+      <a className="text-link border-b border-link" href={href}>
         {children}
       </a>
     ),
