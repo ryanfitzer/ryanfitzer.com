@@ -1,5 +1,7 @@
 import Pagination from '~/src/components/pagination';
-import { PostList } from '@/components/post-list';
+import { twClsx } from '~/src/library/tw-clsx';
+import { PostDefault } from '@/components/post-default';
+import { PostQuick } from '@/components/post-quick';
 import { getEntries, filterEntriesByCategory } from '@/library/get-content';
 import { BLOG_PAGED_COUNT, PHOTO_PAGED_COUNT } from '~/src/library/constants';
 
@@ -62,7 +64,27 @@ export default async function Page({ params: { term, number } }: PagedParams) {
 
   return (
     <>
-      <PostList entries={filteredEntries} />
+      {filteredEntries.map((entry) => {
+        const { id, isQuick } = entry;
+
+        return (
+          <div
+            key={id}
+            className={twClsx(
+              'blog-entry-listing flex flex-col items-center mb-24',
+              {
+                'quick-entry': isQuick,
+              }
+            )}
+          >
+            {isQuick ? (
+              <PostQuick key={id} permalink layout="listing" {...entry} />
+            ) : (
+              <PostDefault key={id} permalink layout="listing" {...entry} />
+            )}
+          </div>
+        );
+      })}
       <Pagination {...pageNavProps} />
     </>
   );

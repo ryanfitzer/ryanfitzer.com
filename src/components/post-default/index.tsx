@@ -10,7 +10,7 @@ const Heading = ({ layout, children }: HeadingProps) => {
   const level = layout === 'detail' ? 'h1' : 'h2';
   return createElement(
     level,
-    { className: 'font-heading text-gray-800 text-4xl mb-4 mx-4' },
+    { className: 'font-heading text-gray-800 text-4xl mb-8 mx-4' },
     children
   );
 };

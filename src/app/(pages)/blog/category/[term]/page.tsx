@@ -1,5 +1,7 @@
 import Pagination from '~/src/components/pagination';
-import { PostList } from '@/components/post-list';
+import { twClsx } from '~/src/library/tw-clsx';
+import { PostQuick } from '@/components/post-quick';
+import { PostDefault } from '@/components/post-default';
 import { getEntries, filterEntriesByCategory } from '@/library/get-content';
 import {
   MAX_POSTS_PER_PAGE,
@@ -41,18 +43,37 @@ export async function generateMetadata({ params: { term } }: CatParams) {
 }
 
 export default async function Page({ params: { term } }: CatParams) {
-  const { entries, categories } = await getEntries({ dir: 'blog', body: true });
-  const pagedCount = term === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
-  const isPaged = categories[term] > MAX_POSTS_PER_PAGE;
+  const { entries } = await getEntries({ dir: 'blog', body: true });
+  const isPaged = entries.length > MAX_POSTS_PER_PAGE;
   let filteredEntries = filterEntriesByCategory(entries, term);
 
   if (isPaged) {
-    filteredEntries = filteredEntries.slice(0, pagedCount);
+    filteredEntries = filteredEntries.slice(0, BLOG_PAGED_COUNT);
   }
 
   return (
     <>
-      <PostList entries={filteredEntries} />
+      {filteredEntries.map((entry, index) => {
+        const { id, isQuick } = entry;
+
+        return (
+          <div
+            key={id}
+            className={twClsx(
+              'blog-entry-listing flex flex-col items-center mb-24',
+              {
+                'quick-entry': isQuick,
+              }
+            )}
+          >
+            {isQuick ? (
+              <PostQuick key={id} permalink layout="listing" {...entry} />
+            ) : (
+              <PostDefault key={id} permalink layout="listing" {...entry} />
+            )}
+          </div>
+        );
+      })}
       {isPaged && (
         <Pagination
           nextRoute={`/blog/category/${term}/page/2`}
@@ -61,4 +82,16 @@ export default async function Page({ params: { term } }: CatParams) {
       )}
     </>
   );
+
+  // return (
+  //   <>
+  //     <PostList entries={filteredEntries} />
+  //     {isPaged && (
+  //       <Pagination
+  //         nextRoute={`/blog/category/${term}/page/2`}
+  //         nextText="Page 2"
+  //       />
+  //     )}
+  //   </>
+  // );
 }
