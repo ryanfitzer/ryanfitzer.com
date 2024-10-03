@@ -30,7 +30,7 @@ export const Image = ({
   return (
     <NextImage
       priority
-      alt={alt}
+      alt={alt || ''}
       width={width}
       quality={100}
       height={height}

@@ -3,11 +3,7 @@ import { twClsx } from '~/src/library/tw-clsx';
 import { PostQuick } from '@/components/post-quick';
 import { PostDefault } from '@/components/post-default';
 import { getEntries, filterEntriesByCategory } from '@/library/get-content';
-import {
-  MAX_POSTS_PER_PAGE,
-  BLOG_PAGED_COUNT,
-  PHOTO_PAGED_COUNT,
-} from '~/src/library/constants';
+import { MAX_POSTS_PER_PAGE, BLOG_PAGED_COUNT } from '~/src/library/constants';
 
 type CatParams = {
   params: {
@@ -22,7 +18,7 @@ export async function generateStaticParams() {
 
   return Object.keys(categories).map((cat) => {
     return {
-      path: cat,
+      term: cat,
     };
   });
 }

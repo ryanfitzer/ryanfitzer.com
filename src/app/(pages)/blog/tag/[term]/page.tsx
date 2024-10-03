@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
   return Object.keys(tags).map((tag) => {
     return {
-      path: tag,
+      term: tag,
     };
   });
 }

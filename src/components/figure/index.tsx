@@ -3,6 +3,8 @@ import { twClsx } from '~/src/library/tw-clsx';
 import { Image, ImageProps } from '@/components/image';
 
 export type FigureProps = ImageProps & {
+  /** The alternate text */
+  alt: string;
   /** Image size, used with `inline-*` variants */
   size: keyof typeof sizes;
   /** Figure style */
@@ -87,6 +89,7 @@ const parseCaption = (caption?: string, label?: string) => {
 
 export const Figure = (props: FigureProps) => {
   const {
+    alt = '',
     caption,
     children,
     className,
@@ -102,7 +105,11 @@ export const Figure = (props: FigureProps) => {
 
   return (
     <figure className={twClsx(styles.figure, className)}>
-      <Image {...imgProps} className={twClsx(styles.image, classNameImg)} />
+      <Image
+        {...imgProps}
+        alt={alt}
+        className={twClsx(styles.image, classNameImg)}
+      />
       {children && (
         <figcaption className={twClsx(styles.figcaption, classNameFigcaption)}>
           {children}

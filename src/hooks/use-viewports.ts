@@ -39,9 +39,9 @@ export function useViewports(config = viewports) {
     return vpq(() => {
       setState(createHookState(vpq));
     });
-  }, []);
+  }, [vpq]);
 
-  useEffect(subscriber, []);
+  useEffect(subscriber, [subscriber]);
 
   return vps;
 }

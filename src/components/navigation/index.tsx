@@ -116,7 +116,7 @@ const ResponsiveNav = ({ page }: { page: string }) => {
       popover.removeEventListener('focusout', closeHandler);
       popover.removeEventListener('click', closeHandler);
     };
-  }, [popoverRef]);
+  }, [popoverRef, closeHandler]);
 
   return (
     <div className={wrapperStyles(page)}>

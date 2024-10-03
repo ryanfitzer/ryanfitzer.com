@@ -21,7 +21,7 @@ export const Portfolio = ({
           <h1
             className={twClsx(
               titleGradient(),
-              'font-heading text-6xl leading-[4.75rem] mb-2 text-center'
+              'font-heading text-6xl mb-2 text-center'
             )}
           >
             <span>{title}</span>
