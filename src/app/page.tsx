@@ -36,7 +36,7 @@ export default async function Home() {
 
   return (
     <>
-      <main>
+      <main className="bg-[#5c6866]">
         <Image
           className="fixed inset-0 object-cover w-full h-[110%]"
           src={background.src}
