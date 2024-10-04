@@ -12,7 +12,7 @@ export default async function Page() {
 
   return (
     <>
-      <h1 className="font-heading text-gray-800 text-4xl mb-12 px-4 text-center">
+      <h1 className="font-heading text-gray-800 text-4xl mb-12 px-4 mx-auto text-center md:text-left max-w-[calc(var(--max-width-column)+2rem)]">
         Blog Archives
       </h1>
 
@@ -25,11 +25,14 @@ export default async function Page() {
             <h2 className="font-body text-2xl font-bold text-gray-700 mt-4 pt-3 border-t-2 mr-4">
               <Link href={`archives/${year}`}>{year}</Link>
             </h2>
-            <ul className="col-start-2 columns-[8rem] mt-4 pt-4 space-y-2 text-gray-700 border-t-2 list-none">
+            <ul className="col-start-2 columns-[8rem] mt-4 pt-4 space-y-2 border-t-2 list-none">
               {months.map(([month, count]) => (
                 <li key={`${year}-${month}`}>
-                  <Link href={`archives/${year}/${month.toLowerCase()}`}>
-                    {month} <sup className="text-xs text-gray-400">{count}</sup>
+                  <Link
+                    className="text-link hover:text-gray-700"
+                    href={`archives/${year}/${month.toLowerCase()}`}
+                  >
+                    {month} <sup className="text-xs">{count}</sup>
                   </Link>
                 </li>
               ))}
