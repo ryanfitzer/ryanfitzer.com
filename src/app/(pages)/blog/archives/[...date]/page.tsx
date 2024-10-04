@@ -57,10 +57,10 @@ export default async function Page({
 
   return (
     <>
-      <h1>
+      <h1 className="font-heading text-gray-800 text-4xl mb-12 px-4 text-center">
         Blog Archives: {month && capitalize(month)} {year}
       </h1>
-      <PostList entries={entries} />
+      <PostList entries={entries} paginationProps={{}} />
     </>
   );
 }
