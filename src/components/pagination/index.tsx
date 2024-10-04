@@ -1,6 +1,13 @@
 import Link from 'next/link';
 
-export default function Pagination({
+export type PaginationProps = {
+  prevRoute?: string;
+  prevText?: string;
+  nextRoute?: string;
+  nextText?: string;
+};
+
+export function Pagination({
   prevRoute,
   prevText = 'Recent',
   nextRoute,

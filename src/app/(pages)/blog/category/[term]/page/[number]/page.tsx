@@ -1,7 +1,5 @@
-import Pagination from '~/src/components/pagination';
-import { twClsx } from '~/src/library/tw-clsx';
-import { PostDefault } from '@/components/post-default';
-import { PostQuick } from '@/components/post-quick';
+import { PostList } from '~/src/components/post-list';
+import { PaginationProps } from '~/src/components/pagination';
 import { getEntries, filterEntriesByCategory } from '@/library/get-content';
 import { BLOG_PAGED_COUNT, PHOTO_PAGED_COUNT } from '~/src/library/constants';
 
@@ -41,21 +39,20 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params: { term, number } }: PagedParams) {
-  let pageNavProps = {} as Pagination;
-  const pagedCount = term === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
+  const paginationProps = {} as PaginationProps;
   const prevPage = Number(number) - 1;
   const nextPage = Number(number) + 1;
-  const end = pagedCount * Number(number);
-  const start = end - pagedCount;
+  const end = BLOG_PAGED_COUNT * Number(number);
+  const start = end - BLOG_PAGED_COUNT;
 
   if (prevPage) {
-    pageNavProps['prevText'] = `Page ${prevPage}`;
-    pageNavProps['prevRoute'] = `/blog/category/${term}/page/${prevPage}`;
+    paginationProps['prevText'] = `Page ${prevPage}`;
+    paginationProps['prevRoute'] = `/blog/category/${term}/page/${prevPage}`;
   }
 
   if (nextPage) {
-    pageNavProps['nextText'] = `Page ${nextPage}`;
-    pageNavProps['nextRoute'] = `/blog/category/${term}/page/${nextPage}`;
+    paginationProps['nextText'] = `Page ${nextPage}`;
+    paginationProps['nextRoute'] = `/blog/category/${term}/page/${nextPage}`;
   }
 
   const { entries } = await getEntries({ dir: 'blog', body: true });
@@ -63,29 +60,6 @@ export default async function Page({ params: { term, number } }: PagedParams) {
   filteredEntries = filteredEntries.slice(start, end);
 
   return (
-    <>
-      {filteredEntries.map((entry) => {
-        const { id, isQuick } = entry;
-
-        return (
-          <div
-            key={id}
-            className={twClsx(
-              'blog-entry-listing flex flex-col items-center mb-24',
-              {
-                'quick-entry': isQuick,
-              }
-            )}
-          >
-            {isQuick ? (
-              <PostQuick key={id} permalink layout="listing" {...entry} />
-            ) : (
-              <PostDefault key={id} permalink layout="listing" {...entry} />
-            )}
-          </div>
-        );
-      })}
-      <Pagination {...pageNavProps} />
-    </>
+    <PostList entries={filteredEntries} paginationProps={paginationProps} />
   );
 }

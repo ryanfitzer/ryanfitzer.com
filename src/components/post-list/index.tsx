@@ -1,25 +1,39 @@
+import { twClsx } from '@/library/tw-clsx';
 import { PostDefault } from '@/components/post-default';
-import { PostPhotoPLP } from '@/components/post-photo';
 import { PostQuick } from '@/components/post-quick';
+import { Pagination, PaginationProps } from '~/src/components/pagination';
 
-export const PostList = ({ entries }: { entries: Entry[] }) => {
+export const PostList = ({
+  entries,
+  paginationProps,
+}: {
+  entries: Entry[];
+  paginationProps: PaginationProps;
+}) => {
   return (
-    <div className="w-full">
+    <>
       {entries.map((entry) => {
-        const { id, isBlog, isPhoto, isQuick } = entry;
+        const { id, isQuick } = entry;
 
         return (
-          <article key={id} className="flex flex-col">
-            {isQuick ? (
-              <PostQuick key={id} permalink {...entry} />
-            ) : (
-              <PostDefault key={id} permalink {...entry} />
+          <div
+            key={id}
+            className={twClsx(
+              'blog-entry-listing flex flex-col items-center mb-24',
+              {
+                'quick-entry': isQuick,
+              }
             )}
-
-            <hr className="mx-28 mt-10 mb-6 border-t-2" />
-          </article>
+          >
+            {isQuick ? (
+              <PostQuick key={id} permalink layout="listing" {...entry} />
+            ) : (
+              <PostDefault key={id} permalink layout="listing" {...entry} />
+            )}
+          </div>
         );
       })}
-    </div>
+      {paginationProps && <Pagination {...paginationProps} />}
+    </>
   );
 };

@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
-import { twClsx } from '~/src/library/tw-clsx';
 import { getEntries } from '@/library/get-content';
-import { PostDefault } from '@/components/post-default';
-import { PostQuick } from '@/components/post-quick';
-import Pagination from '~/src/components/pagination';
+import { PostList } from '~/src/components/post-list';
+import { PaginationProps } from '~/src/components/pagination';
+import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -17,30 +16,13 @@ export default async function Page() {
     body: true,
   });
 
-  return (
-    <>
-      {entries.map((entry, index) => {
-        const { id, isQuick } = entry;
+  const paginationProps = {} as PaginationProps;
+  const isPaged = entries.length === BLOG_PAGED_COUNT;
 
-        return (
-          <div
-            key={id}
-            className={twClsx(
-              'blog-entry-listing flex flex-col items-center mb-24',
-              {
-                'quick-entry': isQuick,
-              }
-            )}
-          >
-            {isQuick ? (
-              <PostQuick key={id} permalink layout="listing" {...entry} />
-            ) : (
-              <PostDefault key={id} permalink layout="listing" {...entry} />
-            )}
-          </div>
-        );
-      })}
-      <Pagination nextRoute="/blog/page/2" nextText="Page 2" />
-    </>
-  );
+  if (isPaged) {
+    paginationProps.nextRoute = `/blog/page/2`;
+    paginationProps.nextText = 'Page 2';
+  }
+
+  return <PostList entries={entries} paginationProps={paginationProps} />;
 }

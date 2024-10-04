@@ -1,7 +1,7 @@
-import Pagination from '~/src/components/pagination';
-import { PostList } from '@/components/post-list';
+import { PostList } from '~/src/components/post-list';
+import { PaginationProps } from '~/src/components/pagination';
 import { getEntries, filterEntriesByTag } from '@/library/get-content';
-import { BLOG_PAGED_COUNT, PHOTO_PAGED_COUNT } from '~/src/library/constants';
+import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 
 type PagedParams = {
   params: {
@@ -16,8 +16,7 @@ export async function generateStaticParams() {
   const { tags } = await getEntries({ dir: 'blog' });
 
   const params = Object.keys(tags).map((tag) => {
-    const pagedCount = tag === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
-    let totalPages = Math.ceil(tags[tag] / pagedCount);
+    let totalPages = Math.ceil(tags[tag] / BLOG_PAGED_COUNT);
 
     return Array.from({ length: totalPages }, (_, index) => {
       return {
@@ -39,21 +38,20 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params: { term, number } }: PagedParams) {
-  let pageNavProps = {} as Pagination;
-  const pagedCount = term === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
+  const paginationProps = {} as PaginationProps;
   const prevPage = Number(number) - 1;
   const nextPage = Number(number) + 1;
-  const end = pagedCount * Number(number);
-  const start = end - pagedCount;
+  const end = BLOG_PAGED_COUNT * Number(number);
+  const start = end - BLOG_PAGED_COUNT;
 
   if (prevPage) {
-    pageNavProps['prevText'] = `Page ${prevPage}`;
-    pageNavProps['prevRoute'] = `/blog/tag/${term}/page/${prevPage}`;
+    paginationProps['prevText'] = `Page ${prevPage}`;
+    paginationProps['prevRoute'] = `/blog/tag/${term}/page/${prevPage}`;
   }
 
   if (nextPage) {
-    pageNavProps['nextText'] = `Page ${nextPage}`;
-    pageNavProps['nextRoute'] = `/blog/tag/${term}/page/${nextPage}`;
+    paginationProps['nextText'] = `Page ${nextPage}`;
+    paginationProps['nextRoute'] = `/blog/tag/${term}/page/${nextPage}`;
   }
 
   const { entries } = await getEntries({ dir: 'blog', body: true });
@@ -61,9 +59,6 @@ export default async function Page({ params: { term, number } }: PagedParams) {
   filteredEntries = filteredEntries.slice(start, end);
 
   return (
-    <>
-      <PostList entries={filteredEntries} />
-      <Pagination {...pageNavProps} />
-    </>
+    <PostList entries={filteredEntries} paginationProps={paginationProps} />
   );
 }

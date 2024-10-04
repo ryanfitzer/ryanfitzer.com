@@ -1,11 +1,7 @@
-import Pagination from '~/src/components/pagination';
-import { PostList } from '@/components/post-list';
+import { PostList } from '~/src/components/post-list';
+import { PaginationProps } from '~/src/components/pagination';
 import { getEntries, filterEntriesByTag } from '@/library/get-content';
-import {
-  MAX_POSTS_PER_PAGE,
-  BLOG_PAGED_COUNT,
-  PHOTO_PAGED_COUNT,
-} from '~/src/library/constants';
+import { BLOG_PAGED_COUNT, MAX_POSTS_PER_PAGE } from '~/src/library/constants';
 
 type TagParams = {
   params: {
@@ -41,21 +37,18 @@ export async function generateMetadata({ params: { term } }: TagParams) {
 }
 
 export default async function Page({ params: { term } }: TagParams) {
+  const paginationProps = {} as PaginationProps;
   const { entries, tags } = await getEntries({ dir: 'blog', body: true });
-  const pagedCount = term === 'photo' ? PHOTO_PAGED_COUNT : BLOG_PAGED_COUNT;
   const isPaged = tags[term] > MAX_POSTS_PER_PAGE;
   let filteredEntries = filterEntriesByTag(entries, term);
 
   if (isPaged) {
-    filteredEntries = filteredEntries.slice(0, pagedCount);
+    filteredEntries = filteredEntries.slice(0, BLOG_PAGED_COUNT);
+    paginationProps.nextRoute = `/blog/tag/${term}/page/2`;
+    paginationProps.nextText = 'Page 2';
   }
 
   return (
-    <>
-      <PostList entries={filteredEntries} />
-      {isPaged && (
-        <Pagination nextRoute={`/blog/tag/${term}/page/2`} nextText="Page 2" />
-      )}
-    </>
+    <PostList entries={filteredEntries} paginationProps={paginationProps} />
   );
 }

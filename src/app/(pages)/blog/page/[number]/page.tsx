@@ -1,8 +1,7 @@
-import { BLOG_PAGED_COUNT } from '~/src/library/constants';
+import { PostList } from '~/src/components/post-list';
+import { PaginationProps } from '~/src/components/pagination';
 import { getEntries } from '@/library/get-content';
-import { PostDefault } from '@/components/post-default';
-import { PostQuick } from '@/components/post-quick';
-import Pagination from '~/src/components/pagination';
+import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 
 type PagedParams = {
   params: {
@@ -28,52 +27,23 @@ export async function generateMetadata({ params: { number } }: PagedParams) {
 }
 
 export default async function Page({ params: { number } }: PagedParams) {
-  let pageNavProps = {} as Record<string, string>;
+  const paginationProps = {} as PaginationProps;
   const end = BLOG_PAGED_COUNT * Number(number);
   const start = end - BLOG_PAGED_COUNT;
   const prevPage = Number(number) - 1;
   const nextPage = Number(number) + 1;
 
   if (prevPage) {
-    pageNavProps['prevText'] = `Page ${prevPage}`;
-    pageNavProps['prevRoute'] = `/blog/page/${prevPage}`;
+    paginationProps['prevText'] = `Page ${prevPage}`;
+    paginationProps['prevRoute'] = `/blog/page/${prevPage}`;
   }
 
   if (nextPage) {
-    pageNavProps['nextText'] = `Page ${nextPage}`;
-    pageNavProps['nextRoute'] = `/blog/page/${nextPage}`;
+    paginationProps['nextText'] = `Page ${nextPage}`;
+    paginationProps['nextRoute'] = `/blog/page/${nextPage}`;
   }
 
   const { entries } = await getEntries({ dir: 'blog', start, end, body: true });
 
-  return (
-    <>
-      {entries.map((entry) => {
-        const { id, isQuick } = entry;
-
-        return (
-          <div
-            key={id}
-            className="blog-entry-listing flex flex-col items-center"
-          >
-            {isQuick ? (
-              <PostQuick key={id} permalink layout="listing" {...entry} />
-            ) : (
-              <PostDefault key={id} permalink layout="listing" {...entry} />
-            )}
-
-            <hr className="mx-28 mt-10 mb-6 border-t-2" />
-          </div>
-        );
-      })}
-      <Pagination {...pageNavProps} />
-    </>
-  );
-
-  // return (
-  //   <>
-  //     <PostList entries={entries} />
-  //     <Pagination {...pageNavProps} />
-  //   </>
-  // );
+  return <PostList entries={entries} paginationProps={paginationProps} />;
 }
