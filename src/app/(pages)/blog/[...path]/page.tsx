@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
 import { PostDefault } from '@/components/post-default';
-import { PostPhotoDetail } from '@/components/post-photo';
 import { PostQuick } from '@/components/post-quick';
 import { getEntry, getEntries } from '@/library/get-content';
 
@@ -73,6 +72,4 @@ export default async function Page({
       )}
     </div>
   );
-  // if (isQuick) return <PostQuick {...entry} layout="detail" />;
-  // else return <PostDefault {...entry} layout="detail" />;
 }

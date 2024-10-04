@@ -12,27 +12,24 @@ export default async function Page() {
 
   return (
     <>
-      <h1 className="font-heading text-gray-700 text-3xl mb-12 px-4 md:text-right">
+      <h1 className="font-heading text-gray-800 text-4xl mb-12 px-4 text-center">
         Blog Archives
       </h1>
 
-      <ul className="flex flex-col space-y-12 mb-16 px-4">
+      <ul className="flex flex-col space-y-12 mb-16 px-4 mx-auto max-w-[calc(var(--max-width-column)+2rem)] w-full">
         {archives.map(([year, months]) => (
           <li
             key={year}
-            className="grid grid-cols-[7rem_auto] md:grid-cols-[9rem_auto] grid-rows-1"
+            className="grid grid-cols-[7rem_auto] md:grid-cols-[9rem_auto] grid-rows-1 w-full"
           >
             <h2 className="font-body text-2xl font-bold text-gray-700 mt-4 pt-3 border-t-2 mr-4">
               <Link href={`archives/${year}`}>{year}</Link>
             </h2>
-            <ul className="col-start-2 columns-[8rem] mt-4 pt-4 space-y-2 uppercase text-gray-700 border-t-2">
+            <ul className="col-start-2 columns-[8rem] mt-4 pt-4 space-y-2 text-gray-700 border-t-2 list-none">
               {months.map(([month, count]) => (
                 <li key={`${year}-${month}`}>
                   <Link href={`archives/${year}/${month.toLowerCase()}`}>
-                    <span className="">
-                      {month}{' '}
-                      <sup className="text-xs text-gray-500">{count}</sup>
-                    </span>
+                    {month} <sup className="text-xs text-gray-400">{count}</sup>
                   </Link>
                 </li>
               ))}
