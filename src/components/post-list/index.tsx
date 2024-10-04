@@ -5,7 +5,7 @@ import { Pagination, PaginationProps } from '~/src/components/pagination';
 
 export const PostList = ({
   entries,
-  paginationProps,
+  paginationProps = {},
 }: {
   entries: Entry[];
   paginationProps: PaginationProps;
