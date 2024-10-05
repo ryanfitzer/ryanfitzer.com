@@ -40,19 +40,23 @@ const PageNav = (props: {
 }) => {
   const { page, elementRef, ...rest } = props;
   const finalProps = elementRef ? { ...rest, ref: elementRef } : rest;
+  const pseudoStyles = 'hover:text-black';
 
   return (
     <div {...finalProps}>
-      <div className="flex flex-nowrap items-center mt-[0.0625rem] space-x-4">
+      <div className="flex flex-nowrap items-center mt-[0.0625rem] space-x-4 select-none">
         <div className="min-w-[7rem] flex justify-between">
-          <Link className={currentLinkStyles(page === 'blog')} href="/blog">
+          <Link
+            className={twClsx(currentLinkStyles(page === 'blog'), pseudoStyles)}
+            href="/blog"
+          >
             blog
           </Link>
-          {/* <Link className={currentLinkStyles(page === 'photos')} href="/photos">
-            photos
-          </Link> */}
           <Link
-            className={currentLinkStyles(page === 'portfolio')}
+            className={twClsx(
+              currentLinkStyles(page === 'portfolio'),
+              pseudoStyles
+            )}
             href="/portfolio"
           >
             portfolio
@@ -61,6 +65,7 @@ const PageNav = (props: {
         <span>•</span>
         <div className="space-x-4 before:content-['•'] text-[0]">
           <a
+            className={pseudoStyles}
             aria-label="GitHub"
             href="https://github.com/ryanfitzer"
             target="_blank"
@@ -79,6 +84,7 @@ const PageNav = (props: {
             </svg>
           </a>
           <a
+            className={pseudoStyles}
             aria-label="NPM"
             href="https://www.npmjs.com/~ryanfitzer"
             target="_blank"

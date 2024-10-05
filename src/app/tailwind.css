@@ -31,6 +31,10 @@
 
 /* Custom Overides */
 @layer base {
+    :focus-visible {
+        outline-color: #000;
+        outline-offset: 3px;
+    }
     ol,
     ul {
         list-style: auto;
