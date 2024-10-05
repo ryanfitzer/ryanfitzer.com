@@ -43,7 +43,7 @@ const PageNav = (props: {
 
   return (
     <div {...finalProps}>
-      <div className="flex flex-nowrap mt-[0.0625rem] space-x-4">
+      <div className="flex flex-nowrap items-center mt-[0.0625rem] space-x-4">
         <div className="min-w-[7rem] flex justify-between">
           <Link className={currentLinkStyles(page === 'blog')} href="/blog">
             blog
@@ -58,7 +58,8 @@ const PageNav = (props: {
             portfolio
           </Link>
         </div>
-        <div className="space-x-4 before:mr-4 before:content-['•']">
+        <span>•</span>
+        <div className="space-x-4 before:content-['•'] text-[0]">
           <a
             aria-label="GitHub"
             href="https://github.com/ryanfitzer"
@@ -93,9 +94,9 @@ const PageNav = (props: {
             >
               <path
                 fill="currentColor"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M24 0H0v24h24V0ZM2.578 2.578H21.42V21.42h-4.75V7.33h-4.752v14.09h-9.34V2.578Z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
           </a>

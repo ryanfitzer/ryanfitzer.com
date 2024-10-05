@@ -36,7 +36,7 @@ export default async function Home() {
 
   return (
     <>
-      <main className="bg-[#5c6866]">
+      <main className="h-lvh">
         <Image
           className="fixed inset-0 object-cover w-full h-[110%]"
           src={background.src}
@@ -44,12 +44,13 @@ export default async function Home() {
           width={background.width}
           height={background.height}
           quality={100}
+          priority
         />
-        <div className="relative max-w-[625px] mx-auto mt-[4vh] px-6 backdrop-blur-sm border-1 border-transparent rounded-3xl">
-          <h1 className="text-4xl tracking-tight text-left font-heading text-balance text-gray-800 mt-6 mb-6">
+        <div className="relative max-w-[39rem] mx-auto mt-[4vh] px-6 backdrop-blur-sm border-1 border-transparent rounded-3xl">
+          <h1 className="text-4xl tracking-tight text-left font-heading text-balance text-gray-800 my-6">
             {title}
           </h1>
-          <p className="text-lg mx-auto max-w-[625px]">{description}</p>
+          <p className="text-lg text-gray-800">{description}</p>
           <Navigation />
         </div>
         <MDXRemote source={content} components={components} />

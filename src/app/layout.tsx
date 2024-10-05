@@ -52,9 +52,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body
-        className={`${body.variable} ${heading.variable} bg-white relative`}
+        className={`${body.variable} ${heading.variable} bg-[--color-body-bg] relative`}
       >
-        <div className="flex flex-col h-[100lvh] max-w-[--max-width-site] mx-auto">
+        <div className="flex flex-col h-lvh max-w-[--max-width-site] mx-auto">
           {children}
           <Footer />
         </div>

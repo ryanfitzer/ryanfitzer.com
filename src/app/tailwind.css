@@ -13,6 +13,7 @@
         --max-width-column: 46.5625rem; /* 745px */
 
         /* General */
+        --color-body-bg: #5c6866;
         --color-pre-bg: #e2e8f0;
         --color-pre-text: #1f2328;
         --color-pre-border: #a9c3d9;
