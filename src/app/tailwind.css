@@ -38,7 +38,7 @@
     ol,
     ul {
         list-style: auto;
-        @apply ml-14;
+        @apply pl-14;
 
         & li > * {
             @apply !mx-0;

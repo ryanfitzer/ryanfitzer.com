@@ -24,7 +24,7 @@ export const PostQuick = ({
 }: Entry & { permalink?: boolean }) => {
   return (
     <div className="flex flex-col md:max-w-[calc(var(--max-width-column)+2rem)] w-full">
-      <article className="py-4 border-t-[#eee] border-x-[#ddd] border-b-[#bbb] border mx-4 md:mx-0 rounded-md md:self-start w-full">
+      <article className="py-4 border-t-[#eee] border-x-[#ddd] border-b-[#bbb] border mx-4 md:mx-0 rounded-md md:self-start md:w-full break-words">
         <p className="text-gray-500 text-xs mb-1 mx-4">{dateLong}</p>
         <Heading layout={layout}>{title}</Heading>
         <MDX source={content} scope={{ entry }} />
