@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getImageProps } from 'next/image';
 import { Fraunces, Figtree } from 'next/font/google';
 import Footer from '@/components/footer';
 import './tailwind.css';
@@ -34,11 +35,38 @@ export const metadata: Metadata = {
   },
 };
 
+function getBackgroundImage(srcSet = '') {
+  const imageSet = srcSet
+    .split(', ')
+    .map((str) => {
+      const [url, dpi] = str.split(' ');
+      return `url("${url}") ${dpi}`;
+    })
+    .join(', ');
+  return `image-set(${imageSet})`;
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const {
+    props: { srcSet },
+  } = getImageProps({
+    alt: '',
+    width: 2048,
+    height: 1360,
+    src: '/images/bg-blue-movement.jpg',
+  });
+  const bgImageStyles = {
+    '--bg-body-image': getBackgroundImage(srcSet),
+    backgroundImage: 'var(--bg-body-image)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'top center',
+  };
+
   return (
     <html lang="en">
       <head>
@@ -52,6 +80,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body
+        style={bgImageStyles}
         className={`${body.variable} ${heading.variable} bg-[--color-body-bg] relative`}
       >
         <div className="flex flex-col h-lvh max-w-[--max-width-site] mx-auto">

@@ -37,7 +37,7 @@ export default async function Home() {
   return (
     <>
       <main className="h-lvh">
-        <Image
+        {/* <Image
           className="fixed inset-0 object-cover w-full h-[110%]"
           src={background.src}
           alt=""
@@ -45,7 +45,7 @@ export default async function Home() {
           height={background.height}
           quality={100}
           priority
-        />
+        /> */}
         <div className="relative max-w-[39rem] mx-auto mt-[4vh] px-6 backdrop-blur-sm border-1 border-transparent rounded-3xl">
           <h1 className="text-4xl tracking-tight text-left font-heading text-balance text-gray-800 my-6">
             {title}
