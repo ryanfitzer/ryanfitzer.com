@@ -64,7 +64,7 @@ export default function RootLayout({
     backgroundImage: 'var(--bg-body-image)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'top center',
+    backgroundPosition: 'center',
   };
 
   return (
