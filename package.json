@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@lostisworld/tailwind-mask": "^1.0.1",
     "@wooorm/starry-night": "^3.5.0",
     "clsx": "^2.1.0",
     "flexsearch": "^0.7.43",

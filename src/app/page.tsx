@@ -37,20 +37,11 @@ export default async function Home() {
   return (
     <>
       <main className="h-lvh">
-        {/* <Image
-          className="fixed inset-0 object-cover w-full h-[110%]"
-          src={background.src}
-          alt=""
-          width={background.width}
-          height={background.height}
-          quality={100}
-          priority
-        /> */}
-        <div className="relative max-w-[39rem] mx-auto mt-[4vh] px-6 backdrop-blur-sm border-1 border-transparent rounded-3xl">
-          <h1 className="text-4xl tracking-tight text-left font-heading text-balance text-gray-800 my-6">
+        <div className="text-gray-900 relative max-w-[39rem] mx-auto mt-[4vh] px-6 pb-6 border-1 border-transparent rounded-3xl before:backdrop-blur-md before:w-full before:h-full before:absolute before:top-0 before:left-0 before:-z-10 before:mask-image-[radial-gradient(ellipse_closest-corner,black,transparent)]">
+          <h1 className="text-4xl tracking-tight text-left font-heading text-balance my-6">
             {title}
           </h1>
-          <p className="text-lg text-gray-800">{description}</p>
+          <p className="text-lg">{description}</p>
           <Navigation />
         </div>
         <MDXRemote source={content} components={components} />

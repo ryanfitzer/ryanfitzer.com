@@ -23,7 +23,7 @@ const config: Config = {
       lg: '59.375em', // 950px
     },
   },
-  plugins: [],
+  plugins: [require('@lostisworld/tailwind-mask')],
 };
 
 export default config;
