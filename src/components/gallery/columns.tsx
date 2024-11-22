@@ -7,11 +7,13 @@ import {
   cloneElement,
   isValidElement,
 } from 'react';
+import { twClsx } from '~/src/library/tw-clsx';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '~/tailwind.config';
 
 export type ColumnsProps = {
   children: ReactElement[];
+  shadows?: boolean;
 };
 
 const twConfig = resolveConfig(tailwindConfig);
@@ -45,7 +47,7 @@ const parseCaption = (
   return { title, description };
 };
 
-export const Columns = ({ children }: ColumnsProps) => {
+export const Columns = ({ children, shadows = false }: ColumnsProps) => {
   const imageAspectRatios = children.map((child) => {
     return child.props.width / child.props.height;
   });
@@ -71,7 +73,9 @@ export const Columns = ({ children }: ColumnsProps) => {
             {cloneElement(
               child as DetailedReactHTMLElement<any, HTMLImageElement>,
               {
-                className: 'select-none w-full',
+                className: twClsx('select-none w-full', {
+                  'shadow-[0_0_6px_0_#dfdfdf]': shadows,
+                }),
               }
             )}
             <figcaption className="md:opacity-0 md:group-hover:opacity-100 md:group-focus:opacity-100 md:group-active:opacity-100 md:transition-opacity md:ease-in md:duration-300 w-full md:absolute md:bottom-0 p-4 md:bg-white/50">

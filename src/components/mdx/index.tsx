@@ -70,7 +70,9 @@ const defaultComponents = ({
       return <Image {...props} {...componentOptions.img} {...entry} />;
     },
     p: ({ children }: { children?: ReactNode }) => (
-      <p className="text-gray-700 text-lg mx-4 my-3.5 font-body">{children}</p>
+      <p className="text-gray-700 text-lg mx-4 my-3.5 font-body text-pretty">
+        {children}
+      </p>
     ),
     pre: ({ children }: { children?: ReactNode }) => (
       <pre className="bg-[--color-pre-bg] md:border-l-4 md:border-l-[--color-pre-border] text-[--color-pre-text] !w-full my-8 p-4 md:rounded-md overflow-auto break-normal">

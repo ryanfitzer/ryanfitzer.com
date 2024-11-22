@@ -4,13 +4,19 @@ import { Columns } from './columns';
 
 type GalleryProps = {
   children: ReactElement[];
+  shadows?: boolean;
   variant: 'columns' | 'slider';
 };
 
-export const Gallery = ({ children, variant }: GalleryProps) => {
+export const Gallery = ({
+  children,
+  variant,
+  shadows = false,
+}: GalleryProps) => {
   assert(children && children.length, 'At least 1 child is required');
 
-  if (variant === 'columns') return <Columns>{children}</Columns>;
+  if (variant === 'columns')
+    return <Columns shadows={shadows}>{children}</Columns>;
 
   return null;
 };
