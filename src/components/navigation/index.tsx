@@ -47,15 +47,15 @@ const PageNav = (props: {
   return (
     <div {...finalProps}>
       <div className="flex flex-nowrap items-center mt-[0.0625rem] space-x-4 select-none">
-        <div className="min-w-[7rem] flex justify-between">
+        <div className="flex justify-between">
+          {/* <div className="min-w-[7rem] flex justify-between"> */}
           <Link
             className={twClsx(currentLinkStyles(page === 'blog'), pseudoStyles)}
             href="/blog"
           >
             blog
           </Link>
-          {isDev ? (
-            <Link
+          {/* <Link
               className={twClsx(
                 currentLinkStyles(page === 'portfolio'),
                 pseudoStyles
@@ -63,12 +63,7 @@ const PageNav = (props: {
               href="/portfolio"
             >
               portfolio
-            </Link>
-          ) : (
-            <span className="text-zinc-700" title="Still working on this :)">
-              <s>portfolio</s>
-            </span>
-          )}
+            </Link> */}
         </div>
         <span>•</span>
         <div className="space-x-4 before:content-['•'] text-[0]">
