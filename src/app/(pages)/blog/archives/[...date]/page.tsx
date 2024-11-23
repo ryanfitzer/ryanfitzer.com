@@ -23,15 +23,19 @@ export async function generateStaticParams() {
   }, [] as { [date: string]: [string, string?] }[]);
 }
 
-export async function generateMetadata({
-  params: {
-    date: [year, month],
-  },
-}: {
-  params: {
-    date: [string, string?];
-  };
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{
+      date: [string, string?];
+    }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    date: [year, month]
+  } = params;
+
   if (month) {
     return {
       title: `Archive for ${month} ${year} | Blog`,
@@ -43,15 +47,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params: {
-    date: [year, month],
-  },
-}: {
-  params: {
-    date: [string, string?];
-  };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{
+      date: [string, string?];
+    }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    date: [year, month]
+  } = params;
+
   let { entries } = await getEntries({ dir: 'blog' });
   entries = filterEntriesByDate(entries, year, month);
 

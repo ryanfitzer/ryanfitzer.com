@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run search && next dev",
+    "dev": "npm run search && next dev --turbopack",
     "build": "npm run search && next build --debug",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "next lint",
     "search": "node scripts/create-blog-search-data.mjs",
     "image-meta": "dotenv -e .env.local -- node scripts/create-image-meta.mjs",
@@ -16,10 +16,10 @@
     "@wooorm/starry-night": "^3.5.0",
     "clsx": "^2.1.0",
     "flexsearch": "^0.7.43",
-    "next": "^14.2.3",
+    "next": "15.0.3",
     "next-mdx-remote": "^5.0.0",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
     "rehype-starry-night": "^2.1.0",
     "remark-gfm": "^4.0.0",
     "remark-unwrap-images": "^4.0.0",
@@ -29,14 +29,14 @@
   },
   "devDependencies": {
     "@types/node": "^22.5.0",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@types/rss": "^0.0.32",
     "autoprefixer": "^10.0.1",
     "cloudinary": "^2.0.1",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.0.0",
-    "eslint-config-next": "^14.2.7",
+    "eslint-config-next": "15.0.3",
     "fs-extra": "^11.2.0",
     "gray-matter": "^4.0.3",
     "husky": "^9.0.11",
@@ -44,5 +44,9 @@
     "tailwindcss": "^3.3.0",
     "typescript": "^5",
     "vercel-submodules": "^1.0.10"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }

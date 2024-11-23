@@ -12,11 +12,17 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata({
-  params: { slug },
-}: {
-  params: { slug: string };
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const { entries } = await getEntries({ dir: 'portfolio' });
 
   const [entry] = entries.filter((entry) => {
@@ -34,11 +40,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params: { slug },
-}: {
-  params: { slug: string };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    slug
+  } = params;
+
   const { entries } = await getEntries({ dir: 'portfolio', body: true });
 
   const [entry] = entries.filter((entry) => {

@@ -2,9 +2,9 @@ import FlexSearch from 'flexsearch';
 import BlogSearchData from '~/content/blog-search-data.json';
 
 type Content = {
-  params: {
+  params: Promise<{
     term: string;
-  };
+  }>;
 };
 
 const search = async (term: string) => {
@@ -19,7 +19,13 @@ const search = async (term: string) => {
   return IDs.map((id) => BlogSearchData[id as number]);
 };
 
-export async function GET(request: Request, { params: { term } }: Content) {
+export async function GET(request: Request, props: Content) {
+  const params = await props.params;
+
+  const {
+    term
+  } = params;
+
   const results = await search(term);
 
   return Response.json({

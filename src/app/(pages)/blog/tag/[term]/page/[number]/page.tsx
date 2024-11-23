@@ -4,10 +4,10 @@ import { getEntries, filterEntriesByTag } from '@/library/get-content';
 import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 
 type PagedParams = {
-  params: {
+  params: Promise<{
     term: string;
     number: string;
-  };
+  }>;
 };
 
 export const dynamicParams = false;
@@ -29,15 +29,27 @@ export async function generateStaticParams() {
   return params.flat();
 }
 
-export async function generateMetadata({
-  params: { term, number },
-}: PagedParams) {
+export async function generateMetadata(props: PagedParams) {
+  const params = await props.params;
+
+  const {
+    term,
+    number
+  } = params;
+
   return {
     title: `Category ${term} | Page ${number} | Blog `,
   };
 }
 
-export default async function Page({ params: { term, number } }: PagedParams) {
+export default async function Page(props: PagedParams) {
+  const params = await props.params;
+
+  const {
+    term,
+    number
+  } = params;
+
   const paginationProps = {} as PaginationProps;
   const prevPage = Number(number) - 1;
   const nextPage = Number(number) + 1;

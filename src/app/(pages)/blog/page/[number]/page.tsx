@@ -4,9 +4,9 @@ import { getEntries } from '@/library/get-content';
 import { BLOG_PAGED_COUNT } from '~/src/library/constants';
 
 type PagedParams = {
-  params: {
+  params: Promise<{
     number: string;
-  };
+  }>;
 };
 
 export const dynamicParams = false;
@@ -20,13 +20,25 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params: { number } }: PagedParams) {
+export async function generateMetadata(props: PagedParams) {
+  const params = await props.params;
+
+  const {
+    number
+  } = params;
+
   return {
     title: `Page ${number} | Blog `,
   };
 }
 
-export default async function Page({ params: { number } }: PagedParams) {
+export default async function Page(props: PagedParams) {
+  const params = await props.params;
+
+  const {
+    number
+  } = params;
+
   const paginationProps = {} as PaginationProps;
   const end = BLOG_PAGED_COUNT * Number(number);
   const start = end - BLOG_PAGED_COUNT;

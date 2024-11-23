@@ -15,13 +15,17 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata({
-  params: {
-    path: [year, month, day, slug],
-  },
-}: {
-  params: { path: string[] };
-}) {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ path: string[] }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    path: [year, month, day, slug]
+  } = params;
+
   const post = await getEntry({
     dir: 'blog',
     day,
@@ -41,15 +45,19 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params: {
-    path: [year, month, day, slug],
-  },
-}: {
-  params: {
-    path: string[];
-  };
-}) {
+export default async function Page(
+  props: {
+    params: Promise<{
+      path: string[];
+    }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    path: [year, month, day, slug]
+  } = params;
+
   const entry = await getEntry({
     dir: 'blog',
     day,

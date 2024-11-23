@@ -5,6 +5,8 @@
 /* Custom Properties */
 @layer base {
     :root {
+        color-scheme: light;
+
         /* Tailwind Theme Vars */
         --tw-spacing-2\.5: theme('spacing[2.5]');
 
@@ -14,22 +16,13 @@
 
         /* General */
         --color-body-bg: #5c6866;
-        --color-pre-bg: #e2e8f0;
-        --color-pre-text: #1f2328;
-        --color-pre-border: #a9c3d9;
-    }
-
-    @media (prefers-color-scheme: dark) {
-        :root {
-            /* General */
-            --color-pre-bg: #202020;
-            --color-pre-text: #f0f6fc;
-            --color-pre-border: #777777;
-        }
+        --color-pre-bg: light-dark(#e2e8f0, #202020);
+        --color-pre-text: light-dark(#1f2328, #f0f6fc);
+        --color-pre-border: light-dark(#a9c3d9, #777777);
     }
 }
 
-/* Custom Overides */
+/* Custom Overrides */
 @layer base {
     :focus-visible {
         outline-color: #000;

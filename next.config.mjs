@@ -2,11 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-  experimental: {
-    outputFileTracingExcludes: {
-      // Ignore files when building distribution
-      '/**': ['./content/.git', './content/**/images', './content/**/video'],
-    },
+  outputFileTracingExcludes: {
+    // Ignore files when building distribution
+    '/**': ['./content/.git', './content/**/images', './content/**/video'],
   },
   images: {
     formats: ['image/webp', 'image/avif'],

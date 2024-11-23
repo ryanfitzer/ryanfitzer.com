@@ -4,6 +4,8 @@ import { twClsx } from '~/src/library/tw-clsx';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useCallback, useEffect, useRef, RefObject } from 'react';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 const wrapperStyles = (active: string) => {
   return twClsx('flex box-content items-center', {
     'justify-center my-4': active === 'home',
@@ -36,7 +38,7 @@ const PageNav = (props: {
   className: string;
   id?: string;
   popover?: '' | 'auto' | 'manual' | undefined;
-  elementRef?: RefObject<HTMLDivElement> | null;
+  elementRef?: RefObject<HTMLDivElement | null> | null;
 }) => {
   const { page, elementRef, ...rest } = props;
   const finalProps = elementRef ? { ...rest, ref: elementRef } : rest;
@@ -52,15 +54,21 @@ const PageNav = (props: {
           >
             blog
           </Link>
-          <Link
-            className={twClsx(
-              currentLinkStyles(page === 'portfolio'),
-              pseudoStyles
-            )}
-            href="/portfolio"
-          >
-            portfolio
-          </Link>
+          {isDev ? (
+            <Link
+              className={twClsx(
+                currentLinkStyles(page === 'portfolio'),
+                pseudoStyles
+              )}
+              href="/portfolio"
+            >
+              portfolio
+            </Link>
+          ) : (
+            <span className="text-zinc-700" title="Still working on this :)">
+              <s>portfolio</s>
+            </span>
+          )}
         </div>
         <span>•</span>
         <div className="space-x-4 before:content-['•'] text-[0]">
@@ -154,12 +162,7 @@ const ResponsiveNav = ({ page }: { page: string }) => {
         className="sm:hidden md:block flex mt-[0.0625rem] space-x-4"
       />
       <div className="md:hidden flex mt-[0.0625rem]">
-        <button
-          // @ts-expect-error popovertarget is not a valid attribute
-          popovertarget="menu"
-          popovertargetaction="toggle"
-          className=""
-        >
+        <button popoverTarget="menu" popoverTargetAction="toggle">
           menu
         </button>
         <PageNav

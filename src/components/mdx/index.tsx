@@ -64,10 +64,10 @@ const defaultComponents = ({
       return <Figure {...props} {...componentOptions.img} {...entry} />;
     },
     img: (props: ImageProps) => {
-      return <Image {...props} {...componentOptions.img} {...entry} />;
+      return <Image alt="" {...props} {...componentOptions.img} {...entry} />;
     },
     Image: (props: ImageProps) => {
-      return <Image {...props} {...componentOptions.img} {...entry} />;
+      return <Image alt="" {...props} {...componentOptions.img} {...entry} />;
     },
     p: ({ children }: { children?: ReactNode }) => (
       <p className="text-gray-700 text-lg mx-4 my-3.5 font-body text-pretty">

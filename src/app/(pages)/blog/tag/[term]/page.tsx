@@ -4,9 +4,9 @@ import { getEntries, filterEntriesByTag } from '@/library/get-content';
 import { BLOG_PAGED_COUNT, MAX_POSTS_PER_PAGE } from '~/src/library/constants';
 
 type TagParams = {
-  params: {
+  params: Promise<{
     term: string;
-  };
+  }>;
 };
 
 export const dynamicParams = false;
@@ -21,7 +21,13 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata({ params: { term } }: TagParams) {
+export async function generateMetadata(props: TagParams) {
+  const params = await props.params;
+
+  const {
+    term
+  } = params;
+
   const { tags } = await getEntries({ dir: 'blog' });
   const tagsArray = Object.keys(tags);
 
@@ -36,7 +42,13 @@ export async function generateMetadata({ params: { term } }: TagParams) {
   };
 }
 
-export default async function Page({ params: { term } }: TagParams) {
+export default async function Page(props: TagParams) {
+  const params = await props.params;
+
+  const {
+    term
+  } = params;
+
   const paginationProps = {} as PaginationProps;
   const { entries, tags } = await getEntries({ dir: 'blog', body: true });
   const isPaged = tags[term] > MAX_POSTS_PER_PAGE;

@@ -4,9 +4,9 @@ import { getEntries, filterEntriesByCategory } from '@/library/get-content';
 import { MAX_POSTS_PER_PAGE, BLOG_PAGED_COUNT } from '~/src/library/constants';
 
 type CatParams = {
-  params: {
+  params: Promise<{
     term: string;
-  };
+  }>;
 };
 
 export const dynamicParams = false;
@@ -21,7 +21,13 @@ export async function generateStaticParams() {
   });
 }
 
-export async function generateMetadata({ params: { term } }: CatParams) {
+export async function generateMetadata(props: CatParams) {
+  const params = await props.params;
+
+  const {
+    term
+  } = params;
+
   const { categories } = await getEntries({ dir: 'blog' });
   const cats = Object.keys(categories);
 
@@ -36,7 +42,13 @@ export async function generateMetadata({ params: { term } }: CatParams) {
   };
 }
 
-export default async function Page({ params: { term } }: CatParams) {
+export default async function Page(props: CatParams) {
+  const params = await props.params;
+
+  const {
+    term
+  } = params;
+
   const { entries } = await getEntries({ dir: 'blog', body: true });
   const isPaged = entries.length > MAX_POSTS_PER_PAGE;
   const paginationProps = {} as PaginationProps;

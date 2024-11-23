@@ -16,6 +16,13 @@ export type ColumnsProps = {
   shadows?: boolean;
 };
 
+type ChildProps = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
 const twConfig = resolveConfig(tailwindConfig);
 
 const getWrapperStyles = (minImagAspectRatio: number) => {
@@ -48,8 +55,9 @@ const parseCaption = (
 };
 
 export const Columns = ({ children, shadows = false }: ColumnsProps) => {
-  const imageAspectRatios = children.map((child) => {
-    return child.props.width / child.props.height;
+  const imageAspectRatios = children.map((child: ReactElement) => {
+    const props = child.props as ChildProps;
+    return props.width / props.height;
   });
 
   const minImagAspectRatio = Math.min(...imageAspectRatios);
@@ -61,14 +69,15 @@ export const Columns = ({ children, shadows = false }: ColumnsProps) => {
         ...(getWrapperStyles(minImagAspectRatio) as CSSProperties),
       }}
     >
-      {children.map((child: ReactNode, index: number) => {
+      {children.map((child: ReactElement, index: number) => {
         if (!isValidElement(child)) return;
-        const { title, description } = parseCaption(child.props.alt);
+        const props = child.props as ChildProps;
+        const { title, description } = parseCaption(props.alt);
         return (
           <figure
             tabIndex={0}
             className="group relative my-4 md:my-0 md:mb-2.5"
-            key={child.props.src}
+            key={props.src}
           >
             {cloneElement(
               child as DetailedReactHTMLElement<any, HTMLImageElement>,
