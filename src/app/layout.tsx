@@ -55,6 +55,7 @@ export default function RootLayout({
     props: { srcSet },
   } = getImageProps({
     alt: '',
+    quality: 100,
     width: 2048,
     height: 1360,
     src: '/images/bg-blue-movement.jpg',
