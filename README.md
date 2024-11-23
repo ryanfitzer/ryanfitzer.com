@@ -1,3 +1,3 @@
 # About
 
-Repo for developing ryanfitzer.com.
+Repo for developing ryanfitzer.com
