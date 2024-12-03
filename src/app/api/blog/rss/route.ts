@@ -37,7 +37,7 @@ export async function GET() {
 
   return new Response(feed.xml({ indent: true }), {
     headers: {
-      'Content-Type': 'application/atom+xml; charset=utf-8',
+      'Content-Type': 'application/xml',
     },
   });
 }
