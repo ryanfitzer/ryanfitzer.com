@@ -73,7 +73,7 @@ export default function RootLayout({
       <head>
         <link
           rel="alternate"
-          type="application/rss+xml"
+          type="application/xml"
           title="RSS"
           href={`${siteURL}/api/blog/rss`}
         />
