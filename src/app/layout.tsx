@@ -5,8 +5,8 @@ import Footer from '@/components/footer';
 import './tailwind.css';
 import '@wooorm/starry-night/style/both';
 
-const { NEXT_PUBLIC_SITE_PROTOCOL, NEXT_PUBLIC_SITE_URL } = process.env;
-const siteURL = `${NEXT_PUBLIC_SITE_PROTOCOL}${NEXT_PUBLIC_SITE_URL}`;
+const { NEXT_PUBLIC_SITE_URL } = process.env;
+const siteURL = `${NEXT_PUBLIC_SITE_URL}`;
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 // https://fonts.google.com/specimen/Fraunces?query=Fraunces
