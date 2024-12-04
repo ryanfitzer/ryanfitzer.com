@@ -11,6 +11,12 @@ export type ImageProps = Entry & {
   className?: string;
 };
 
+export const getImageMeta = (src: string, contentDir: string) => {
+  const contentPath = join(contentDir, src.split('.').slice(0, -1).join('.'));
+
+  return imageMeta[contentPath as keyof typeof imageMeta];
+};
+
 export const Image = ({
   src,
   categories,
@@ -18,14 +24,7 @@ export const Image = ({
   className = '',
   ...entry
 }: ImageProps) => {
-  const contentPath = join(
-    entry.contentDir,
-    src.split('.').slice(0, -1).join('.')
-  );
-
-  const { width, height, secure_url } = imageMeta[
-    contentPath as keyof typeof imageMeta
-  ] as ImageMeta;
+  const { width, height, secure_url } = getImageMeta(src, entry.contentDir);
 
   return (
     <NextImage
