@@ -37,17 +37,29 @@ async function generateRSS() {
     copyright: `All rights reserved ${new Date().getFullYear()}, Ibas`,
     language: 'en-US',
     pubDate: new Date(),
+    custom_namespaces: {
+      content: 'http://purl.org/rss/1.0/modules/content/',
+    },
   });
 
   await entries.forEach(
     async ({ date, content = '', contentDir, title, route }) => {
+      const html = await getEntryHTML(content, contentDir);
+
       feed.item({
         date,
         title,
         author,
         guid: `${siteURL}${route}`,
         url: `${siteURL}${route}`,
-        description: await getEntryHTML(content, contentDir),
+        description: html,
+        custom_elements: [
+          {
+            'content:encoded': {
+              _cdata: html,
+            },
+          },
+        ],
       });
     }
   );
