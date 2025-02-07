@@ -2,6 +2,7 @@
   "name": "ryanfitzercom",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "npm run search && next dev --port 3001 --turbopack",
     "build": "npm run search && next build --debug",
