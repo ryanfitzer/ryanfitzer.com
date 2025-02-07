@@ -1,22 +1,22 @@
 import { useCallback, useEffect, useState } from 'react';
 import viewportjs from 'viewportjs';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '~/tailwind.config';
 
-const twConfig = resolveConfig(tailwindConfig);
+const viewportConfig = {
+  sm: 0,
+  md: '50.5625rem',
+  lg: '59.375em',
+};
 
-type ViewportNames = keyof typeof twConfig.theme.screens;
+type ViewportNames = keyof typeof viewportConfig;
 type ViewportList = Record<ViewportNames, boolean>;
 export type UseVPState = viewportjs.ViewportInstance & {
   viewports: ViewportList;
 };
 
-const viewports = Object.entries(twConfig.theme.screens).map(
-  ([name, size]) => ({
-    name,
-    query: `(min-width: ${size})`,
-  })
-);
+const viewports = Object.entries(viewportConfig).map(([name, size]) => ({
+  name,
+  query: `(min-width: ${size})`,
+}));
 
 const createHookState = (vpq: viewportjs.ViewportInstance) => {
   const states = vpq.state() as viewportjs.ViewportState[];
