@@ -23,8 +23,8 @@ const currentLinkStyles = (current: boolean) => {
 const Name = ({ page }: { page: string }) => {
   return (
     <div
-      className={twClsx('font-heading font-bold text-[1.45rem]', {
-        'bg-clip-text text-transparent bg-linear-to-r to-yellow-600 from-red-600':
+      className={twClsx('font-heading text-[1.45rem] font-bold', {
+        'bg-linear-to-r from-red-600 to-yellow-600 bg-clip-text text-transparent':
           page !== 'portfolio',
       })}
     >
@@ -46,7 +46,7 @@ const PageNav = (props: {
 
   return (
     <div {...finalProps}>
-      <div className="flex flex-nowrap items-center mt-[0.0625rem] space-x-4 select-none">
+      <div className="mt-[0.0625rem] flex flex-nowrap items-center space-x-4 select-none">
         <div className="flex justify-between">
           {/* <div className="min-w-[7rem] flex justify-between"> */}
           <Link
@@ -155,9 +155,9 @@ const ResponsiveNav = ({ page }: { page: string }) => {
       <Name page={page} />
       <PageNav
         page={page}
-        className="sm:hidden md:block flex mt-[0.0625rem] space-x-4"
+        className="mt-[0.0625rem] flex space-x-4 sm:hidden md:block"
       />
-      <div className="md:hidden flex mt-[0.0625rem]">
+      <div className="mt-[0.0625rem] flex md:hidden">
         <button popoverTarget="menu" popoverTargetAction="toggle">
           menu
         </button>
@@ -166,7 +166,7 @@ const ResponsiveNav = ({ page }: { page: string }) => {
           popover="auto"
           page={page}
           elementRef={popoverRef}
-          className="[&:popover-open]:bg-transparent [&:popover-open]:absolute [&:popover-open]:right-4 [&:popover-open]:top-[4.375rem] [&:popover-open]:inset-[unset]"
+          className="[&:popover-open]:absolute [&:popover-open]:inset-[unset] [&:popover-open]:top-[4.375rem] [&:popover-open]:right-4 [&:popover-open]:bg-transparent"
         />
       </div>
     </div>
@@ -181,7 +181,7 @@ export default function Navigation() {
       <div className={wrapperStyles(page)}>
         <PageNav
           page={page}
-          className="flex justify-end mt-[0.0625rem] space-x-4"
+          className="mt-[0.0625rem] flex justify-end space-x-4"
         />
       </div>
     );

@@ -59,7 +59,7 @@ export const Columns = ({ children, shadows = false }: ColumnsProps) => {
 
   return (
     <div
-      className="gallery self-start relative mt-8 md:mt-16 mb-10 sm:px-0 md:px-4"
+      className="gallery relative mt-8 mb-10 self-start sm:px-0 md:mt-16 md:px-4"
       style={{
         ...(getWrapperStyles(minImagAspectRatio) as CSSProperties),
       }}
@@ -82,7 +82,7 @@ export const Columns = ({ children, shadows = false }: ColumnsProps) => {
                 }),
               }
             )}
-            <figcaption className="md:opacity-0 md:group-hover:opacity-100 md:group-focus:opacity-100 md:group-active:opacity-100 md:transition-opacity md:ease-in md:duration-300 w-full md:absolute md:bottom-0 p-4 md:bg-white/50">
+            <figcaption className="w-full p-4 md:absolute md:bottom-0 md:bg-white/50 md:opacity-0 md:transition-opacity md:duration-300 md:ease-in md:group-hover:opacity-100 md:group-focus:opacity-100 md:group-active:opacity-100">
               <p className="text-sm font-bold">{title}</p>
               <p className="text-xs">{description}</p>
             </figcaption>

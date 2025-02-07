@@ -1,5 +1,4 @@
-@import 'tailwindcss';
-@config '../../tailwind.config.ts';
+@import 'tailwindcss' source('../../');
 
 @theme {
   --breakpoint-*: initial;
