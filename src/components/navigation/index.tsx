@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const wrapperStyles = (active: string) => {
   return twClsx('flex box-content items-center', {
     'justify-center my-4': active === 'home',
-    'justify-between w-[calc(100%-2rem)] max-w-[--max-width-column] text-zinc-500 mt-8 mb-20  mx-auto px-4':
+    'justify-between w-[calc(100%-2rem)] max-w-(--max-width-column) text-zinc-500 mt-8 mb-20  mx-auto px-4':
       active !== 'home',
   });
 };
@@ -24,7 +24,7 @@ const Name = ({ page }: { page: string }) => {
   return (
     <div
       className={twClsx('font-heading font-bold text-[1.45rem]', {
-        'bg-clip-text text-transparent bg-gradient-to-r to-yellow-600 from-red-600':
+        'bg-clip-text text-transparent bg-linear-to-r to-yellow-600 from-red-600':
           page !== 'portfolio',
       })}
     >
@@ -66,7 +66,8 @@ const PageNav = (props: {
             </Link> */}
         </div>
         <span>•</span>
-        <div className="space-x-4 before:content-['•'] text-[0]">
+        {/* <div className="space-x-4 before:content-['•'] text-[0]"> */}
+        <div className="space-x-4 text-[0]">
           <a
             className={pseudoStyles}
             aria-label="GitHub"

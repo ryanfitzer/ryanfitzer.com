@@ -3,13 +3,10 @@ import {
   CSSProperties,
   DetailedReactHTMLElement,
   ReactElement,
-  ReactNode,
   cloneElement,
   isValidElement,
 } from 'react';
 import { twClsx } from '~/src/library/tw-clsx';
-import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '~/tailwind.config';
 
 export type ColumnsProps = {
   children: ReactElement[];
@@ -22,8 +19,6 @@ type ChildProps = {
   width: number;
   height: number;
 };
-
-const twConfig = resolveConfig(tailwindConfig);
 
 const getWrapperStyles = (minImagAspectRatio: number) => {
   const hasPortraitImage = minImagAspectRatio < 1;
@@ -42,8 +37,8 @@ const getWrapperStyles = (minImagAspectRatio: number) => {
       'max(calc(-50vw + 50%), calc(var(--width-gallery-quarter) * -1) - var(--max-width-site-gallery-diff-half))',
     insetInlineStart: 'var(--left-gallery)',
     width: 'var(--width-gallery)',
-    columns: `2 calc(${twConfig.theme.screens[viewport]} / 2)`,
-    columnGap: twConfig.theme.spacing['2.5'],
+    columns: `2 calc(var(--breakpoint-${viewport}) / 2)`,
+    columnGap: `calc(var(--spacing) * 2.5)`,
   };
 };
 

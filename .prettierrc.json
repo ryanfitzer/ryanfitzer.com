@@ -26,7 +26,7 @@
     {
       "files": ["*.css"],
       "options": {
-        "tabWidth": 4,
+        "tabWidth": 2,
         "printWidth": 160
       }
     }

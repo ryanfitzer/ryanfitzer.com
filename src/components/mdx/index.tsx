@@ -75,7 +75,7 @@ const defaultComponents = ({
       </p>
     ),
     pre: ({ children }: { children?: ReactNode }) => (
-      <pre className="bg-[--color-pre-bg] md:border-l-4 md:border-l-[--color-pre-border] text-[--color-pre-text] !w-full my-8 p-4 md:rounded-md overflow-auto break-normal">
+      <pre className="bg-(--color-pre-bg) md:border-l-4 md:border-l-(--color-pre-border) text-(--color-pre-text) w-full! my-8 p-4 md:rounded-md overflow-auto break-normal">
         {children}
       </pre>
     ),

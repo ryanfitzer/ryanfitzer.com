@@ -11,7 +11,7 @@ export const Portfolio = ({
   const titleGradient = () => {
     if (!style?.title?.className) return;
 
-    return `bg-clip-text text-transparent bg-gradient-to-r ${style.title?.className}`;
+    return `bg-clip-text text-transparent bg-linear-to-r ${style.title?.className}`;
   };
 
   return (
